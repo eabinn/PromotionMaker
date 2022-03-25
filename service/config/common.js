@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { DefinePlugin } = require('webpack')
+const Webpackbar = require('webpackbar')
 
 // utils
 const paths = require('../utils/paths')
@@ -72,6 +73,7 @@ module.exports = {
 
       ...resolveClientEnv({ publicPath: config.dev.publicPath }),
     }),
+    new Webpackbar(),
   ],
 
   module: {
