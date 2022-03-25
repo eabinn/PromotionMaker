@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node service/commands/dev.js",
-    "build": "node service/commands/build.js"
+    "build": "node service/commands/build.js",
+    "lint:code": "eslint --ext .vue,.ts,.js src --fix",
+    "lint:style": "stylelint \"./src/**/*.scss\" --fix"
   },
   "keywords": [],
   "author": "",
@@ -44,6 +46,7 @@
     "ora": "^5.4.1",
     "postcss": "^8.4.5",
     "postcss-loader": "^6.2.1",
+    "postcss-scss": "^4.0.3",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "sass": "^1.49.0",
@@ -72,5 +75,6 @@
     "@babel/runtime": "^7.16.7",
     "core-js": "^3.20.2",
     "vue": "^3.2.29"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }

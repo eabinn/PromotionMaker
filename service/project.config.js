@@ -5,7 +5,7 @@ module.exports = {
 
   dev: {
     publicPath: '/',
-    port: 3000,
+    port: 8080,
   },
 
   prod: {
