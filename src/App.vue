@@ -1,7 +1,9 @@
 <template>
-  <div>Hello World</div>
+  <p>asdf</p>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const a = 'Asdf'
+</script>
 
 <style lang="scss"></style>
