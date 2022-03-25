@@ -1,0 +1,20 @@
+{
+  // Turn off VSCode's default formatting
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  // Set extensions config for process formating on save
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+}

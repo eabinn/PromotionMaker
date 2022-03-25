@@ -1,0 +1,9 @@
+root = true # top-most EditorConfig file
+
+[*] # Apply below coding styles about every file
+charset=utf-8 # Set default charset
+end_of_line=lf # Unix-style newlines with a newline ending
+insert_final_newline=true # Unix-style newlines with a newline ending
+indent_style=space
+indent_size=2 # 2 space indentation
+trim_trailing_whitespace = true # Remove any whitespace characters preceding newline characters
