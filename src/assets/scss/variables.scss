@@ -1,0 +1,40 @@
+:root {
+  --color-text-default: #{color-map(gray, 500)};
+  --color-text-muted: #{color-map(gray, 400)};
+  --color-text-subtle: #{color-map(gray, 300)};
+  --color-text-default-reversed: #{$pure-white};
+
+  // color-linear-gradient
+  --color-linear-gradient-bvp: linear-gradient(90deg, #4c57fd 0%, #744ff3 51.04%, #9d45e8 100%);
+  --color-linear-gradient-primary: linear-gradient(90deg, #3bf 0%, #39f 51.04%, #37f 100%);
+  --color-linear-gradient-blue: linear-gradient(90deg, #4c75fc 0%, #4c57fd 51.04%, #5d4cfc 100%);
+  --color-linear-gradient-violet: linear-gradient(90deg, #7c54ff 0%, #744ff3 51.04%, #564ce5 100%);
+  --color-linear-gradient-purple: linear-gradient(90deg, #c546e8 0%, #9d45e8 51.04%, #8146e8 100%);
+  --color-linear-gradient-pink: linear-gradient(90deg, #ff668b 0%, #ff4c79 51.04%, #f24973 100%);
+  --color-linear-gradient-red: linear-gradient(90deg, #ff6a4d 0%, #ff4d4d 51.04%, #ff4d6a 100%);
+  --color-linear-gradient-orange: linear-gradient(90deg, #ffc34c 0%, #ffa64c 51.04%, #ff884c 100%);
+  --color-linear-gradient-turquoise: linear-gradient(
+    90deg,
+    #21d9d9 0%,
+    #26bfbf 51.04%,
+    #1da4bf 100%
+  );
+
+  // color-alphabet
+  --color-alphabet-ball-red: #ff6a4d;
+  --color-alphabet-text-red: #ff775c;
+  --color-alphabet-ball-primary: #3bf;
+  --color-alphabet-text-primary: #42c0ff;
+  --color-alphabet-ball-blue: #4c75fc;
+  --color-alphabet-text-blue: #5b81fc;
+  --color-alphabet-ball-orange: #ffc34c;
+  --color-alphabet-text-orange: #ffc95c;
+  --color-alphabet-ball-violet: #7c54ff;
+  --color-alphabet-text-violet: #8863ff;
+  --color-alphabet-ball-turquoise: #21d9d9;
+  --color-alphabet-text-turquoise: #2fe0e0;
+  --color-alphabet-ball-purple: #b746e8;
+  --color-alphabet-text-purple: #bb54e8;
+  --color-alphabet-ball-pink: #ff668b;
+  --color-alphabet-text-pink: #ff7598;
+}

@@ -1,0 +1,32 @@
+// define color className
+
+// Usage
+// .{color-name}-{color-weight}
+// .gray-600 .gray-500 .......
+@each $name, $color in $standard-color {
+  // default weight
+  $weight-map: (500, 400, 300, 200, 100);
+
+  @if quote($name) == 'gray' {
+    $weight-map: (600, 500, 400, 300, 200, 150, 100, 80);
+  } @else if quote($name) == 'primary' {
+    $weight-map: (500, 400, 300, 200, 100, 50);
+  }
+
+  .#{$name} {
+    @each $weight in $weight-map {
+      &-#{$weight} {
+        color: color-map(#{$name}, $weight);
+      }
+    }
+  }
+}
+
+// white & black
+.pure-white {
+  color: $pure-white;
+}
+
+.pure-black {
+  color: $pure-black;
+}

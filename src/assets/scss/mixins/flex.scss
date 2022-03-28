@@ -1,0 +1,205 @@
+// Flexbox
+// https://github.com/pandao/prefixes.scss/blob/master/src/flexbox.scss
+
+@mixin display-flex() {
+  display: flexbox; /* TWEENER - IE 10 */
+  display: flex; /* New - Safari 6.1+. iOS 7.1+, Blackberry 10 */
+  display: -moz-flex;
+  display: flex; /* New, Spec - Firefox, Chrome, Opera */
+}
+
+// alias display-flex()
+
+@mixin flexbox() {
+  @include display-flex;
+}
+
+@mixin inline-flex() {
+  display: inline-box;
+  display: inline-flex;
+  display: inline-flexbox;
+  display: -moz-inline-flex;
+  display: inline-flex;
+}
+
+// alias inline-flex()
+
+@mixin inline-flexbox() {
+  @include inline-flex;
+}
+
+@mixin flex-inline($value) {
+  -webkit-inline-flex: $value; /* Chrome 21.0+ */
+  -moz-inline-flex: $value;
+  -ms-inline-flex: $value;
+}
+
+// https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/dev-guides/hh673531(v=vs.85)?redirectedfrom=MSDN
+@mixin flex-value($value: 1 1 0%) {
+  // null
+  // OTHER: flex: 0 1 auto;
+  // IE10:  flex: 1 0 0px;
+
+  // flex: none;
+  // OTHER: flex: 0 0 auto;
+  // IE:    flex: 0 0 auto;
+
+  // flex: 1;
+  // OTHER: flex: 1 1 0%;
+  // IE10:  flex: 1 0 0px;
+
+  // flex: auto;
+  // OTHER: flex: 1 1 auto;
+  // IE10:  flex: 1 0 0px;
+
+  // flex: initial;
+  // OTHER: flex: 0 1 auto;
+  // IE10:  flex: 1 0 0px;
+  -webkit-box-flex: $value; /* Old - iOS 6-, Safari 3.1~6 */
+  -moz-box-flex: $value;
+  flex: $value; /* Safari 6.1+. iOS 7.1+, Blackberry 10 */
+}
+
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+
+  flex-direction: $value; /* Chrome 21.0+, But Safari & Android & iOS Not supported. */
+}
+
+@mixin flex-basis($value: auto) {
+  flex-basis: $value; /* Chrome 21.0+, But Safari & Android & iOS Not supported. */
+  -ms-flex-preferred-size: $value;
+}
+
+@mixin flex-flow(
+  $values: (
+    row nowrap,
+  )
+) {
+  flex-flow: $values; /* Chrome 21.0+, But Safari & Android & iOS Not supported. */
+}
+
+@mixin flex-grow($value: 0) {
+  -webkit-box-flex: $value;
+  flex-grow: $value; /* Chrome 21.0+, But Safari & Android & iOS Not supported. */
+  -ms-flex-positive: $value;
+}
+
+@mixin flex-shrink($value) {
+  flex-shrink: $value; /* Chrome 21.0+, But Safari & Android & iOS Not supported. */
+}
+
+@mixin flex-wrap($value: nowrap) {
+  flex-wrap: $value; /* Safari 6.1+, Chrome 21.0+, Android 4.4+, iOS 7.0+ */
+
+  @if $value == nowrap {
+    flex-wrap: none;
+  } @else {
+    flex-wrap: $value;
+  }
+}
+
+@mixin order($value: 1) {
+  -webkit-box-ordinal-group: $value + 1;
+  order: $value; /* Chrome 21+, Safari Not supported. */
+  -ms-flex-order: $value; /* IE 10.0 */
+}
+
+// alias order()
+
+@mixin flex-order($args...) {
+  @include order($args...);
+}
+
+// flow
+
+@mixin flow-into($value) {
+  flow-into: $value; /* Safari 7.1+, iOS Safari 7.1+ */
+}
+
+@mixin flow-from($value) {
+  flow-from: $value; /* Safari 7.1+, iOS Safari 7.1+ */
+}
+
+// Flex align
+
+// Values: flex-start | flex-end | center | space-between | space-around | stretch
+
+@mixin align-content($value: stretch) {
+  align-content: $value; /* Chrome 21.0+, Safari Not supported. */
+
+  @if $value == flex-start {
+    -ms-flex-line-pack: start;
+  } @else if $value == flex-end {
+    -ms-flex-line-pack: end;
+  } @else {
+    -ms-flex-line-pack: $value;
+  }
+}
+
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+
+  align-items: $value; /* Safari 7.0+, Chrome 21.0+ */
+}
+
+// Values: auto | flex-start | flex-end | center | baseline | stretch
+
+@mixin align-self($value: auto) {
+  align-self: $value; /* Chrome 21~36, Safari Not supported. */
+
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: flex-end;
+  } @else {
+    -ms-flex-item-align: $value;
+  }
+}
+
+@mixin justify-content($value: flex-start) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-around {
+    -ms-flex-pack: distribute;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+  }
+
+  justify-content: $value; /* Chrome 21+, Safari Not supported. */
+}
+
+// alias justify-content
+
+@mixin flex-justify($args...) {
+  @include justify-content($args...);
+}

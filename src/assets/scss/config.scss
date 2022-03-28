@@ -1,0 +1,98 @@
+// white & black
+$pure-white: #fff;
+$pure-black: #000;
+
+// standard color
+$standard-color: (
+  'gray': #666,
+  'primary': #39f,
+  'blue': #4c57fd,
+  'blue-violet': #6053f8,
+  'violet': #744ff3,
+  'violet-purple': #884bee,
+  'purple': #9d45e8,
+  'pink': #ff4c79,
+  'red': #ff4d4d,
+  'orange': #ffa64c,
+  'yellow': #fc3,
+  'green': #47cc47,
+  'turquoise': #26bfbf,
+);
+
+// gray color palette
+$gray-palette: (
+  '600': #222,
+  '500': #444,
+  '400': map_get($standard-color, 'gray'),
+  '300': #999,
+  '200': #d9d9d9,
+  '150': #eee,
+  '100': #f4f4f4,
+  '80': #f7f7f7,
+);
+
+// Make color palette by standard color
+@function tints($color, $percent) {
+  // percent is white's weight
+  @return mix(white, $color, $percent);
+}
+@function shades($color, $percent) {
+  // percent is black's weight
+  @return mix(black, $color, $percent);
+}
+
+// Color palette
+// 600 : using only gray color
+// 500 : standard color overlaid with black 20%
+// 400 : standard color
+// 300 : standard color overlaid with white 30%
+// 200 : standard color overlaid with white 70%
+// 100 : standard color overlaid with white 88%
+// 80  : using only gray color
+// 50  : standard color overlaid with white 94%, using only primary color
+
+// Usage
+// div {
+//   color: color-map(primary, 100);
+//   color: color-map(blue-violet, 200);
+//   color: color-map(gray);
+//   color: color-map(#123456, 400);
+// };
+@function color-map($base-color-name, $color-weight: false) {
+  $base-color: null;
+
+  // Check color is in standard color or not
+  @if map_has_key($standard-color, #{$base-color-name}) {
+    $base-color: map_get($standard-color, #{$base-color-name});
+  } @else {
+    $base-color: $base-color-name;
+  }
+
+  @if #{$base-color-name} == 'gray' {
+    // achromatic color
+    @if $color-weight {
+      @return map_get($gray-palette, #{$color-weight});
+    } @else {
+      @return $base-color;
+    }
+  } @else {
+    // chromatic color
+    @if $color-weight == 500 {
+      @return shades($base-color, 20%);
+    } @else if $color-weight == 300 {
+      @return tints($base-color, 30%);
+    } @else if $color-weight == 200 {
+      @return tints($base-color, 70%);
+    } @else if $color-weight == 100 {
+      @return tints($base-color, 88%);
+    } @else if $color-weight == 50 {
+      @return tints($base-color, 94%);
+    } @else {
+      @return $base-color;
+    }
+  }
+}
+
+// font
+$default-font: 'Spoqa Han Sans Neo', 'SF Pro KR', 'Apple SD Gothic Neo', 'Yoon Gothic',
+  'Malgun Gothic', 'HY Dotum', '돋움', 'Dotum', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;

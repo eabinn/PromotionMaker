@@ -1,0 +1,78 @@
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:math';
+
+// Test if `$value` is a valid direction
+/// @param {*} $value - Value to test
+/// @return {Bool}
+@function is-direction($value) {
+  $is-keyword: list.index(
+    (
+      to top,
+      to top right,
+      to right top,
+      to right,
+      to bottom right,
+      to right bottom,
+      to bottom,
+      to bottom left,
+      to left bottom,
+      to left,
+      to left top,
+      to top left
+    ),
+    $value
+  );
+  $is-angle: meta.type-of($value) == 'number' and
+    list.index('deg' 'grad' 'turn' 'rad', math.unit($value));
+
+  @return $is-keyword or $is-angle;
+}
+
+@function first($list) {
+  @return nth($list, 1);
+}
+
+@function last($list) {
+  @return nth($list, length($list));
+}
+
+// USAGE
+// @include gradient(180deg, #fff 0%, #ccc 100%);
+// or
+// @include gradient(to bottom, #fff 0%, #ccc 50%, #000 100%);
+@mixin gradient($direction, $color-stops...) {
+  @if is-direction($direction) == false {
+    @error "Cannot find gradient direction.";
+  }
+
+  background-image: linear-gradient(
+    $direction,
+    $color-stops
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+@function multiple-value($direction, $color-stops...) {
+  @if is-direction($direction) == false {
+    @error "Cannot find gradient direction.";
+  }
+
+  @return ($direction, $color-stops);
+}
+
+// USAGE
+// @include multiple-gradient(
+//  (180deg, #fff 0%, #ccc 100%),
+//  (50deg, red 0%, blue 100%),
+//  (10deg, gray 0%, green 100%)
+// );
+@mixin multiple-gradient($lists...) {
+  $mordern: null;
+
+  @each $item in $lists {
+    $value: multiple-value($item...);
+    $mordern: list.append($mordern, linear-gradient($value), comma);
+  }
+
+  background-image: $mordern; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}

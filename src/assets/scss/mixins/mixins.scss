@@ -1,0 +1,332 @@
+/* stylelint-disable media-feature-name-no-unknown */
+@use 'sass:math';
+@use 'sass:map';
+
+@import 'gradient';
+@import 'flex';
+
+// clearfix
+@mixin clearfix() {
+  &::before,
+  &::after {
+    content: '';
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+// opacity
+@mixin opacity($value) {
+  filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$value * 100})';
+  filter: alpha(opacity=#{$value * 100});
+  -moz-opacity: $value;
+  -khtml-opacity: $value;
+  opacity: $value;
+}
+
+// box-shadow
+@mixin box-shadow($shadow...) {
+  box-shadow: $shadow;
+}
+
+// grayscale
+@mixin grayscale($value) {
+  filter: grayscale($value);
+}
+
+// transition
+@mixin transition($transition...) {
+  transition: $transition;
+}
+
+// transform
+@mixin transform($transforms...) {
+  transform: $transforms;
+}
+
+@mixin transform-origin($x, $y) {
+  transform-origin: $x $y;
+}
+
+// border-radius
+@mixin border-radius($value...) {
+  border-radius: $value;
+}
+
+// @content: hover actions
+@mixin accessibility-outline($offset: 2px) {
+  // for safari
+  &:focus {
+    outline: 0 auto;
+    outline-offset: $offset;
+    @content;
+  }
+
+  // for other browser without safari
+  &:focus-visible {
+    outline: 2px auto color-map(blue);
+    outline-offset: $offset;
+    @content;
+  }
+
+  // hide outline when supported focus-visible browser
+  &:focus:not(:focus-visible) {
+    outline: 0;
+  }
+}
+
+// @content: hover actions
+@mixin accessibility-dropdown($offset: -2px) {
+  // for Safari
+  &:focus {
+    outline: 0 auto;
+    outline-offset: $offset;
+    @content;
+  }
+
+  // for other browser without Safari
+  &:focus-visible {
+    outline: 2px auto color-map(blue);
+    outline-offset: $offset;
+    @content;
+  }
+
+  // hide outline when supported focus-visible browser
+  &:focus:not(:focus-visible) {
+    outline: 0;
+  }
+}
+
+@mixin accessibility-reset {
+  // Rest hover actions for supported focus-visible browser
+  &:focus:not(:focus-visible) {
+    @content;
+  }
+}
+
+@mixin accessibility-underline {
+  // Split focus, focus-visible style because Safari cannot read focus-visible style
+  @include hover-device {
+    &:focus {
+      .underline-block.underline-hover .underline-unit {
+        width: 100%;
+      }
+    }
+
+    &:focus-visible {
+      .underline-block.underline-hover .underline-unit {
+        width: 100%;
+      }
+    }
+
+    &:focus:not(:focus-visible) {
+      .underline-block.underline-hover .underline-unit {
+        width: 0;
+      }
+    }
+  }
+}
+
+// border-arrow
+@mixin border-arrow($position, $size, $color) {
+  @if $position == 'tl' {
+    border-top: $size solid $color;
+    border-left: $size solid $color;
+    border-right: $size solid transparent;
+    border-bottom: $size solid transparent;
+  } @else if $position == 'tr' {
+    border-top: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid $color;
+    border-bottom: $size solid transparent;
+  } @else if $position == 'bl' {
+    border-top: $size solid transparent;
+    border-left: $size solid $color;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  } @else if $position == 'br' {
+    border-top: $size solid transparent;
+    border-left: $size solid transparent;
+    border-right: $size solid $color;
+    border-bottom: $size solid $color;
+  }
+}
+
+// placeholder color
+@mixin placeholder() {
+  &::placeholder {
+    @content;
+  }
+}
+
+// selection
+@mixin selection() {
+  &::selection {
+    @content;
+  }
+}
+
+// text ellipsis
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// clear list
+@mixin clear-list() {
+  list-style: none !important;
+  @supports (-ms-ime-align: auto) {
+    list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=') !important;
+  }
+}
+
+// flex
+@mixin flex {
+  -js-display: flex; // used as polyfill in flexibility.js
+  display: box;
+  display: flex;
+  display: flexbox;
+  display: flex;
+}
+
+// flex align
+@mixin flex-align($align: '', $justify: '') {
+  @if $align != '' {
+    -webkit-box-align: $align;
+    align-items: $align;
+    -ms-flex-align: $align;
+  }
+
+  @if $justify != '' {
+    -webkit-box-pack: $justify;
+    justify-content: $justify;
+    -ms-flex-pack: $justify;
+  }
+}
+
+// underline
+@mixin underline-inline($color) {
+  @include gradient(
+    to bottom,
+    rgba($pure-white, 0) percentage(math.div(14, 20)),
+    $color percentage(math.div(14, 20)),
+    $color percentage(math.div(19, 20)),
+    rgba($pure-white, 0) percentage(math.div(19, 20))
+  );
+
+  background-repeat: no-repeat;
+}
+
+// background opacity
+@mixin background-opacity($color, $opacity) {
+  $rgba: rgba($color, $opacity);
+  $ie-hex-str: color.ie-hex-str($rgba);
+
+  zoom: 1;
+  background-color: transparent;
+  background-color: $rgba;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+}
+
+// background icon
+@mixin icon-style($name, $size: '', $repeat: '', $position: '') {
+  @if $name != '' {
+    background-image: url('../img/icon/#{$name}.png');
+    background-image: url('../img/icon/#{$name}.svg');
+  }
+  @if $size != '' {
+    background-size: $size;
+  }
+  @if $repeat != '' {
+    background-repeat: $repeat;
+  }
+  @if $position != '' {
+    background-position: $position;
+  }
+}
+
+// user-select
+@mixin user-select($value) {
+  user-select: $value;
+}
+
+// media query
+// Detect hover device
+@mixin hover-device() {
+  @media (hover: hover), screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}
+
+// device width
+$mobile-width: 320px;
+$tablet-width: 768px;
+$tablet-max-width: 992px;
+$large-tablet-width: 1180px;
+$desktop-min-width: 1024px;
+$desktop-width: 1200px;
+$wide-width: 1440px;
+$full-width: 1920px;
+$responsive-type: (
+  'mobile': '(max-width: #{$mobile-width})',
+  'only-mobile': '(min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px})',
+  // 'mobile-landscape': '(min-width: 480px) and (max-width: 812px) and (orientation: landscape)',
+  'tablet': '(min-width: #{$tablet-width})',
+  // 'tablet-landscape': '(min-width: 1024px) and (max-width: #{$desktop-width - 1px}) and (orientation: landscape)',
+  'only-tablet': '(min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px})',
+  'max-tablet': '(min-width: #{$tablet-max-width})',
+  'mobile-tablet': '(min-width: #{$mobile-width}) and (max-width: #{$tablet-max-width - 1px})',
+  'desktopMin': '(min-width: #{$desktop-min-width})',
+  'desktop': '(min-width: #{$desktop-width})',
+  'wide': '(min-width: #{$wide-width})',
+  'full': '(min-width: #{$full-width})',
+  // min-width
+  'min-xs': '(min-width: #{$mobile-width})',
+  'min-sm': '(min-width: #{$tablet-width})',
+  'min-md': '(min-width: #{$tablet-max-width})',
+  'min-lg-tablet': '(min-width: #{$large-tablet-width})',
+  // max-width
+  'max-xs': '(max-width: #{$mobile-width - 1px})',
+  'max-sm': '(max-width: #{$tablet-width - 1px})',
+  'max-md': '(max-width: #{$tablet-max-width - 1px})',
+  'max-lg-tablet': '(max-width: #{$large-tablet-width - 1px})',
+);
+
+@mixin mq($type, $width: '') {
+  $media-query: map.get($responsive-type, $type);
+  @if $media-query {
+    @media screen and #{$media-query} {
+      @content;
+    }
+  } @else {
+    @media screen and (#{$type}-width: #{$width}) {
+      @content;
+    }
+  }
+}
+
+@mixin retina() {
+  @media (minpixel-ratio: 2),
+    (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+@mixin landscape() {
+  @media screen and (orientation: landscape) {
+    @content;
+  }
+}
+
+// IE 10+
+@mixin ie-only() {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}

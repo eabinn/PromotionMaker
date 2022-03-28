@@ -1,0 +1,103 @@
+body {
+  font-family: $default-font;
+  font-size: 14px !important;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.form {
+  &-control {
+    @include box-shadow(none);
+
+    &:focus {
+      @include box-shadow(none);
+    }
+
+    .has-error & {
+      @include box-shadow(none);
+
+      &:focus {
+        @include box-shadow(none);
+      }
+    }
+  }
+}
+
+[type='text'],
+[type='password'],
+[type='number'],
+[type='email'],
+[type='search'],
+[type='tel'],
+textarea {
+  appearance: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.divider-x {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid color-map(gray, 150);
+}
+
+.divider-y {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  border-left: 1px solid color-map(gray, 150);
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hide-content {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+// container
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: none;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media screen and (min-width: 1310px) {
+  .container {
+    width: 1280px !important;
+  }
+}
