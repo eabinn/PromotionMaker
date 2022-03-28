@@ -2,28 +2,45 @@
   <div class="container">
     <div class="sidebar">
       <Item
-        v-for="(kind, index) in kinds"
+        v-for="(item, index) in items"
         :key="index"
-        :item="kind"
-        :add-item="addItem"
+        :item="item"
         :show-real="false"
+        :drag-item-copy-start="dragItemCopyStart"
       />
     </div>
 
-    <div class="dragzone">
-      <div v-if="items.length" class="content" @dragover="dragOver($event)">
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-          class="draggable"
-          :draggable="true"
-          @dragstart="dragStart($event)"
-          @dragend="dragEnd($event)"
+    <div class="content">
+      <button class="add-section" @click="addSection">섹션 추가</button>
+
+      <div class="section-container">
+        <section
+          v-for="section in sections"
+          :key="section.id"
+          class="section section-draggable"
+          :class="`section-${section.id}`"
         >
-          <Item :type="item.type" :color="item.color" :show-real="true" :item="item" />
-        </div>
+          <div class="section-handler">
+            <button class="edit-section">섹션 위치 변경</button>
+            <div
+              :id="'' + section.id"
+              class="dropzone"
+              @dragover="dragItemCopyOver($event)"
+              @drop="dragItemCopyEnd($event)"
+            ></div>
+            <button class="delete-section" @click="deleteSection(section.id)">이 섹션 삭제</button>
+          </div>
+
+          <div class="section-content">
+            <Item
+              v-for="(item, index) in section.items"
+              :key="index"
+              :item="item"
+              :show-real="true"
+            />
+          </div>
+        </section>
       </div>
-      <div v-else class="no-content">좌측 사이드바에서 추가해주세요</div>
     </div>
   </div>
 </template>
@@ -32,45 +49,96 @@
 import { ref } from 'vue'
 import Item from './components/Item.vue'
 
-const kinds = ref<Array<{ type: string; color: string }>>([
-  { type: 'A', color: 'red' },
-  { type: 'B', color: 'blue' },
-  { type: 'C', color: 'orange' },
-  { type: 'D', color: 'cyan' },
-  { type: 'E', color: 'purple' },
-  { type: 'F', color: 'green' },
-  { type: 'G', color: 'black' },
+interface IItem {
+  id: number
+  type: string
+  color: string
+}
+
+interface ISection {
+  id: number
+  items: IItem[]
+}
+
+const items = ref<IItem[]>([
+  { type: 'A', color: 'red', id: 0 },
+  { type: 'B', color: 'blue', id: 1 },
+  { type: 'C', color: 'orange', id: 2 },
+  { type: 'D', color: 'cyan', id: 3 },
+  { type: 'E', color: 'purple', id: 4 },
+  { type: 'F', color: 'green', id: 5 },
+  { type: 'G', color: 'black', id: 6 },
 ])
 
-const items = ref<Array<{ type: string; color: string; id: number }>>([])
+const sections = ref<ISection[]>([])
+let sectionIndex = 0
 
-const addItem = (type: string, color: string) => {
-  console.log('asdf', type, color)
-  items.value.push({
-    type,
-    color,
-    id: items.value.length,
-  })
+const modalRef = ref()
+
+const addSection = () => {
+  sections.value.push(
+    new Object({
+      id: sectionIndex++,
+      items: [],
+    }) as ISection
+  )
 }
 
-const deleteItem = (id: number) => {
-  items.value = items.value.filter((item) => item.id !== id)
+const deleteSection = (id: number) => {
+  sections.value = sections.value.filter((section) => section.id !== id)
 }
 
-const dragStart = (e: DragEvent) => {
+const dragItemCopyStart = (e: DragEvent) => {
+  if (e.dataTransfer) {
+    const copyItem = e.target as HTMLElement
+    e.dataTransfer.setData('itemId', copyItem.id)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+}
+
+const dragItemCopyOver = (e: DragEvent) => {
+  e.preventDefault()
+
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = 'move'
+  }
+}
+
+const dragItemCopyEnd = (e: DragEvent) => {
+  e.preventDefault()
+
+  if (e.dataTransfer) {
+    const itemId = e.dataTransfer.getData('itemId')
+    if (!itemId) {
+      return
+    }
+    const item = new Object(items.value.find((item) => item.id === +itemId)) as IItem
+    const itemDroppedSectionId = (e.target as HTMLElement).id
+    const section = sections.value.find((section) => section.id === +itemDroppedSectionId)
+    section?.items.push(item)
+  }
+}
+
+const dragItemStart = (e: DragEvent) => {
   const target = e.target as HTMLElement
   target.classList.add('dragging')
+  target.classList.remove('dummy')
+  target.classList.add('real')
 }
 
-const dragEnd = (e: DragEvent) => {
+const dragItemEnd = (e: DragEvent) => {
   const target = e.target as HTMLElement
   target.classList.remove('dragging')
 }
 
-const dragOver = (e: DragEvent) => {
+const dragItemOver = (e: DragEvent) => {
   e.preventDefault()
-  const container = document.querySelector('.dragzone .content') as HTMLElement
-  const afterElement = getDragAfterElement(container, e.clientY)
+  const target = e.target as HTMLElement
+
+  const container = target.parentElement as HTMLElement
+  const afterElement = getDragAfterElement(container, e.clientY, [
+    ...container.querySelectorAll('.real.draggable:not(.dragging)'),
+  ])
   const draggable = document.querySelector('.dragging') as HTMLElement
   if (afterElement === null) {
     container.appendChild(draggable)
@@ -79,8 +147,12 @@ const dragOver = (e: DragEvent) => {
   }
 }
 
-function getDragAfterElement(container: HTMLElement, yOffset: number) {
-  const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
+function getDragAfterElement(
+  container: HTMLElement,
+  yOffset: number,
+  draggableElements: Element[]
+) {
+  //const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
 
   return draggableElements.reduce(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,14 +184,7 @@ function getDragAfterElement(container: HTMLElement, yOffset: number) {
   gap: 10px;
   padding: 10px;
   overflow: scroll;
-}
-
-.dragzone {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 1px solid black;
+  width: 15%;
 }
 
 .content,
@@ -129,9 +194,79 @@ function getDragAfterElement(container: HTMLElement, yOffset: number) {
   overflow: scroll;
 }
 
+.content {
+  padding: 10px;
+}
+
 .no-content {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &::v-deep {
+    .box.real {
+      display: flex;
+    }
+    .box.dummy {
+      display: none;
+    }
+  }
+}
+
+.section {
+  position: relative;
+  border: 1px solid black;
+}
+
+.section-handler {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+
+  .dropzone {
+    width: 300px;
+    height: 200px;
+    border: 1px solid black;
+    border-style: dotted;
+  }
+}
+
+.section-content {
+  padding: 50px 0 70px;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1024;
+
+  &.show {
+    display: flex;
+  }
+  &-content {
+    min-width: 500px;
+    min-height: 300px;
+    z-index: 1025;
+    background-color: #ffffff;
+  }
+  &-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000000, 0.4);
+  }
 }
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <div v-if="props.showReal" class="box real" :style="{ backgroundColor: props.item.color }">
+  <div
+    v-if="props.showReal"
+    class="box real draggable"
+    :style="{ backgroundColor: props.item.color }"
+  >
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
       <input id="subtitle" placeholder="서브 타이틀을 입력해주세요" />
@@ -10,17 +14,24 @@
 
     <button class="btn-delete" @click="handleDeleteItem">삭제</button>
   </div>
-  <div v-else class="box dummy" :style="{ backgroundColor: props.item.color }">
-    <button @click="addItem && addItem(props.item.type, props.item.color)">추가</button>
-  </div>
+  <div
+    v-else
+    :id="'' + props.item.id"
+    class="box dummy draggable"
+    :style="{ backgroundColor: props.item.color }"
+    :draggable="true"
+    @dragstart="props.dragItemCopyStart && props.dragItemCopyStart($event)"
+  ></div>
 </template>
 
 <script lang="ts" setup>
 interface ItemProps {
-  item: { type: string; color: string }
+  item: { type: string; color: string; id: number }
   showReal: boolean
-  addItem?(type: string, color: string): void
   deleteItem?(index: number): void
+  dragItemCopyStart?(e: DragEvent): void
+  dragItemStart?(e: DragEvent): void
+  dragItemEnd?(e: DragEvent): void
 }
 
 const props = defineProps<ItemProps>()
@@ -38,21 +49,16 @@ const handleDeleteItem = () => {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  min-height: 100px;
-  min-width: 200px;
 
-  &.dummy {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 50%;
 
-    button {
-      display: none;
-    }
+  button {
+    display: none;
+  }
 
-    &:hover button {
-      display: block;
-    }
+  &:hover button {
+    display: block;
   }
 }
 
