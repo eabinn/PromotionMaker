@@ -1,7 +1,11 @@
 <template>
   <div class="col-wrapper text-center">
     <div class="col-xs-12 no-float col-item" :class="`col-md-${props.data.contentColumn}`">
-      <div class="pr-title" :style="{ color: props.data.barColor }">
+      <div
+        v-if="props.data.title && props.data.subTitle"
+        class="pr-title"
+        :style="{ color: props.data.barColor }"
+      >
         <div class="pr-title-wrap">
           <p class="pr-title-text pr-title-text--sub">
             <b

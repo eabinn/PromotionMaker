@@ -1,4 +1,4 @@
-import { LandingButton, SummaryOnly, Title } from './item.types'
+import { LandingButton, SummaryOnly, SummaryWithImage, Title } from './item.types'
 
 const defaultTitle: Title = {
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
@@ -37,6 +37,38 @@ const defaultSummaryOnly: SummaryOnly = {
   ],
 }
 
+const defaultSummaryWithImage: SummaryWithImage = {
+  barColor: '#000000',
+  title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
+  subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
+  subTitleFontWeight: 'normal',
+  imageContentColumn: 6,
+  descriptionContentColumn: 6,
+  images: {
+    '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+    '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+  },
+  descriptions: [
+    {
+      title: '리스트 타이틀',
+      type: 'number',
+      items: [
+        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+      ],
+    },
+    {
+      title: '리스트 타이틀',
+      type: 'number',
+      items: [
+        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+      ],
+    },
+  ],
+  imagePosition: 'left',
+}
+
 const defaultLandingButton: LandingButton = {
   mainColor: '#9D45E8',
   text: '공백 포함 최대 36바이트 국문 18자',
@@ -44,8 +76,11 @@ const defaultLandingButton: LandingButton = {
   type: 'normal',
 }
 
-export const defaultData: { [key: string]: Title | SummaryOnly | LandingButton } = {
+export const defaultData: {
+  [key: string]: Title | SummaryOnly | SummaryWithImage | LandingButton
+} = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
+  summaryWithImage: defaultSummaryWithImage,
   landingButton: defaultLandingButton,
 }

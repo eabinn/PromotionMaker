@@ -1,0 +1,21 @@
+/* stylelint-disable function-url-quotes */
+figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.clear-li li,
+ul.clear-li > li,
+ol.clear-li > li {
+  list-style: none;
+}
+
+/* fix for Edge */
+@supports (-ms-ime-align: auto) {
+  .clear-li li,
+  ul.clear-li > li,
+  ol.clear-li > li {
+    list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);
+  }
+}

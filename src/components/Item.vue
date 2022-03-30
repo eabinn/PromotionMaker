@@ -1,6 +1,10 @@
 <template>
   <Title v-if="props.item.type === 'title'" :data="props.item.title!" />
   <SummaryOnly v-else-if="props.item.type === 'summaryOnly'" :data="props.item.summaryOnly!" />
+  <SummaryWithImage
+    v-else-if="props.item.type === 'summaryWithImage'"
+    :data="props.item.summaryWithImage!"
+  />
   <LandingButton
     v-else-if="props.item.type === 'landingButton'"
     :data="props.item.landingButton!"
@@ -21,6 +25,7 @@ import { IItem } from './item.types'
 import Title from '@/components/Title/Title.vue'
 import SummaryOnly from './SummaryOnly/SummaryOnly.vue'
 import LandingButton from './LandingButton/LandingButton.vue'
+import SummaryWithImage from './SummaryWithImage/SummaryWithImage.vue'
 
 interface ItemProps {
   item: IItem

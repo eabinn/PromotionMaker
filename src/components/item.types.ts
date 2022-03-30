@@ -8,6 +8,7 @@ type FontSize = 'normal' | 'big'
 type FontWeight = 'normal' | 'bold'
 type InputType = 'textarea' | 'radio' | 'number' | null
 type ListType = 'normal' | 'dot' | 'number'
+type PositionType = 'left' | 'right'
 
 export interface TextAreaInput<T> {
   value: T
@@ -49,6 +50,21 @@ export interface SummaryOnly {
   descriptions: { title: string; type: ListType; items: string[] }[]
 }
 
+export interface SummaryWithImage {
+  barColor: string
+  title: string
+  subTitle: string
+  subTitleFontWeight: FontWeight
+  descriptions: { title: string; type: ListType; items: string[] }[]
+  images: {
+    '1x': string
+    '2x': string
+  }
+  imageContentColumn: number
+  descriptionContentColumn: number
+  imagePosition: PositionType
+}
+
 export interface LandingButton {
   mainColor: string
   text: string
@@ -56,11 +72,10 @@ export interface LandingButton {
   type: 'normal' | 'tail'
 }
 
-export type PromotionComponent = Title | SummaryOnly
-
 export interface IItem extends IItemDummy {
   id: number
   title?: Title
   summaryOnly?: SummaryOnly
+  summaryWithImage?: SummaryWithImage
   landingButton?: LandingButton
 }
