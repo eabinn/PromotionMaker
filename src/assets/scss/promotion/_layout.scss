@@ -1,0 +1,397 @@
+.visual {
+  &-wrapper {
+    max-width: 396px;
+    margin: auto;
+    @include mq(min-md) {
+      max-width: none;
+    }
+  }
+}
+
+.pr-layout {
+  @include clearfix;
+  @include mq(desktop) {
+    width: 1090px !important;
+    margin: 0 auto;
+  }
+}
+
+.pr-row {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+
+  // TODO: when col-... styles are updated in 5.9, it needs to be cleaned up.
+  .col-wrapper ~ .col-wrapper {
+    padding-top: 0;
+    margin-top: 50px;
+  }
+
+  .col-wrapper .col-item {
+    @include mq(min-md) {
+      padding: 0 15px;
+    }
+  }
+
+  &.faculty {
+    .col-item ~ .col-item {
+      margin-top: 0;
+      @include mq(max-md) {
+        margin-top: 50px;
+      }
+    }
+  }
+
+  > .content-layout {
+    margin-top: 50px;
+    margin-bottom: 70px;
+  }
+
+  > .package-layout {
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+
+  &.intro {
+    padding-top: 33px;
+    padding-bottom: (66px / 2);
+    @include mq(min-md) {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+  }
+
+  &.content {
+    padding-top: 33px;
+    padding-bottom: 33px;
+    @include mq(min-md) {
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+  }
+
+  &.video {
+    padding: 16px 0;
+    @include mq(min-md) {
+      padding: 46px 0;
+    }
+  }
+
+  &.has-slide {
+    padding-top: 33px;
+    padding-bottom: 26px;
+  }
+}
+
+.pr-line {
+  position: relative;
+  overflow: hidden;
+
+  &-tail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    margin: auto;
+    color: $pure-white;
+    border-top: 8px solid;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    z-index: 100;
+  }
+
+  &-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    &__bg {
+      height: 100%;
+    }
+  }
+
+  &-desc {
+    padding: 34px (15px + 23px);
+  }
+}
+
+.pr-support {
+  margin-top: 45px;
+  font-size: 12px;
+  line-height: (40 / 24);
+  color: color-map(gray, 300);
+  text-align: center;
+  @include mq(min-md) {
+    margin-top: 70px;
+  }
+
+  .normal {
+    font-size: 12px;
+    @include mq(max-tablet) {
+      font-size: 16px;
+    }
+  }
+}
+
+.pr-video {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 0;
+
+  &-box {
+    position: relative;
+    padding-bottom: 56.23%;
+
+    &__top,
+    &__bottom {
+      position: absolute;
+      display: block;
+    }
+
+    &__top {
+      left: -5px;
+      top: -5px;
+      width: 45px;
+      height: 45px;
+      @include mq(min-md) {
+        width: 84px;
+        height: 84px;
+        left: -8px;
+        top: -8px;
+      }
+    }
+
+    &__bottom {
+      bottom: -5px;
+      right: -5px;
+      width: 65px;
+      height: 65px;
+      @include mq(min-md) {
+        width: 120px;
+        height: 120px;
+        bottom: -8px;
+        right: -8px;
+      }
+    }
+  }
+
+  iframe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+
+  .video-js {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.pr-event {
+  position: relative;
+  padding-top: 45px;
+  padding-bottom: 45px;
+
+  &-title {
+    h5 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.67;
+      @include mq(min-md) {
+        font-size: 18px;
+      }
+    }
+
+    h4 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.67;
+      @include mq(min-md) {
+        font-size: 28px;
+      }
+    }
+  }
+
+  .tail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto -9px;
+    color: #0f1b2f;
+    border-top: 9px solid;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 0;
+    z-index: 100;
+    @include mq(min-md) {
+      margin-bottom: -14px;
+      border-top: 14px solid;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+    }
+  }
+}
+
+.pr-upper {
+  padding-top: 15px;
+  padding-bottom: 30px;
+  @include mq(min-md) {
+    padding-top: 52px;
+    padding-bottom: 55px;
+  }
+
+  &-con {
+    position: relative;
+    @include mq(min-md) {
+      float: left;
+      display: block;
+      width: 50%;
+      margin-left: 0;
+      font-size: 0;
+      padding-left: 120px;
+    }
+    @include mq(desktop) {
+      padding-left: 154px;
+    }
+
+    & ~ & {
+      margin-top: (90px / 2);
+      @include mq(min-md) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &_profile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include mq(min-md) {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  &_img {
+    width: 77px;
+    overflow: hidden;
+    @include border-radius(100%);
+    @include box-shadow(0 4px 16px 0 rgba($pure-black, 0.15));
+    @include mq(min-md) {
+      width: 120px;
+    }
+    @include mq(desktop) {
+      width: 154px;
+    }
+  }
+
+  &_info {
+    padding-top: 15px;
+    @include mq(min-md) {
+      margin-left: 20px;
+      padding-top: 35px;
+    }
+    @include mq(desktop) {
+      margin-left: 35px;
+      padding-top: 48px;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.pr-wide {
+  border-top: 6px solid;
+
+  &-layout {
+    position: relative;
+    max-width: 1920px;
+    margin: auto;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .pr-btn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-top: math.percentage(240 / 750);
+    @include transform(translateX(-50%));
+    @include mq(min-md) {
+      margin-top: math.percentage(98 / 1920);
+    }
+  }
+}
+
+.content-heading {
+  margin-bottom: 50px;
+  text-align: center;
+
+  h3 {
+    margin: 0;
+    padding: 0;
+    color: color-map(gray, 600);
+    font-size: (48px / 2);
+    font-weight: 700;
+    @include mq(min-md) {
+      font-size: 24px;
+    }
+  }
+
+  h4 {
+    margin: 0 0 10px;
+    padding: 0;
+    color: color-map(gray, 600);
+    font-size: 15px;
+    font-weight: 600;
+    @include mq(min-md) {
+      font-size: 18px;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 12px 0 0;
+    color: color-map(gray, 300);
+    font-size: 14px;
+  }
+}
+
+.inline-link {
+  margin-top: 35px;
+  font-size: 14px;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.line-short {
+  width: 17px;
+  margin: 10px auto 0;
+  border-top: 2px solid;
+  @include mq(min-md) {
+    width: 20px;
+    margin-top: 20px;
+  }
+}

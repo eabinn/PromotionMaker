@@ -1,9 +1,17 @@
+@use 'sass:math';
+
 @import '@/assets/scss/font';
 @import '@/assets/scss/config.scss';
 @import '@/assets/scss/global';
 @import '@/assets/scss/grid';
 @import '@/assets/scss/color';
 @import '@/assets/scss/variables';
+
+@import '@/assets/scss/mixins/flex.scss';
+@import '@/assets/scss/mixins/gradient.scss';
+@import '@/assets/scss/mixins/mixins.scss';
+
+@import '@/assets/scss/promotion/index.scss';
 
 body {
   display: flex;

@@ -1,0 +1,74 @@
+/* stylelint-disable selector-class-pattern */
+
+/* Erase after line-height is set by #3438 issue */
+div,
+section,
+h1,
+h2,
+h3,
+h4,
+h5,
+span,
+table {
+  line-height: 1.5;
+}
+
+.title-container {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-basic {
+  color: color-map(gray, 600);
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.title-large {
+  color: color-map(gray, 600);
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle-basic {
+  color: color-map(gray, 600);
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle-basic--bold {
+  color: color-map(gray, 600);
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle-large {
+  color: color-map(gray, 600);
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle-large--bold {
+  color: color-map(gray, 600);
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,41 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1024;
+
+  &.visible {
+    display: flex;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 800px;
+    height: 500px;
+    padding: 10px;
+    z-index: 1025;
+    background-color: #fff;
+    overflow: scroll;
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
+
+  &-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.4);
+  }
+}

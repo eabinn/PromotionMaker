@@ -1,11 +1,10 @@
 <template>
-  <div class="container">
+  <div class="promotion-container">
     <div class="sidebar">
-      <Item
+      <ItemDummy
         v-for="(item, index) in items"
         :key="index"
         :item="item"
-        :show-real="false"
         :drag-item-copy-start="dragItemCopyStart"
       />
     </div>
@@ -27,61 +26,120 @@
               class="dropzone"
               @dragover="dragItemCopyOver($event)"
               @drop="dragItemCopyEnd($event)"
-            ></div>
+            >
+              DROPZONE
+            </div>
             <button class="delete-section" @click="deleteSection(section.id)">이 섹션 삭제</button>
           </div>
 
           <div class="section-content">
-            <Item
-              v-for="(item, index) in section.items"
-              :key="index"
-              :item="item"
-              :show-real="true"
-            />
+            <div class="content-layout">
+              <div class="container">
+                <Item
+                  v-for="(item, index) in section.items"
+                  :id="item.id"
+                  :key="index"
+                  :item="item"
+                  class="item"
+                  @click="modifyItem(item, section.id, item.id)"
+                />
+              </div>
+            </div>
           </div>
         </section>
       </div>
     </div>
   </div>
+
+  <EditModal :close-modal="closeEditModal" :confirm-edit="confirmEdit">
+    <EditTitle v-if="editedItem.itemType === 'title'" :original-item="editedItem.title!" />
+    <EditSummaryOnly
+      v-if="editedItem.itemType === 'summaryOnly'"
+      :original-item="editedItem.summaryOnly!"
+    />
+  </EditModal>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { IItemDummy, IItem, SummaryOnly, Title } from './components/item.types'
 import Item from './components/Item.vue'
-
-interface IItem {
-  id: number
-  type: string
-  color: string
-}
+import ItemDummy from './components/ItemDummy.vue'
+import { defaultData } from './components/defaultData'
+import EditModal from '@/components/EditModal/EditModal.vue'
+import EditSummaryOnly from './components/EditModal/EditSummaryOnly.vue'
+import EditTitle from './components/EditModal/EditTitle.vue'
 
 interface ISection {
   id: number
   items: IItem[]
 }
 
-const items = ref<IItem[]>([
-  { type: 'A', color: 'red', id: 0 },
-  { type: 'B', color: 'blue', id: 1 },
-  { type: 'C', color: 'orange', id: 2 },
-  { type: 'D', color: 'cyan', id: 3 },
-  { type: 'E', color: 'purple', id: 4 },
-  { type: 'F', color: 'green', id: 5 },
-  { type: 'G', color: 'black', id: 6 },
+interface EditedItem {
+  sectionId: number
+  itemId: number
+  itemType?: 'title' | 'summaryOnly'
+  title?: Title
+  summaryOnly?: SummaryOnly
+}
+
+const items = ref<IItemDummy[]>([
+  { type: 'title', name: 'Title', color: 'blue' },
+  { type: 'summaryOnly', name: 'Summary Only', color: 'green' },
 ])
 
-const sections = ref<ISection[]>([])
-let sectionIndex = 0
+let sectionId = 0
+let itemId = 0
 
-const modalRef = ref()
+const editedItem = reactive<EditedItem>({
+  sectionId: 0,
+  itemId: 0,
+})
+
+const sections = ref<ISection[]>([])
+
+const closeEditModal = () => {
+  document.querySelector('.modal')?.classList.remove('visible')
+}
+
+const openEditModal = () => {
+  document.querySelector('.modal')?.classList.add('visible')
+}
+
+const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
+  editedItem.sectionId = sectionId
+  editedItem.itemId = itemId
+  const section = sections.value.find((section) => section.id === editedItem.sectionId)
+  const modifyItem = section?.items.find((item) => item.id === editedItem.itemId) as IItem
+
+  if (item.type === 'title') {
+    editedItem.itemType = 'title'
+    editedItem.title = JSON.parse(JSON.stringify(modifyItem.title)) as Title
+  } else if (item.type === 'summaryOnly') {
+    editedItem.itemType = 'summaryOnly'
+    editedItem.summaryOnly = JSON.parse(JSON.stringify(item.summaryOnly)) as SummaryOnly
+  }
+
+  openEditModal()
+}
+
+const confirmEdit = () => {
+  const section = sections.value.find((section) => section.id === editedItem.sectionId)
+  const item = section?.items.find((item) => item.id === editedItem.itemId) as IItem
+
+  if (editedItem.itemType === 'title') {
+    item.title = editedItem.title
+  } else if (editedItem.itemType === 'summaryOnly') {
+    item.summaryOnly = editedItem.summaryOnly
+  }
+  closeEditModal()
+}
 
 const addSection = () => {
-  sections.value.push(
-    new Object({
-      id: sectionIndex++,
-      items: [],
-    }) as ISection
-  )
+  sections.value.push({
+    id: sectionId++,
+    items: [],
+  })
 }
 
 const deleteSection = (id: number) => {
@@ -91,7 +149,7 @@ const deleteSection = (id: number) => {
 const dragItemCopyStart = (e: DragEvent) => {
   if (e.dataTransfer) {
     const copyItem = e.target as HTMLElement
-    e.dataTransfer.setData('itemId', copyItem.id)
+    e.dataTransfer.setData('itemType', copyItem.id)
     e.dataTransfer.effectAllowed = 'move'
   }
 }
@@ -108,70 +166,32 @@ const dragItemCopyEnd = (e: DragEvent) => {
   e.preventDefault()
 
   if (e.dataTransfer) {
-    const itemId = e.dataTransfer.getData('itemId')
-    if (!itemId) {
+    const itemType = e.dataTransfer.getData('itemType')
+    if (!itemType) {
       return
     }
-    const item = new Object(items.value.find((item) => item.id === +itemId)) as IItem
-    const itemDroppedSectionId = (e.target as HTMLElement).id
-    const section = sections.value.find((section) => section.id === +itemDroppedSectionId)
-    section?.items.push(item)
-  }
-}
 
-const dragItemStart = (e: DragEvent) => {
-  const target = e.target as HTMLElement
-  target.classList.add('dragging')
-  target.classList.remove('dummy')
-  target.classList.add('real')
-}
+    const itemDroppedSectionId = +(e.target as HTMLElement).id
+    const section = sections.value.find((section) => section.id === itemDroppedSectionId)
+    const item = new Object(items.value.find((item) => item.type === itemType)) as IItem
 
-const dragItemEnd = (e: DragEvent) => {
-  const target = e.target as HTMLElement
-  target.classList.remove('dragging')
-}
+    if (section) {
+      item.id = itemId++
 
-const dragItemOver = (e: DragEvent) => {
-  e.preventDefault()
-  const target = e.target as HTMLElement
-
-  const container = target.parentElement as HTMLElement
-  const afterElement = getDragAfterElement(container, e.clientY, [
-    ...container.querySelectorAll('.real.draggable:not(.dragging)'),
-  ])
-  const draggable = document.querySelector('.dragging') as HTMLElement
-  if (afterElement === null) {
-    container.appendChild(draggable)
-  } else {
-    container.insertBefore(draggable, afterElement)
-  }
-}
-
-function getDragAfterElement(
-  container: HTMLElement,
-  yOffset: number,
-  draggableElements: Element[]
-) {
-  //const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
-
-  return draggableElements.reduce(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (closest: any, child) => {
-      const box = child.getBoundingClientRect()
-      const offset = yOffset - box.top - box.height / 2
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child }
-      } else {
-        return closest
+      if (item.type === 'title') {
+        item.title = defaultData[item.type] as Title
+      } else if (item.type === 'summaryOnly') {
+        item.summaryOnly = defaultData[item.type] as SummaryOnly
       }
-    },
-    { offset: Number.NEGATIVE_INFINITY, element: null }
-  ).element
+
+      section.items.push(item)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.container {
+.promotion-container {
   position: relative;
   display: flex;
   height: 100vh;
@@ -182,9 +202,10 @@ function getDragAfterElement(
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-shrink: 0;
   padding: 10px;
   overflow: scroll;
-  width: 15%;
+  width: 200px;
 }
 
 .content,
@@ -196,6 +217,11 @@ function getDragAfterElement(
 
 .content {
   padding: 10px;
+}
+
+.add-section {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .no-content {
@@ -227,46 +253,30 @@ function getDragAfterElement(
 .section-handler {
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
-
+  padding: 10px;
+  background-color: rgba(#000000, 0.2);
   .dropzone {
     width: 300px;
     height: 200px;
     border: 1px solid black;
     border-style: dotted;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .section-content {
   padding: 50px 0 70px;
-}
 
-.modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1024;
+  .item {
+    cursor: pointer;
+    transition: background-color 200ms ease;
 
-  &.show {
-    display: flex;
-  }
-  &-content {
-    min-width: 500px;
-    min-height: 300px;
-    z-index: 1025;
-    background-color: #ffffff;
-  }
-  &-shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(#000000, 0.4);
+    &:hover {
+      background-color: rgba(#000000, 0.5);
+    }
   }
 }
 </style>

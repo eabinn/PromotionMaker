@@ -1,0 +1,67 @@
+.col {
+  &-wrapper {
+    font-size: 0;
+    margin: 0 -15px;
+
+    & ~ & {
+      margin-top: 50px;
+    }
+  }
+
+  &-item {
+    display: inline-block;
+    padding: 0 15px;
+    vertical-align: top;
+    font-size: 14px;
+
+    & ~ & {
+      margin-top: 30px;
+      @include mq(min-md) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &-block {
+    display: block;
+  }
+
+  &-middle {
+    vertical-align: middle;
+  }
+
+  &-bottom {
+    vertical-align: bottom;
+  }
+
+  &-top {
+    vertical-align: top;
+  }
+}
+
+.no-float {
+  float: none;
+}
+
+.no-padding {
+  &-left {
+    padding-left: 0 !important;
+  }
+
+  &-right {
+    padding-right: 0 !important;
+  }
+
+  &-top {
+    padding-top: 0 !important;
+  }
+
+  &-bottom {
+    padding-bottom: 0 !important;
+  }
+}
+
+.col-center {
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,111 @@
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable selector-class-pattern */
+.pr-title {
+  display: flex;
+  margin-bottom: 20px;
+
+  &::before {
+    content: '';
+    width: 3px;
+    margin: 5px 0 2px;
+    background-color: currentcolor;
+    flex: none;
+  }
+
+  &--has-sub {
+    &::before {
+      margin: 2px 0;
+    }
+  }
+
+  &-wrap {
+    padding: 0 0 0 10px;
+  }
+
+  &-text {
+    margin: 0;
+    font-weight: normal;
+    line-height: 1.5;
+    word-break: keep-all;
+    word-wrap: break-word;
+    text-align: left;
+    color: #000;
+
+    &--sub {
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    &--main {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+}
+
+.definition {
+  ~ .definition {
+    margin-top: 24px;
+  }
+
+  &-wrap + &-wrap,
+  &__item + &__item {
+    margin: 4px 0 0;
+  }
+
+  &-group ~ &-group {
+    margin-top: 12px;
+  }
+
+  &-group-title {
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: color-map(gray, 500);
+  }
+
+  &-title {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: color-map(gray, 500);
+  }
+
+  &__item {
+    margin: 0;
+    text-align: left;
+    line-height: 1.5;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 14px;
+    color: color-map(gray, 500);
+  }
+
+  .definition-wrap .definition-wrap {
+    margin-top: 4px;
+  }
+
+  ul.definition-wrap {
+    margin: 0;
+    padding: 0 0 0 17px;
+
+    > .definition__item {
+      &::marker {
+        font-size: 11px;
+        background-color: color-map(gray, 500);
+      }
+    }
+
+    ol.definition-wrap {
+      > .definition__item {
+        &::marker {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  ol.definition-wrap {
+    margin: 0;
+    padding: 0 0 0 17px;
+  }
+}

@@ -1,9 +1,7 @@
 <template>
-  <div
-    v-if="props.showReal"
-    class="box real draggable"
-    :style="{ backgroundColor: props.item.color }"
-  >
+  <Title v-if="props.item.type === 'title'" :data="props.item.title!" />
+  <SummaryOnly v-else-if="props.item.type === 'summaryOnly'" :data="props.item.summaryOnly!" />
+  <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
       <input id="subtitle" placeholder="서브 타이틀을 입력해주세요" />
@@ -11,34 +9,19 @@
     <div class="description">
       <input placeholder="설명" />
     </div>
-
-    <button class="btn-delete" @click="handleDeleteItem">삭제</button>
   </div>
-  <div
-    v-else
-    :id="'' + props.item.id"
-    class="box dummy draggable"
-    :style="{ backgroundColor: props.item.color }"
-    :draggable="true"
-    @dragstart="props.dragItemCopyStart && props.dragItemCopyStart($event)"
-  ></div>
 </template>
 
 <script lang="ts" setup>
+import { IItem } from './item.types'
+import Title from '@/components/Title/Title.vue'
+import SummaryOnly from './SummaryOnly/SummaryOnly.vue'
+
 interface ItemProps {
-  item: { type: string; color: string; id: number }
-  showReal: boolean
-  deleteItem?(index: number): void
-  dragItemCopyStart?(e: DragEvent): void
-  dragItemStart?(e: DragEvent): void
-  dragItemEnd?(e: DragEvent): void
+  item: IItem
 }
 
 const props = defineProps<ItemProps>()
-
-const handleDeleteItem = () => {
-  props.deleteItem && props.deleteItem(Math.random() * (100000 - 0) + 100000)
-}
 </script>
 
 <style lang="scss" scoped>
@@ -49,9 +32,11 @@ const handleDeleteItem = () => {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-
   width: 100%;
-  height: 50%;
+  &.dummy {
+    width: 100%;
+    height: 50%;
+  }
 
   button {
     display: none;
@@ -65,11 +50,6 @@ const handleDeleteItem = () => {
 .title {
   display: flex;
   flex-direction: column;
-}
-
-input {
-  border: none;
-  background-color: rgba(#000000, 0.5);
 }
 
 button.btn-delete {
