@@ -1,3 +1,9 @@
+@use 'sass:math';
+
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
+
 .visual {
   &-wrapper {
     max-width: 396px;

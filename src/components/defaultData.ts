@@ -1,4 +1,4 @@
-import { SummaryOnly, Title } from './item.types'
+import { LandingButton, SummaryOnly, Title } from './item.types'
 
 const defaultTitle: Title = {
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
@@ -37,7 +37,15 @@ const defaultSummaryOnly: SummaryOnly = {
   ],
 }
 
-export const defaultData: { [key: string]: Title | SummaryOnly } = {
+const defaultLandingButton: LandingButton = {
+  mainColor: '#9D45E8',
+  text: '공백 포함 최대 36바이트 국문 18자',
+  link: 'https://www.airklass.com',
+  type: 'normal',
+}
+
+export const defaultData: { [key: string]: Title | SummaryOnly | LandingButton } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
+  landingButton: defaultLandingButton,
 }

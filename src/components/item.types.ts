@@ -49,10 +49,18 @@ export interface SummaryOnly {
   descriptions: { title: string; type: ListType; items: string[] }[]
 }
 
+export interface LandingButton {
+  mainColor: string
+  text: string
+  link: string
+  type: 'normal' | 'tail'
+}
+
 export type PromotionComponent = Title | SummaryOnly
 
 export interface IItem extends IItemDummy {
   id: number
   title?: Title
   summaryOnly?: SummaryOnly
+  landingButton?: LandingButton
 }

@@ -1,6 +1,10 @@
 <template>
   <Title v-if="props.item.type === 'title'" :data="props.item.title!" />
   <SummaryOnly v-else-if="props.item.type === 'summaryOnly'" :data="props.item.summaryOnly!" />
+  <LandingButton
+    v-else-if="props.item.type === 'landingButton'"
+    :data="props.item.landingButton!"
+  />
   <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
@@ -16,6 +20,7 @@
 import { IItem } from './item.types'
 import Title from '@/components/Title/Title.vue'
 import SummaryOnly from './SummaryOnly/SummaryOnly.vue'
+import LandingButton from './LandingButton/LandingButton.vue'
 
 interface ItemProps {
   item: IItem

@@ -57,18 +57,23 @@
       v-if="editedItem.itemType === 'summaryOnly'"
       :original-item="editedItem.summaryOnly!"
     />
+    <EditLandingButton
+      v-if="editedItem.itemType === 'landingButton'"
+      :original-item="editedItem.landingButton!"
+    />
   </EditModal>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { IItemDummy, IItem, SummaryOnly, Title } from './components/item.types'
+import { IItemDummy, IItem, SummaryOnly, Title, LandingButton } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
 import { defaultData } from './components/defaultData'
 import EditModal from '@/components/EditModal/EditModal.vue'
 import EditSummaryOnly from './components/EditModal/EditSummaryOnly.vue'
 import EditTitle from './components/EditModal/EditTitle.vue'
+import EditLandingButton from './components/EditModal/EditLandingButton.vue'
 
 interface ISection {
   id: number
@@ -78,14 +83,16 @@ interface ISection {
 interface EditedItem {
   sectionId: number
   itemId: number
-  itemType?: 'title' | 'summaryOnly'
+  itemType?: 'title' | 'summaryOnly' | 'landingButton'
   title?: Title
   summaryOnly?: SummaryOnly
+  landingButton?: LandingButton
 }
 
 const items = ref<IItemDummy[]>([
   { type: 'title', name: 'Title', color: 'blue' },
   { type: 'summaryOnly', name: 'Summary Only', color: 'green' },
+  { type: 'landingButton', name: 'Landing Button', color: 'purple' },
 ])
 
 let sectionId = 0
@@ -118,6 +125,9 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   } else if (item.type === 'summaryOnly') {
     editedItem.itemType = 'summaryOnly'
     editedItem.summaryOnly = JSON.parse(JSON.stringify(item.summaryOnly)) as SummaryOnly
+  } else if (item.type === 'landingButton') {
+    editedItem.itemType = 'landingButton'
+    editedItem.landingButton = JSON.parse(JSON.stringify(item.landingButton)) as LandingButton
   }
 
   openEditModal()
@@ -131,6 +141,8 @@ const confirmEdit = () => {
     item.title = editedItem.title
   } else if (editedItem.itemType === 'summaryOnly') {
     item.summaryOnly = editedItem.summaryOnly
+  } else if (editedItem.itemType === 'landingButton') {
+    item.landingButton = editedItem.landingButton
   }
   closeEditModal()
 }
@@ -182,6 +194,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.title = defaultData[item.type] as Title
       } else if (item.type === 'summaryOnly') {
         item.summaryOnly = defaultData[item.type] as SummaryOnly
+      } else if (item.type === 'landingButton') {
+        item.landingButton = defaultData[item.type] as LandingButton
       }
 
       section.items.push(item)
