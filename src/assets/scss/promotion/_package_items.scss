@@ -1,0 +1,178 @@
+/* stylelint-disable declaration-block-no-duplicate-properties */
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable scss/operator-no-unspaced */
+/* stylelint-disable scss/no-global-function-names */
+@use 'sass:math';
+
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
+
+.pk-card-container {
+  @include mq(max-tablet) {
+    @include display-flex;
+    @include justify-content(center);
+    @include flex-wrap(wrap);
+  }
+
+  * {
+    line-height: 1.5;
+  }
+}
+
+.pk-card {
+  display: inline-block;
+  border-radius: 4px;
+  color: $pure-white;
+  @include display-flex;
+  @include flex-direction(column);
+  @include mq(max, 991px) {
+    max-width: 396px;
+    margin: 0 auto;
+  }
+
+  &__heading {
+    position: relative;
+    color: $pure-white;
+    padding: 24px percentage(30/396);
+    border-radius: 4px 4px 0 0;
+    text-align: left;
+    word-break: keep-all;
+    word-wrap: break-word;
+    box-shadow: inset 0 0 0 200px rgba($pure-black, 0.07);
+    @include mq(max, 991px) {
+      padding: 24px 30px;
+    }
+
+    .pk-card--no {
+      font-size: 12px;
+      padding-bottom: 16px;
+    }
+
+    h5,
+    .pk-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      padding-bottom: 8px;
+      margin: 0;
+    }
+
+    h3,
+    .pk-title {
+      font-size: 22px;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+
+  &__content {
+    border: 1px solid color-map(gray, 150);
+    border-top: none;
+    padding: 0 percentage(30/396) 36px percentage(30/396);
+    color: color-map(gray);
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    background-color: $pure-white;
+    @include display-flex;
+    @include flex-direction(column);
+    @include flex-grow(1);
+
+    ul {
+      margin: 0;
+      padding: 0;
+      @include flex-grow(1);
+    }
+
+    li {
+      list-style: none;
+      font-size: 16px;
+      text-align: center;
+    }
+    @include mq(max, 991px) {
+      padding: 0 18px 36px;
+    }
+  }
+
+  &--product {
+    padding: 48px 0;
+    @include flex-grow(1);
+
+    position: relative;
+
+    .free-installment {
+      font-size: 16px;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      position: absolute;
+    }
+
+    &__wrapper {
+      height: 100%;
+      @include display-flex;
+      @include flex-direction(column);
+      @include justify-content(center);
+    }
+
+    &--list {
+      position: relative;
+      font-size: 16px;
+      @include display-flex;
+    }
+  }
+
+  &__btn {
+    position: relative;
+    padding: 14px 21px;
+    border-radius: 29px;
+    max-width: 336px;
+    margin: 0 auto;
+    text-decoration: none !important;
+    width: 100%;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+
+    .txt-l {
+      font-size: 15px;
+      line-height: 1.9;
+      z-index: 10;
+      float: left;
+    }
+
+    .txt-r {
+      font-size: 17px;
+      z-index: 10;
+      float: right;
+    }
+
+    .days {
+      font-weight: normal;
+    }
+
+    em {
+      font-size: 14px;
+      font-style: normal;
+    }
+
+    .pk__btn-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0 0 0 / 15%) !important;
+      content: '';
+      border-radius: 29px;
+      @include opacity(0);
+    }
+
+    &:hover {
+      .pk__btn-bg {
+        @include opacity(1);
+      }
+    }
+  }
+}

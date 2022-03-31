@@ -1,4 +1,4 @@
-import { LandingButton, SummaryOnly, SummaryWithImage, Title } from './item.types'
+import { LandingButton, PackageCards, SummaryOnly, SummaryWithImage, Title } from './item.types'
 
 const defaultTitle: Title = {
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
@@ -76,11 +76,67 @@ const defaultLandingButton: LandingButton = {
   type: 'normal',
 }
 
+const defaultPackageCards: PackageCards = {
+  items: [
+    {
+      mainColor: '#9D45E8',
+      identifier: 'PACKAGE 1',
+      subTitle: '서브 타이틀 한 줄 최대 18자',
+      title: '타이틀 한 줄 12자<br>타이틀 한 줄 12자',
+      descriptions: ['asdfasfasfasdfas;lfjasf', 'qwerqwerqwerqwer', 'sdfasdfasasdfasdf'],
+      buttons: [
+        {
+          type: 'normal',
+          mainColor: '#9D45E8',
+          text: '클래스',
+          day: '123',
+          price: '9,999,900',
+          link: 'https://airklass.com',
+        },
+        {
+          type: 'outline',
+          mainColor: '#9D45E8',
+          text: '패키지',
+          day: '123',
+          price: '9,999,900',
+          link: 'https://airklass.com',
+        },
+      ],
+    },
+    {
+      mainColor: '#9D45E8',
+      identifier: 'PACKAGE 1',
+      subTitle: '서브 타이틀 한 줄 최대 18자',
+      title: '타이틀 한 줄 12자<br>타이틀 한 줄 12자',
+      descriptions: ['asdfasfasfasdfas;lfjasf', 'qwerqwerqwerqwer', 'sdfasdfasasdfasdf'],
+      buttons: [
+        {
+          type: 'normal',
+          mainColor: '#9D45E8',
+          text: '클래스',
+          day: '123',
+          price: '9,999,900',
+          link: 'https://airklass.com',
+        },
+        {
+          type: 'outline',
+          mainColor: '#9D45E8',
+          text: '패키지',
+          day: '123',
+          price: '9,999,900',
+          link: 'https://airklass.com',
+        },
+      ],
+    },
+  ],
+}
+
 export const defaultData: {
-  [key: string]: Title | SummaryOnly | SummaryWithImage | LandingButton
+  [key: string]: Title | SummaryOnly | SummaryWithImage | LandingButton | PackageCards
 } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
   summaryWithImage: defaultSummaryWithImage,
   landingButton: defaultLandingButton,
+  packageCards: defaultPackageCards,
 }

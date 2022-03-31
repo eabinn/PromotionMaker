@@ -65,6 +65,10 @@
       v-if="editedItem.itemType === 'landingButton'"
       :original-item="editedItem.landingButton!"
     />
+    <EditPackageCards
+      v-if="editedItem.itemType === 'packageCards'"
+      :original-item="editedItem.packageCards!"
+    />
   </EditModal>
 </template>
 
@@ -77,6 +81,8 @@ import {
   Title,
   LandingButton,
   SummaryWithImage,
+  ItemType,
+  PackageCards,
 } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
@@ -86,6 +92,7 @@ import EditSummaryOnly from './components/EditModal/EditSummaryOnly.vue'
 import EditTitle from './components/EditModal/EditTitle.vue'
 import EditLandingButton from './components/EditModal/EditLandingButton.vue'
 import EditSummaryWithImage from './components/EditModal/EditSummaryWithImage.vue'
+import EditPackageCards from './components/EditModal/EditPackageCards.vue'
 
 interface ISection {
   id: number
@@ -95,11 +102,12 @@ interface ISection {
 interface EditedItem {
   sectionId: number
   itemId: number
-  itemType?: 'title' | 'summaryOnly' | 'landingButton' | 'summaryWithImage'
+  itemType?: ItemType
   title?: Title
   summaryOnly?: SummaryOnly
   landingButton?: LandingButton
   summaryWithImage?: SummaryWithImage
+  packageCards?: PackageCards
 }
 
 const items = ref<IItemDummy[]>([
@@ -107,6 +115,7 @@ const items = ref<IItemDummy[]>([
   { type: 'summaryOnly', name: 'Summary Only', color: 'green' },
   { type: 'summaryWithImage', name: 'Summary with Image', color: 'orange' },
   { type: 'landingButton', name: 'Landing Button', color: 'purple' },
+  { type: 'packageCards', name: 'Package Cards', color: 'DarkRed' },
 ])
 
 let sectionId = 0
@@ -147,6 +156,9 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   } else if (item.type === 'landingButton') {
     editedItem.itemType = 'landingButton'
     editedItem.landingButton = JSON.parse(JSON.stringify(item.landingButton)) as LandingButton
+  } else if (item.type === 'packageCards') {
+    editedItem.itemType = 'packageCards'
+    editedItem.packageCards = JSON.parse(JSON.stringify(item.packageCards)) as PackageCards
   }
 
   openEditModal()
@@ -164,6 +176,8 @@ const confirmEdit = () => {
     item.summaryWithImage = editedItem.summaryWithImage
   } else if (editedItem.itemType === 'landingButton') {
     item.landingButton = editedItem.landingButton
+  } else if (editedItem.itemType === 'packageCards') {
+    item.packageCards = editedItem.packageCards
   }
   closeEditModal()
 }
@@ -219,6 +233,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.summaryWithImage = defaultData[item.type] as SummaryWithImage
       } else if (item.type === 'landingButton') {
         item.landingButton = defaultData[item.type] as LandingButton
+      } else if (item.type === 'packageCards') {
+        item.packageCards = defaultData[item.type] as PackageCards
       }
 
       section.items.push(item)

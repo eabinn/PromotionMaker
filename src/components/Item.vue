@@ -9,6 +9,7 @@
     v-else-if="props.item.type === 'landingButton'"
     :data="props.item.landingButton!"
   />
+  <PackageCards v-else-if="props.item.type === 'packageCards'" :data="props.item.packageCards!" />
   <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
@@ -26,6 +27,7 @@ import Title from '@/components/Title/Title.vue'
 import SummaryOnly from './SummaryOnly/SummaryOnly.vue'
 import LandingButton from './LandingButton/LandingButton.vue'
 import SummaryWithImage from './SummaryWithImage/SummaryWithImage.vue'
+import PackageCards from './PackageCards/PackageCards.vue'
 
 interface ItemProps {
   item: IItem

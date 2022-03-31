@@ -1,7 +1,23 @@
+export type ItemType =
+  | 'title'
+  | 'summaryOnly'
+  | 'landingButton'
+  | 'summaryWithImage'
+  | 'packageCards'
+
 export interface IItemDummy {
-  type: string
+  type: ItemType
   color: string
   name: string
+}
+
+export interface IItem extends IItemDummy {
+  id: number
+  title?: Title
+  summaryOnly?: SummaryOnly
+  summaryWithImage?: SummaryWithImage
+  landingButton?: LandingButton
+  packageCards?: PackageCards
 }
 
 type FontSize = 'normal' | 'big'
@@ -9,6 +25,7 @@ type FontWeight = 'normal' | 'bold'
 type InputType = 'textarea' | 'radio' | 'number' | null
 type ListType = 'normal' | 'dot' | 'number'
 type PositionType = 'left' | 'right'
+type ButtonType = 'normal' | 'outline'
 
 export interface TextAreaInput<T> {
   value: T
@@ -72,10 +89,22 @@ export interface LandingButton {
   type: 'normal' | 'tail'
 }
 
-export interface IItem extends IItemDummy {
-  id: number
-  title?: Title
-  summaryOnly?: SummaryOnly
-  summaryWithImage?: SummaryWithImage
-  landingButton?: LandingButton
+export interface PackageCard {
+  mainColor: string
+  identifier: string
+  subTitle: string
+  title: string
+  descriptions: string[]
+  buttons: {
+    type: ButtonType
+    mainColor: string
+    text: string
+    day: string
+    price: string
+    link: string
+  }[]
+}
+
+export interface PackageCards {
+  items: PackageCard[]
 }
