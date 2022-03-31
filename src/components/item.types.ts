@@ -6,6 +6,7 @@ export type ItemType =
   | 'packageCards'
   | 'notes'
   | 'profiles'
+  | string
 
 export interface IItemDummy {
   type: ItemType
@@ -13,8 +14,9 @@ export interface IItemDummy {
   name: string
 }
 
-export interface IItem extends IItemDummy {
+export interface IItem {
   id: number
+  type: ItemType
   title?: Title
   summaryOnly?: SummaryOnly
   summaryWithImage?: SummaryWithImage

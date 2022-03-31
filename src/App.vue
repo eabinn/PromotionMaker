@@ -10,6 +10,7 @@
     </div>
 
     <div class="content">
+      <button @click="getResult($event)">결과</button>
       <button class="add-section" @click="addSection">섹션 추가</button>
 
       <div class="section-container">
@@ -99,6 +100,12 @@ import EditSummaryWithImage from './components/EditModal/EditSummaryWithImage.vu
 import EditPackageCards from './components/EditModal/EditPackageCards.vue'
 import EditNotes from './components/EditModal/EditNotes.vue'
 import EditProfiles from './components/EditModal/EditProfiles.vue'
+
+const getResult = (e: Event) => {
+  e.stopPropagation()
+
+  console.log('결과', sections.value)
+}
 
 interface ISection {
   id: number
@@ -241,13 +248,14 @@ const dragItemCopyEnd = (e: DragEvent) => {
 
     const itemDroppedSectionId = +(e.target as HTMLElement).id
     const section = sections.value.find((section) => section.id === itemDroppedSectionId)
-    const item = new Object(items.value.find((item) => item.type === itemType)) as IItem
+    const item: IItem = {
+      type: itemType,
+      id: itemId++,
+    }
 
     if (section) {
-      item.id = itemId++
-
       if (item.type === 'title') {
-        item.title = defaultData[item.type] as Title
+        item.title = JSON.parse(JSON.stringify(defaultData[item.type])) as Title
       } else if (item.type === 'summaryOnly') {
         item.summaryOnly = defaultData[item.type] as SummaryOnly
       } else if (item.type === 'summaryWithImage') {
