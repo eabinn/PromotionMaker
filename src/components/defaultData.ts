@@ -8,6 +8,7 @@ import {
   SummaryOnly,
   SummaryWithImage,
   Title,
+  MarketingVideo,
 } from './item.types'
 
 const defaultTitle: Title = {
@@ -283,6 +284,12 @@ const defaultBenefits: Benefits = {
   ],
 }
 
+const defaultMarketingVideo: MarketingVideo = {
+  videoUrl: 'https://www.youtube.com/embed/hB44Fr4gHew',
+  rightColor: '#FF00FF',
+  leftColor: '#32CD32',
+}
+
 export const defaultData: {
   [key: string]:
     | Title
@@ -294,6 +301,7 @@ export const defaultData: {
     | Profiles
     | ProfileWithHeader
     | Benefits
+    | MarketingVideo
 } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
@@ -304,4 +312,5 @@ export const defaultData: {
   profiles: defaultProfiles,
   profileWithHeader: defaultProfileWithHeader,
   benefits: defaultBenefits,
+  marketingVideo: defaultMarketingVideo,
 }

@@ -8,6 +8,7 @@ export type ItemType =
   | 'profiles'
   | 'profileWithHeader'
   | 'benefits'
+  | 'marketingVideo'
   | string
 
 export interface IItemDummy {
@@ -28,6 +29,7 @@ export interface IItem {
   profiles?: Profiles
   profileWithHeader?: ProfileWithHeader
   benefits?: Benefits
+  marketingVideo?: MarketingVideo
 }
 
 type FontSize = 'normal' | 'big'
@@ -164,4 +166,10 @@ export interface Benefit {
 export interface Benefits {
   itemColumn: number
   items: Benefit[]
+}
+
+export interface MarketingVideo {
+  videoUrl: string
+  leftColor: string
+  rightColor: string
 }

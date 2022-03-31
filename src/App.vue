@@ -77,6 +77,10 @@
       :original-item="editedItem.profileWithHeader!"
     />
     <EditBenefits v-if="editedItem.itemType === 'benefits'" :original-item="editedItem.benefits!" />
+    <EditMarketingVideo
+      v-if="editedItem.itemType === 'marketingVideo'"
+      :original-item="editedItem.marketingVideo!"
+    />
   </EditModal>
 </template>
 
@@ -95,6 +99,7 @@ import {
   Profiles,
   ProfileWithHeader,
   Benefits,
+  MarketingVideo,
 } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
@@ -109,6 +114,7 @@ import EditNotes from './components/EditModal/EditNotes.vue'
 import EditProfiles from './components/EditModal/EditProfiles.vue'
 import EditProfileWithHeader from './components/EditModal/EditProfileWithHeader.vue'
 import EditBenefits from './components/EditModal/EditBenefits.vue'
+import EditMarketingVideo from './components/EditModal/EditMarketingVideo.vue'
 
 const getResult = (e: Event) => {
   e.stopPropagation()
@@ -134,6 +140,7 @@ interface EditedItem {
   profiles?: Profiles
   profileWithHeader?: ProfileWithHeader
   benefits?: Benefits
+  marketingVideo?: MarketingVideo
 }
 
 const items = ref<IItemDummy[]>([
@@ -146,6 +153,7 @@ const items = ref<IItemDummy[]>([
   { type: 'profiles', name: 'Profiles', color: 'MediumSlateBlue' },
   { type: 'profileWithHeader', name: 'One Profile with Header', color: 'DarkTurquoise' },
   { type: 'benefits', name: 'Benefits', color: 'DarkSlateGray' },
+  { type: 'marketingVideo', name: 'Marketing Video', color: 'Magenta' },
 ])
 
 let sectionId = 0
@@ -204,6 +212,9 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   } else if (item.type === 'benefits') {
     editedItem.itemType = 'benefits'
     editedItem.benefits = JSON.parse(JSON.stringify(item.benefits)) as Benefits
+  } else if (item.type === 'marketingVideo') {
+    editedItem.itemType = 'marketingVideo'
+    editedItem.marketingVideo = JSON.parse(JSON.stringify(item.marketingVideo)) as MarketingVideo
   }
 
   openEditModal()
@@ -231,6 +242,8 @@ const confirmEdit = () => {
     item.profileWithHeader = editedItem.profileWithHeader
   } else if (editedItem.itemType === 'benefits') {
     item.benefits = editedItem.benefits
+  } else if (editedItem.itemType === 'marketingVideo') {
+    item.marketingVideo = editedItem.marketingVideo
   }
   closeEditModal()
 }
@@ -297,6 +310,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.profileWithHeader = defaultData[item.type] as ProfileWithHeader
       } else if (item.type === 'benefits') {
         item.benefits = defaultData[item.type] as Benefits
+      } else if (item.type === 'marketingVideo') {
+        item.marketingVideo = defaultData[item.type] as MarketingVideo
       }
 
       section.items.push(item)

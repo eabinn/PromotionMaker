@@ -17,6 +17,10 @@
     :data="props.item.profileWithHeader!"
   />
   <Benefits v-else-if="props.item.type === 'benefits'" :data="props.item.benefits!" />
+  <MarketingVideo
+    v-else-if="props.item.type === 'marketingVideo'"
+    :data="props.item.marketingVideo!"
+  />
   <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
@@ -39,6 +43,7 @@ import Notes from './Notes/Notes.vue'
 import Profiles from './Profiles/Profiles.vue'
 import ProfileWithHeader from './ProfileWithHeader/ProfileWithHeader.vue'
 import Benefits from './Benefits/Benefits.vue'
+import MarketingVideo from './MarketingVideo/MarketingVideo.vue'
 
 interface ItemProps {
   item: IItem
