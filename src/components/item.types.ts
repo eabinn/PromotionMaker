@@ -7,6 +7,7 @@ export type ItemType =
   | 'notes'
   | 'profiles'
   | 'profileWithHeader'
+  | 'benefits'
   | string
 
 export interface IItemDummy {
@@ -26,6 +27,7 @@ export interface IItem {
   notes?: Notes
   profiles?: Profiles
   profileWithHeader?: ProfileWithHeader
+  benefits?: Benefits
 }
 
 type FontSize = 'normal' | 'big'
@@ -147,4 +149,19 @@ export interface ProfileWithHeader {
   subTitle: string
   subTitleFontWeight: FontWeight
   profile: Profile
+}
+
+export interface Benefit {
+  identifier: string
+  title: string
+  text: string
+  images: {
+    '1x': string
+    '2x': string
+  }
+}
+
+export interface Benefits {
+  itemColumn: number
+  items: Benefit[]
 }

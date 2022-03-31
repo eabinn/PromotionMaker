@@ -76,6 +76,7 @@
       v-if="editedItem.itemType === 'profileWithHeader'"
       :original-item="editedItem.profileWithHeader!"
     />
+    <EditBenefits v-if="editedItem.itemType === 'benefits'" :original-item="editedItem.benefits!" />
   </EditModal>
 </template>
 
@@ -93,6 +94,7 @@ import {
   Notes,
   Profiles,
   ProfileWithHeader,
+  Benefits,
 } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
@@ -106,6 +108,7 @@ import EditPackageCards from './components/EditModal/EditPackageCards.vue'
 import EditNotes from './components/EditModal/EditNotes.vue'
 import EditProfiles from './components/EditModal/EditProfiles.vue'
 import EditProfileWithHeader from './components/EditModal/EditProfileWithHeader.vue'
+import EditBenefits from './components/EditModal/EditBenefits.vue'
 
 const getResult = (e: Event) => {
   e.stopPropagation()
@@ -130,6 +133,7 @@ interface EditedItem {
   notes?: Notes
   profiles?: Profiles
   profileWithHeader?: ProfileWithHeader
+  benefits?: Benefits
 }
 
 const items = ref<IItemDummy[]>([
@@ -141,6 +145,7 @@ const items = ref<IItemDummy[]>([
   { type: 'notes', name: 'Notes', color: 'DarkKhaki' },
   { type: 'profiles', name: 'Profiles', color: 'MediumSlateBlue' },
   { type: 'profileWithHeader', name: 'One Profile with Header', color: 'DarkTurquoise' },
+  { type: 'benefits', name: 'Benefits', color: 'DarkSlateGray' },
 ])
 
 let sectionId = 0
@@ -196,6 +201,9 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
     editedItem.profileWithHeader = JSON.parse(
       JSON.stringify(item.profileWithHeader)
     ) as ProfileWithHeader
+  } else if (item.type === 'benefits') {
+    editedItem.itemType = 'benefits'
+    editedItem.benefits = JSON.parse(JSON.stringify(item.benefits)) as Benefits
   }
 
   openEditModal()
@@ -221,6 +229,8 @@ const confirmEdit = () => {
     item.profiles = editedItem.profiles
   } else if (editedItem.itemType === 'profileWithHeader') {
     item.profileWithHeader = editedItem.profileWithHeader
+  } else if (editedItem.itemType === 'benefits') {
+    item.benefits = editedItem.benefits
   }
   closeEditModal()
 }
@@ -285,6 +295,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.profiles = defaultData[item.type] as Profiles
       } else if (item.type === 'profileWithHeader') {
         item.profileWithHeader = defaultData[item.type] as ProfileWithHeader
+      } else if (item.type === 'benefits') {
+        item.benefits = defaultData[item.type] as Benefits
       }
 
       section.items.push(item)

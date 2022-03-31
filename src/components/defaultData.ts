@@ -1,4 +1,5 @@
 import {
+  Benefits,
   LandingButton,
   Notes,
   PackageCards,
@@ -249,6 +250,39 @@ const defaultProfileWithHeader: ProfileWithHeader = {
   },
 }
 
+const defaultBenefits: Benefits = {
+  itemColumn: 4,
+  items: [
+    {
+      identifier: '혜택 1',
+      title: '더미 텍스트 가나다라',
+      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
+      images: {
+        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+      },
+    },
+    {
+      identifier: '혜택 1',
+      title: '더미 텍스트 가나다라',
+      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
+      images: {
+        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+      },
+    },
+    {
+      identifier: '혜택 1',
+      title: '더미 텍스트 가나다라',
+      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
+      images: {
+        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+      },
+    },
+  ],
+}
+
 export const defaultData: {
   [key: string]:
     | Title
@@ -259,6 +293,7 @@ export const defaultData: {
     | Notes
     | Profiles
     | ProfileWithHeader
+    | Benefits
 } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
@@ -268,4 +303,5 @@ export const defaultData: {
   notes: defaultNotes,
   profiles: defaultProfiles,
   profileWithHeader: defaultProfileWithHeader,
+  benefits: defaultBenefits,
 }

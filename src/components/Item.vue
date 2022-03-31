@@ -16,6 +16,7 @@
     v-else-if="props.item.type === 'profileWithHeader'"
     :data="props.item.profileWithHeader!"
   />
+  <Benefits v-else-if="props.item.type === 'benefits'" :data="props.item.benefits!" />
   <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
@@ -37,6 +38,7 @@ import PackageCards from './PackageCards/PackageCards.vue'
 import Notes from './Notes/Notes.vue'
 import Profiles from './Profiles/Profiles.vue'
 import ProfileWithHeader from './ProfileWithHeader/ProfileWithHeader.vue'
+import Benefits from './Benefits/Benefits.vue'
 
 interface ItemProps {
   item: IItem
