@@ -33,8 +33,8 @@ const props = defineProps<ItemProps>()
   color: #ffffff;
   width: 100%;
   &.dummy {
-    width: 100%;
-    height: 50%;
+    min-width: 200px;
+    min-height: 130px;
   }
 
   button {

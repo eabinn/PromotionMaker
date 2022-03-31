@@ -11,6 +11,7 @@
   />
   <PackageCards v-else-if="props.item.type === 'packageCards'" :data="props.item.packageCards!" />
   <Notes v-else-if="props.item.type === 'notes'" :data="props.item.notes!" />
+  <Profiles v-else-if="props.item.type === 'profiles'" :data="props.item.profiles!" />
   <div v-else>
     <div class="title">
       <input id="title" placeholder="타이틀을 입력해주세요" />
@@ -30,6 +31,7 @@ import LandingButton from './LandingButton/LandingButton.vue'
 import SummaryWithImage from './SummaryWithImage/SummaryWithImage.vue'
 import PackageCards from './PackageCards/PackageCards.vue'
 import Notes from './Notes/Notes.vue'
+import Profiles from './Profiles/Profiles.vue'
 
 interface ItemProps {
   item: IItem

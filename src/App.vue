@@ -70,6 +70,7 @@
       :original-item="editedItem.packageCards!"
     />
     <EditNotes v-if="editedItem.itemType === 'notes'" :original-item="editedItem.notes!" />
+    <EditProfiles v-if="editedItem.itemType === 'profiles'" :original-item="editedItem.profiles!" />
   </EditModal>
 </template>
 
@@ -85,6 +86,7 @@ import {
   ItemType,
   PackageCards,
   Notes,
+  Profiles,
 } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
@@ -96,6 +98,7 @@ import EditLandingButton from './components/EditModal/EditLandingButton.vue'
 import EditSummaryWithImage from './components/EditModal/EditSummaryWithImage.vue'
 import EditPackageCards from './components/EditModal/EditPackageCards.vue'
 import EditNotes from './components/EditModal/EditNotes.vue'
+import EditProfiles from './components/EditModal/EditProfiles.vue'
 
 interface ISection {
   id: number
@@ -112,6 +115,7 @@ interface EditedItem {
   summaryWithImage?: SummaryWithImage
   packageCards?: PackageCards
   notes?: Notes
+  profiles?: Profiles
 }
 
 const items = ref<IItemDummy[]>([
@@ -121,6 +125,7 @@ const items = ref<IItemDummy[]>([
   { type: 'landingButton', name: 'Landing Button', color: 'purple' },
   { type: 'packageCards', name: 'Package Cards', color: 'DarkRed' },
   { type: 'notes', name: 'Notes', color: 'DarkKhaki' },
+  { type: 'profiles', name: 'Profiles', color: 'MediumSlateBlue' },
 ])
 
 let sectionId = 0
@@ -144,6 +149,7 @@ const openEditModal = () => {
 const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   editedItem.sectionId = sectionId
   editedItem.itemId = itemId
+
   const section = sections.value.find((section) => section.id === editedItem.sectionId)
   const modifyItem = section?.items.find((item) => item.id === editedItem.itemId) as IItem
 
@@ -167,6 +173,9 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   } else if (item.type === 'notes') {
     editedItem.itemType = 'notes'
     editedItem.notes = JSON.parse(JSON.stringify(item.notes)) as Notes
+  } else if (item.type === 'profiles') {
+    editedItem.itemType = 'profiles'
+    editedItem.profiles = JSON.parse(JSON.stringify(item.profiles)) as Profiles
   }
 
   openEditModal()
@@ -188,6 +197,8 @@ const confirmEdit = () => {
     item.packageCards = editedItem.packageCards
   } else if (editedItem.itemType === 'notes') {
     item.notes = editedItem.notes
+  } else if (editedItem.itemType === 'profiles') {
+    item.profiles = editedItem.profiles
   }
   closeEditModal()
 }
@@ -247,6 +258,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.packageCards = defaultData[item.type] as PackageCards
       } else if (item.type === 'notes') {
         item.notes = defaultData[item.type] as Notes
+      } else if (item.type === 'profiles') {
+        item.profiles = defaultData[item.type] as Profiles
       }
 
       section.items.push(item)
@@ -270,7 +283,6 @@ const dragItemCopyEnd = (e: DragEvent) => {
   flex-shrink: 0;
   padding: 10px;
   overflow: scroll;
-  width: 200px;
 }
 
 .content,

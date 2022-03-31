@@ -1,0 +1,51 @@
+@use 'sass:math';
+
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
+
+.pr-profile {
+  &-img {
+    @include mq(min-md) {
+      display: table-cell;
+      vertical-align: top;
+    }
+  }
+
+  &-info {
+    @include mq(max-tablet) {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 30px;
+    }
+  }
+
+  &_pic {
+    width: 183px;
+    height: 183px;
+    margin: 0 auto;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  &_name {
+    margin: 20px 0 12px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: color-map(gray, 600);
+    @include mq(min-md) {
+      text-align: left;
+    }
+  }
+
+  &_list {
+    line-height: 1.63;
+    font-weight: 500;
+  }
+
+  img {
+    width: 100%;
+  }
+}

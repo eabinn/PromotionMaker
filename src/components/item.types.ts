@@ -5,6 +5,7 @@ export type ItemType =
   | 'summaryWithImage'
   | 'packageCards'
   | 'notes'
+  | 'profiles'
 
 export interface IItemDummy {
   type: ItemType
@@ -20,6 +21,7 @@ export interface IItem extends IItemDummy {
   landingButton?: LandingButton
   packageCards?: PackageCards
   notes?: Notes
+  profiles?: Profiles
 }
 
 type FontSize = 'normal' | 'big'
@@ -120,4 +122,17 @@ export interface List {
 export interface Notes {
   contentColumn: number
   items: List[]
+}
+
+export interface Profile {
+  name: string
+  images: {
+    '1x': string
+    '2x': string
+  }
+  descriptions: List[]
+}
+
+export interface Profiles {
+  items: Profile[]
 }
