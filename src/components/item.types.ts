@@ -6,6 +6,7 @@ export type ItemType =
   | 'packageCards'
   | 'notes'
   | 'profiles'
+  | 'profileWithHeader'
   | string
 
 export interface IItemDummy {
@@ -24,6 +25,7 @@ export interface IItem {
   packageCards?: PackageCards
   notes?: Notes
   profiles?: Profiles
+  profileWithHeader?: ProfileWithHeader
 }
 
 type FontSize = 'normal' | 'big'
@@ -137,4 +139,12 @@ export interface Profile {
 
 export interface Profiles {
   items: Profile[]
+}
+
+export interface ProfileWithHeader {
+  barColor: string
+  title: string
+  subTitle: string
+  subTitleFontWeight: FontWeight
+  profile: Profile
 }

@@ -3,6 +3,7 @@ import {
   Notes,
   PackageCards,
   Profiles,
+  ProfileWithHeader,
   SummaryOnly,
   SummaryWithImage,
   Title,
@@ -216,6 +217,38 @@ const defaultProfiles: Profiles = {
   ],
 }
 
+const defaultProfileWithHeader: ProfileWithHeader = {
+  barColor: '#000000',
+  title: '센터 정렬 타이틀 큰 사이즈',
+  subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
+  subTitleFontWeight: 'normal',
+  profile: {
+    name: '강사명',
+    images: {
+      '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
+      '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
+    },
+    descriptions: [
+      {
+        title: '리스트 타이틀',
+        type: 'number',
+        items: [
+          '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+          '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+        ],
+      },
+      {
+        title: '리스트 타이틀',
+        type: 'number',
+        items: [
+          '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+          '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+        ],
+      },
+    ],
+  },
+}
+
 export const defaultData: {
   [key: string]:
     | Title
@@ -225,6 +258,7 @@ export const defaultData: {
     | PackageCards
     | Notes
     | Profiles
+    | ProfileWithHeader
 } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
@@ -233,4 +267,5 @@ export const defaultData: {
   packageCards: defaultPackageCards,
   notes: defaultNotes,
   profiles: defaultProfiles,
+  profileWithHeader: defaultProfileWithHeader,
 }

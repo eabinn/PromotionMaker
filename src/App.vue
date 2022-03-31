@@ -72,6 +72,10 @@
     />
     <EditNotes v-if="editedItem.itemType === 'notes'" :original-item="editedItem.notes!" />
     <EditProfiles v-if="editedItem.itemType === 'profiles'" :original-item="editedItem.profiles!" />
+    <EditProfileWithHeader
+      v-if="editedItem.itemType === 'profileWithHeader'"
+      :original-item="editedItem.profileWithHeader!"
+    />
   </EditModal>
 </template>
 
@@ -88,6 +92,7 @@ import {
   PackageCards,
   Notes,
   Profiles,
+  ProfileWithHeader,
 } from './components/item.types'
 import Item from './components/Item.vue'
 import ItemDummy from './components/ItemDummy.vue'
@@ -100,6 +105,7 @@ import EditSummaryWithImage from './components/EditModal/EditSummaryWithImage.vu
 import EditPackageCards from './components/EditModal/EditPackageCards.vue'
 import EditNotes from './components/EditModal/EditNotes.vue'
 import EditProfiles from './components/EditModal/EditProfiles.vue'
+import EditProfileWithHeader from './components/EditModal/EditProfileWithHeader.vue'
 
 const getResult = (e: Event) => {
   e.stopPropagation()
@@ -123,6 +129,7 @@ interface EditedItem {
   packageCards?: PackageCards
   notes?: Notes
   profiles?: Profiles
+  profileWithHeader?: ProfileWithHeader
 }
 
 const items = ref<IItemDummy[]>([
@@ -133,6 +140,7 @@ const items = ref<IItemDummy[]>([
   { type: 'packageCards', name: 'Package Cards', color: 'DarkRed' },
   { type: 'notes', name: 'Notes', color: 'DarkKhaki' },
   { type: 'profiles', name: 'Profiles', color: 'MediumSlateBlue' },
+  { type: 'profileWithHeader', name: 'One Profile with Header', color: 'DarkTurquoise' },
 ])
 
 let sectionId = 0
@@ -183,6 +191,11 @@ const modifyItem = (item: IItem, sectionId: number, itemId: number) => {
   } else if (item.type === 'profiles') {
     editedItem.itemType = 'profiles'
     editedItem.profiles = JSON.parse(JSON.stringify(item.profiles)) as Profiles
+  } else if (item.type === 'profileWithHeader') {
+    editedItem.itemType = 'profileWithHeader'
+    editedItem.profileWithHeader = JSON.parse(
+      JSON.stringify(item.profileWithHeader)
+    ) as ProfileWithHeader
   }
 
   openEditModal()
@@ -206,6 +219,8 @@ const confirmEdit = () => {
     item.notes = editedItem.notes
   } else if (editedItem.itemType === 'profiles') {
     item.profiles = editedItem.profiles
+  } else if (editedItem.itemType === 'profileWithHeader') {
+    item.profileWithHeader = editedItem.profileWithHeader
   }
   closeEditModal()
 }
@@ -268,6 +283,8 @@ const dragItemCopyEnd = (e: DragEvent) => {
         item.notes = defaultData[item.type] as Notes
       } else if (item.type === 'profiles') {
         item.profiles = defaultData[item.type] as Profiles
+      } else if (item.type === 'profileWithHeader') {
+        item.profileWithHeader = defaultData[item.type] as ProfileWithHeader
       }
 
       section.items.push(item)
