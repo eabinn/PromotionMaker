@@ -1,4 +1,11 @@
-import { LandingButton, PackageCards, SummaryOnly, SummaryWithImage, Title } from './item.types'
+import {
+  LandingButton,
+  Notes,
+  PackageCards,
+  SummaryOnly,
+  SummaryWithImage,
+  Title,
+} from './item.types'
 
 const defaultTitle: Title = {
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
@@ -131,12 +138,35 @@ const defaultPackageCards: PackageCards = {
   ],
 }
 
+const defaultNotes: Notes = {
+  contentColumn: 8,
+  items: [
+    {
+      title: '리스트 타이틀',
+      type: 'number',
+      items: [
+        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+      ],
+    },
+    {
+      title: '리스트 타이틀',
+      type: 'number',
+      items: [
+        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+      ],
+    },
+  ],
+}
+
 export const defaultData: {
-  [key: string]: Title | SummaryOnly | SummaryWithImage | LandingButton | PackageCards
+  [key: string]: Title | SummaryOnly | SummaryWithImage | LandingButton | PackageCards | Notes
 } = {
   title: defaultTitle,
   summaryOnly: defaultSummaryOnly,
   summaryWithImage: defaultSummaryWithImage,
   landingButton: defaultLandingButton,
   packageCards: defaultPackageCards,
+  notes: defaultNotes,
 }

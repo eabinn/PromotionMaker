@@ -4,6 +4,7 @@ export type ItemType =
   | 'landingButton'
   | 'summaryWithImage'
   | 'packageCards'
+  | 'notes'
 
 export interface IItemDummy {
   type: ItemType
@@ -18,6 +19,7 @@ export interface IItem extends IItemDummy {
   summaryWithImage?: SummaryWithImage
   landingButton?: LandingButton
   packageCards?: PackageCards
+  notes?: Notes
 }
 
 type FontSize = 'normal' | 'big'
@@ -64,7 +66,7 @@ export interface SummaryOnly {
   title: string
   subTitle: string
   subTitleFontWeight: FontWeight
-  descriptions: { title: string; type: ListType; items: string[] }[]
+  descriptions: List[]
 }
 
 export interface SummaryWithImage {
@@ -72,7 +74,7 @@ export interface SummaryWithImage {
   title: string
   subTitle: string
   subTitleFontWeight: FontWeight
-  descriptions: { title: string; type: ListType; items: string[] }[]
+  descriptions: List[]
   images: {
     '1x': string
     '2x': string
@@ -107,4 +109,15 @@ export interface PackageCard {
 
 export interface PackageCards {
   items: PackageCard[]
+}
+
+export interface List {
+  title: string
+  type: ListType
+  items: string[]
+}
+
+export interface Notes {
+  contentColumn: number
+  items: List[]
 }
