@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.8"],\
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.23"],\
+            ["@types/vue-router", "npm:2.0.0"],\
             ["@types/webpack-env", "npm:1.16.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.16.0"],\
             ["@typescript-eslint/parser", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.16.0"],\
@@ -91,6 +92,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vue", "npm:3.2.31"],\
             ["vue-eslint-parser", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:8.3.0"],\
             ["vue-loader", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:17.0.0"],\
+            ["vue-router", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.0.14"],\
             ["webpack", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.70.0"],\
             ["webpack-cli", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.9.2"],\
             ["webpack-dev-server", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.7.4"],\
@@ -3329,6 +3331,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/vue-router", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/@types-vue-router-npm-2.0.0-f95c0c27ef-b43f3f921c.zip/node_modules/@types/vue-router/",\
+          "packageDependencies": [\
+            ["@types/vue-router", "npm:2.0.0"],\
+            ["vue-router", "virtual:f95c0c27ef22e6d3343fc8fbcedd9e85f05d075460f8c6dbe774e41fdae5e1ca93e2d916bcf1fa2cbf57063a3e7e00853b935ea33cae6287243d704cd17317f8#npm:4.0.14"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/webpack-env", [\
         ["npm:1.16.3", {\
           "packageLocation": "./.yarn/cache/@types-webpack-env-npm-1.16.3-0fd64e1f17-faefa7c0a7.zip/node_modules/@types/webpack-env/",\
@@ -3623,6 +3635,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/compiler-ssr", "npm:3.2.31"],\
             ["@vue/compiler-dom", "npm:3.2.31"],\
             ["@vue/shared", "npm:3.2.31"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@vue/devtools-api", [\
+        ["npm:6.1.4", {\
+          "packageLocation": "./.yarn/cache/@vue-devtools-api-npm-6.1.4-4ee2c9cc71-027bb138b0.zip/node_modules/@vue/devtools-api/",\
+          "packageDependencies": [\
+            ["@vue/devtools-api", "npm:6.1.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4173,6 +4194,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.8"],\
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.23"],\
+            ["@types/vue-router", "npm:2.0.0"],\
             ["@types/webpack-env", "npm:1.16.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.16.0"],\
             ["@typescript-eslint/parser", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.16.0"],\
@@ -4224,6 +4246,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vue", "npm:3.2.31"],\
             ["vue-eslint-parser", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:8.3.0"],\
             ["vue-loader", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:17.0.0"],\
+            ["vue-router", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.0.14"],\
             ["webpack", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:5.70.0"],\
             ["webpack-cli", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.9.2"],\
             ["webpack-dev-server", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.7.4"],\
@@ -12951,6 +12974,43 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/webpack",\
             "webpack"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["vue-router", [\
+        ["npm:4.0.14", {\
+          "packageLocation": "./.yarn/cache/vue-router-npm-4.0.14-271dd85acd-694f6a85f8.zip/node_modules/vue-router/",\
+          "packageDependencies": [\
+            ["vue-router", "npm:4.0.14"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.0.14", {\
+          "packageLocation": "./.yarn/__virtual__/vue-router-virtual-ec0fb24a30/0/cache/vue-router-npm-4.0.14-271dd85acd-694f6a85f8.zip/node_modules/vue-router/",\
+          "packageDependencies": [\
+            ["vue-router", "virtual:110f0037493bec51fa700cc640071ae0feea4c5ba3ae25e78138d62eb801cc50b53ce0b7c2a6aa148c600e59f159832f0c4c15bb3634ce0e46a55ffdc5e1f206#npm:4.0.14"],\
+            ["@types/vue", null],\
+            ["@vue/devtools-api", "npm:6.1.4"],\
+            ["vue", "npm:3.2.31"]\
+          ],\
+          "packagePeers": [\
+            "@types/vue",\
+            "vue"\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["virtual:f95c0c27ef22e6d3343fc8fbcedd9e85f05d075460f8c6dbe774e41fdae5e1ca93e2d916bcf1fa2cbf57063a3e7e00853b935ea33cae6287243d704cd17317f8#npm:4.0.14", {\
+          "packageLocation": "./.yarn/__virtual__/vue-router-virtual-beaec350c6/0/cache/vue-router-npm-4.0.14-271dd85acd-694f6a85f8.zip/node_modules/vue-router/",\
+          "packageDependencies": [\
+            ["vue-router", "virtual:f95c0c27ef22e6d3343fc8fbcedd9e85f05d075460f8c6dbe774e41fdae5e1ca93e2d916bcf1fa2cbf57063a3e7e00853b935ea33cae6287243d704cd17317f8#npm:4.0.14"],\
+            ["@types/vue", null],\
+            ["@vue/devtools-api", "npm:6.1.4"],\
+            ["vue", null]\
+          ],\
+          "packagePeers": [\
+            "@types/vue",\
+            "vue"\
           ],\
           "linkType": "HARD"\
         }]\
