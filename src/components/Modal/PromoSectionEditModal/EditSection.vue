@@ -13,16 +13,16 @@
       <label>섹션간의 위치를 변경합니다. (좌측이 첫번째 섹션입니다.)</label>
       <div class="dragzone dragzone-sections">
         <div
-          v-for="section in props.sectionsOrder"
+          v-for="(section, index) in props.sectionsOrder"
           :id="section.originalId + ''"
-          :key="section.originalId"
+          :key="section.id"
           class="drag-item"
           :draggable="true"
           @dragstart="dragStart($event)"
           @dragend="dragEnd($event)"
         >
-          <b v-if="section.isCurrent">현재 섹션</b>
-          <b v-else>{{ section.originalId + 1 }}</b>
+          <b v-if="props.sectionId === section.originalId">현재 섹션</b>
+          <b v-else>{{ index + 1 }}</b>
         </div>
       </div>
     </div>
@@ -31,15 +31,15 @@
       <label>섹션의 아이템들간의 위치를 변경합니다. (좌측이 첫번째 아이템입니다.)</label>
       <div class="dragzone dragzone-section-items">
         <div
-          v-for="sectionItem in props.sectionItemsOrder"
-          :id="sectionItem.originalId + ''"
-          :key="sectionItem.originalId"
+          v-for="(promoItem, index) in props.sectionItemsOrder"
+          :id="promoItem.originalId + ''"
+          :key="promoItem.id"
           class="drag-item"
           :draggable="true"
           @dragstart="dragStart($event)"
           @dragend="dragEnd($event)"
         >
-          <b>{{ sectionItem.originalId + 1 }}</b>
+          <b>{{ index + 1 }}</b>
         </div>
       </div>
     </div>
@@ -47,20 +47,21 @@
 </template>
 
 <script lang="ts" setup>
-import { toRef } from 'vue'
+import { toRef, onUnmounted } from 'vue'
 import { IPromoSection } from '@/interfaces/promo.interfaces'
-
-interface IProps {
-  item: IPromoSection
-  sectionsOrder: { originalId: number; isCurrent: boolean }[]
-  sectionItemsOrder: { originalId: number }[]
-  updateSectionsOrder(order: number[]): void
-  updateSectionItemsOrder(order: number[]): void
-}
 
 const DRAGGING_ITEM = 'dragging'
 const DRAG_ITEM = 'drag-item'
 const DRAG_ZONE = 'dragzone'
+
+interface IProps {
+  item: IPromoSection
+  sectionsOrder: { originalId: number; isCurrent: boolean; id: number }[]
+  sectionItemsOrder: { originalId: number; id: number }[]
+  updateSectionsOrder(order: number[]): void
+  updateSectionItemsOrder(order: number[]): void
+  sectionId: number
+}
 
 const props = defineProps<IProps>()
 
@@ -139,6 +140,8 @@ function isInBox(e: DragEvent, box: DOMRect) {
     e.clientY <= box.top + box.height
   )
 }
+
+onUnmounted(() => console.log('zzzz'))
 </script>
 
 <style lang="scss" scoped>

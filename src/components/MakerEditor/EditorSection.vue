@@ -10,7 +10,7 @@
 
     <div class="editor-section-content" :style="{ backgroundColor: props.section.color }">
       <div class="content-layout">
-        <div class="container">
+        <div v-if="props.section.items && props.section.items.length" class="container">
           <PromoItem
             v-for="(item, index) in props.section.items"
             :key="index"
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { IPromoSection } from '@/interfaces/promo.interfaces'
+import { ref } from 'vue'
 import EditorSectionActions from './EditorSectionActions.vue'
 import PromoItem from './PromoItem.vue'
 

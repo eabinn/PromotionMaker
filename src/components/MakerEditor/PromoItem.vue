@@ -1,24 +1,30 @@
 <template>
-  <Title v-if="props.item.type === 'title'" :data="props.item.title!"></Title>
-  <SummaryOnly v-else-if="props.item.type === 'summaryOnly'" :data="props.item.summaryOnly!" />
+  <Title v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
+  <SummaryOnly
+    v-else-if="props.item && props.item.type === 'summaryOnly'"
+    :data="props.item.summaryOnly!"
+  />
   <SummaryWithImage
-    v-else-if="props.item.type === 'summaryWithImage'"
+    v-else-if="props.item && props.item.type === 'summaryWithImage'"
     :data="props.item.summaryWithImage!"
   />
   <LandingButton
-    v-else-if="props.item.type === 'landingButton'"
+    v-else-if="props.item && props.item.type === 'landingButton'"
     :data="props.item.landingButton!"
   />
-  <PackageCards v-else-if="props.item.type === 'packageCards'" :data="props.item.packageCards!" />
-  <Notes v-else-if="props.item.type === 'notes'" :data="props.item.notes!" />
-  <Profiles v-else-if="props.item.type === 'profiles'" :data="props.item.profiles!" />
+  <PackageCards
+    v-else-if="props.item && props.item.type === 'packageCards'"
+    :data="props.item.packageCards!"
+  />
+  <Notes v-else-if="props.item && props.item.type === 'notes'" :data="props.item.notes!" />
+  <Profiles v-else-if="props.item && props.item.type === 'profiles'" :data="props.item.profiles!" />
   <ProfileWithHeader
-    v-else-if="props.item.type === 'profileWithHeader'"
+    v-else-if="props.item && props.item.type === 'profileWithHeader'"
     :data="props.item.profileWithHeader!"
   />
-  <Benefits v-else-if="props.item.type === 'benefits'" :data="props.item.benefits!" />
+  <Benefits v-else-if="props.item && props.item.type === 'benefits'" :data="props.item.benefits!" />
   <MarketingVideo
-    v-else-if="props.item.type === 'marketingVideo'"
+    v-else-if="props.item && props.item.type === 'marketingVideo'"
     :data="props.item.marketingVideo!"
   />
 </template>

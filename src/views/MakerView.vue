@@ -30,11 +30,12 @@
     :edited-section="editedSection"
     :sections-order="sectionsOrder"
     :section-items-order="sectionItemsOrder"
+    :section-id="editedSectionInfo.sectionId"
   />
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import Sidebar from '@/components/MakerSidebar/Sidebar.vue'
 import Editor from '@/components/MakerEditor/Editor.vue'
 import PromoItemEditModal from '@/components/Modal/PromoItemEditModal/PromoItemEditModal.vue'
@@ -52,16 +53,19 @@ const editedSection = ref<IPromoSection>()
 const editedSectionInfo = {
   sectionId: 0,
 }
-const sectionsOrder = ref<{ originalId: number; isCurrent: boolean }[]>([])
-const sectionItemsOrder = ref<{ originalId: number }[]>([])
+const sectionsOrder = ref<{ originalId: number; isCurrent: boolean; id: number }[]>([])
+const sectionItemsOrder = ref<{ originalId: number; id: number }[]>([])
 const editedItem = ref<IPromoItem>()
 const editedItemInfo = {
   sectionId: 0,
   itemId: 0,
 }
+let uniqueId = 0
 
 const getResult = (e: Event) => {
   e.stopPropagation()
+
+  console.log(sections.value)
 }
 
 const handleEditModal = (editedType: 'item' | 'section', setVisible: boolean) => {
@@ -91,38 +95,37 @@ const modifySection = (sectionId: number) => {
   editedSection.value = JSON.parse(JSON.stringify(section)) as IPromoSection
 
   sectionsOrder.value = []
-  sectionsOrder.value = sections.value.map((section, index) => {
-    return {
-      originalId: index,
-      isCurrent: editedSectionInfo.sectionId === index,
-    }
-  })
+  sectionsOrder.value = sections.value.map((section, index) => ({
+    id: uniqueId++,
+    originalId: index,
+    isCurrent: editedSectionInfo.sectionId === index,
+  }))
 
   sectionItemsOrder.value = []
-  sectionItemsOrder.value = section.items.map((item, index) => {
-    return {
-      originalId: index,
-    }
-  })
+  sectionItemsOrder.value = section.items.map((item, index) => ({
+    id: uniqueId++,
+    originalId: index,
+  }))
 
   handleEditModal('section', true)
 }
 
 const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]) => {
-  console.log('섹션들 순서', sectionsOrder)
-  console.log('섹션 아이템들 순서', sectionItemsOrder)
-
   const editedData = editedSection.value as IPromoSection
 
   sections.value[editedSectionInfo.sectionId] = editedData
 
-  sections.value = sectionsOrder.map((order) => {
-    return sections.value[order]
-  })
+  if (sectionsOrder.length) {
+    sections.value = sectionsOrder.map((order) => {
+      return sections.value[order]
+    })
+  }
 
-  sections.value[editedSectionInfo.sectionId].items = sectionItemsOrder.map((order) => {
-    return sections.value[editedSectionInfo.sectionId].items[order]
-  })
+  if (sectionItemsOrder.length) {
+    sections.value[editedSectionInfo.sectionId].items = sectionItemsOrder.map((order) => {
+      return sections.value[editedSectionInfo.sectionId].items[order]
+    })
+  }
 
   handleEditModal('section', false)
 }
