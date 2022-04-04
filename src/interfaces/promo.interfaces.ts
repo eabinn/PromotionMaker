@@ -37,6 +37,12 @@ export interface IPromoSection {
   items: IPromoItem[]
 }
 
+export interface IEditedSectionInfo {
+  sectionId: number
+  sectionsOrder: { originalIndex: number; isCurrent: boolean }[]
+  itemsOrder: { originalIndex: number }[]
+}
+
 type FontSize = 'normal' | 'big'
 type FontWeight = 'normal' | 'bold'
 type ListType = 'normal' | 'dot' | 'number'

@@ -4,6 +4,7 @@
 
     <Editor
       :sections="sections"
+      :edit-section="modifySection"
       :get-result="getResult"
       :add-section="addSection"
       :delete-section="deleteSection"
@@ -13,28 +14,46 @@
     />
   </div>
 
-  <PromotionItemEditModal
+  <PromoItemEditModal
     v-if="editedItem"
-    :is-visible="isEditModalVisible"
-    :close-modal="closeEditModal"
-    :confirm-edit="confirmEdit"
+    :is-visible="isItemEdited"
+    :close-modal="() => handleEditModal('item', false)"
+    :confirm-edit="confirmItemEdit"
     :edited-item="editedItem"
+  />
+
+  <PromoSectionEditModal
+    v-if="editedSection"
+    :is-visible="isSectionEdited"
+    :close-modal="() => handleEditModal('section', false)"
+    :confirm-edit="confirmSectionEdit"
+    :edited-section="editedSection"
+    :sections-order="sectionsOrder"
+    :section-items-order="sectionItemsOrder"
   />
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import Sidebar from '@/components/MakerSidebar/Sidebar.vue'
 import Editor from '@/components/MakerEditor/Editor.vue'
-import PromotionItemEditModal from '@/components/Modal/PromotionItemEditModal/PromotionItemEditModal.vue'
+import PromoItemEditModal from '@/components/Modal/PromoItemEditModal/PromoItemEditModal.vue'
+import PromoSectionEditModal from '@/components/Modal/PromoSectionEditModal/PromoSectionEditModal.vue'
 import { IPromoSection, IPromoItem, PromoItemType } from '@/interfaces/promo.interfaces'
 import { defaultPromoData } from '@/mockupDatas/promoData'
 
 const DRAGGING_ITEM_ID = 'itemType'
 const DRAGGING_ITEM_EFFECT = 'move'
 
-const isEditModalVisible = ref(false)
+const isItemEdited = ref(false)
+const isSectionEdited = ref(false)
 const sections = ref<IPromoSection[]>([])
+const editedSection = ref<IPromoSection>()
+const editedSectionInfo = {
+  sectionId: 0,
+}
+const sectionsOrder = ref<{ originalId: number; isCurrent: boolean }[]>([])
+const sectionItemsOrder = ref<{ originalId: number }[]>([])
 const editedItem = ref<IPromoItem>()
 const editedItemInfo = {
   sectionId: 0,
@@ -45,34 +64,12 @@ const getResult = (e: Event) => {
   e.stopPropagation()
 }
 
-const closeEditModal = () => {
-  isEditModalVisible.value = false
-}
-
-const openEditModal = () => {
-  isEditModalVisible.value = true
-}
-
-const modifyItem = (sectionId: number, itemId: number) => {
-  editedItemInfo.sectionId = sectionId
-  editedItemInfo.itemId = itemId
-
-  const section = sections.value[sectionId]
-  const modifyItem = section.items[itemId]
-
-  editedItem.value = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
-
-  openEditModal()
-}
-
-const confirmEdit = () => {
-  const section = sections.value[editedItemInfo.sectionId]
-
-  if (editedItem.value) {
-    section.items[editedItemInfo.itemId] = editedItem.value
+const handleEditModal = (editedType: 'item' | 'section', setVisible: boolean) => {
+  if (editedType === 'item') {
+    isItemEdited.value = setVisible
+  } else if (editedType === 'section') {
+    isSectionEdited.value = setVisible
   }
-
-  closeEditModal()
 }
 
 const addSection = () => {
@@ -84,6 +81,72 @@ const deleteSection = (id: number) => {
     ...sections.value.slice(0, id),
     ...sections.value.slice(id + 1, sections.value.length),
   ]
+}
+
+const modifySection = (sectionId: number) => {
+  editedSectionInfo.sectionId = sectionId
+
+  const section = sections.value[sectionId]
+
+  editedSection.value = JSON.parse(JSON.stringify(section)) as IPromoSection
+
+  sectionsOrder.value = []
+  sectionsOrder.value = sections.value.map((section, index) => {
+    return {
+      originalId: index,
+      isCurrent: editedSectionInfo.sectionId === index,
+    }
+  })
+
+  sectionItemsOrder.value = []
+  sectionItemsOrder.value = section.items.map((item, index) => {
+    return {
+      originalId: index,
+    }
+  })
+
+  handleEditModal('section', true)
+}
+
+const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]) => {
+  console.log('섹션들 순서', sectionsOrder)
+  console.log('섹션 아이템들 순서', sectionItemsOrder)
+
+  const editedData = editedSection.value as IPromoSection
+
+  sections.value[editedSectionInfo.sectionId] = editedData
+
+  sections.value = sectionsOrder.map((order) => {
+    return sections.value[order]
+  })
+
+  sections.value[editedSectionInfo.sectionId].items = sectionItemsOrder.map((order) => {
+    return sections.value[editedSectionInfo.sectionId].items[order]
+  })
+
+  handleEditModal('section', false)
+}
+
+const modifyItem = (sectionId: number, itemId: number) => {
+  editedItemInfo.sectionId = sectionId
+  editedItemInfo.itemId = itemId
+
+  const section = sections.value[sectionId]
+  const modifyItem = section.items[itemId]
+
+  editedItem.value = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
+
+  handleEditModal('item', true)
+}
+
+const confirmItemEdit = () => {
+  const section = sections.value[editedItemInfo.sectionId]
+
+  if (editedItem.value) {
+    section.items[editedItemInfo.itemId] = editedItem.value
+  }
+
+  handleEditModal('item', false)
 }
 
 const dragItemCopyStart = (e: DragEvent) => {

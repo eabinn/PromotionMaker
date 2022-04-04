@@ -1,5 +1,5 @@
 <template>
-  <div class="modal title-edit-modal">
+  <div class="modal title-edit-modal" :class="{ visible: props.isVisible }">
     <div class="modal-content">
       <div class="form">
         <slot />
@@ -16,6 +16,7 @@
 
 <script lang="ts" setup>
 interface IProps {
+  isVisible: boolean
   closeModal(): void
   confirmEdit(): void
 }

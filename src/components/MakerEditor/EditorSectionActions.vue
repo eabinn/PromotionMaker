@@ -1,6 +1,8 @@
 <template>
   <div class="editor-section-actions">
-    <button>섹션 정보 변경</button>
+    <button class="btn btn-primary" @click="props.editSection(props.sectionId)">
+      섹션 정보 변경
+    </button>
     <div
       :id="props.sectionId + ''"
       class="dropzone"
@@ -9,13 +11,14 @@
     >
       DROPZONE
     </div>
-    <button @click="props.deleteSection">섹션 삭제</button>
+    <button class="btn btn-danger" @click="props.deleteSection">섹션 삭제</button>
   </div>
 </template>
 
 <script lang="ts" setup>
 interface IProps {
   sectionId: number
+  editSection(sectionId: number): void
   dragCopyEnd(e: DragEvent): void
   dragCopyOver(e: DragEvent): void
   deleteSection(): void

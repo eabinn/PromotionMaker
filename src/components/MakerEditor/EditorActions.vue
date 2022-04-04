@@ -1,7 +1,7 @@
 <template>
   <div class="editor-actions">
     <button @click="props.getResult($event)">에디터 결과</button>
-    <button @click="props.addSection">섹션 추가</button>
+    <button class="btn btn-primary" @click="props.addSection">섹션 추가</button>
   </div>
 </template>
 

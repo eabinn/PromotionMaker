@@ -5,8 +5,9 @@
     <EditorSection
       v-for="(section, index) in props.sections"
       :key="index"
+      :section="section"
       :section-id="index"
-      :items="section.items"
+      :edit-section="props.editSection"
       :drag-copy-over="props.dragCopyOver"
       :drag-copy-end="props.dragCopyEnd"
       :delete-section="() => props.deleteSection(index)"
@@ -22,6 +23,7 @@ import EditorSection from './EditorSection.vue'
 
 interface IProps {
   sections: IPromoSection[]
+  editSection(sectionId: number): void
   getResult(e: Event): void
   addSection(): void
   deleteSection(id: number): void

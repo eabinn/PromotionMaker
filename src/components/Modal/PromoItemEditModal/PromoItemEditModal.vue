@@ -1,6 +1,6 @@
 <template>
   <EditModal
-    :class="{ visible: props.isVisible }"
+    :is-visible="props.isVisible"
     :close-modal="props.closeModal"
     :confirm-edit="props.confirmEdit"
   >
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IPromoItem } from '@/components/item.types'
+import { IPromoItem } from '@/interfaces/promo.interfaces'
 import EditModal from '../common/EditModal.vue'
 import EditSummaryOnly from './EditSummaryOnly.vue'
 import EditTitle from './EditTitle.vue'

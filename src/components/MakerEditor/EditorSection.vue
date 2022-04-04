@@ -2,16 +2,17 @@
   <section class="editor-section">
     <EditorSectionActions
       :section-id="props.sectionId"
+      :edit-section="props.editSection"
       :drag-copy-over="props.dragCopyOver"
       :drag-copy-end="props.dragCopyEnd"
       :delete-section="props.deleteSection"
     />
 
-    <div class="editor-section-content">
+    <div class="editor-section-content" :style="{ backgroundColor: props.section.color }">
       <div class="content-layout">
         <div class="container">
           <PromoItem
-            v-for="(item, index) in props.items"
+            v-for="(item, index) in props.section.items"
             :key="index"
             :item="item"
             class="edited-item"
@@ -24,13 +25,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IPromoItem } from '@/interfaces/promo.interfaces'
+import { IPromoSection } from '@/interfaces/promo.interfaces'
 import EditorSectionActions from './EditorSectionActions.vue'
 import PromoItem from './PromoItem.vue'
 
 interface IProps {
   sectionId: number
-  items: IPromoItem[]
+  section: IPromoSection
+  editSection(sectionId: number): void
   deleteSection(): void
   modifyItem(sectionId: number, itemId: number): void
   dragCopyEnd(e: DragEvent): void
