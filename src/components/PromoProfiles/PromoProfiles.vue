@@ -1,5 +1,5 @@
 <template>
-  <div class="col-wrapper text-center">
+  <div class="text-center">
     <div
       v-for="(profile, index) in props.data.items"
       :key="index"

@@ -28,6 +28,7 @@
       v-if="props.editedItem.type === 'marketingVideo'"
       :item="props.editedItem.marketingVideo!"
     />
+    <EditReviews v-if="props.editedItem.type === 'reviews'" :item="props.editedItem.reviews!" />
   </EditModal>
 </template>
 
@@ -43,6 +44,7 @@ import EditProfiles from './EditProfiles.vue'
 import EditBenefits from './EditBenefits.vue'
 import EditMarketingVideo from './EditMarketingVideo.vue'
 import EditTitleWithBar from './EditTitleWithBar.vue'
+import EditReviews from './EditReviews.vue'
 
 interface IProps {
   isVisible: boolean

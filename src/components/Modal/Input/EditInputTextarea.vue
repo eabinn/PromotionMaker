@@ -1,7 +1,7 @@
 <template>
   <div class="edit-input edit-input-textarea">
     <label>{{ props.changeTarget }}을 입력해주세요</label>
-    <ul class="help">
+    <ul v-if="props.showHelp" class="help">
       <li>아무 것도 입력하지 않으면 화면에 해당 영역이 그려지지 않습니다.</li>
       <li>
         {{`줄바꿈이 가능합니다. <br />
@@ -21,9 +21,12 @@ interface IProps {
   value: string
   updateValue(value: string): void
   changeTarget: string
+  showHelp?: boolean
 }
 
-const props = defineProps<IProps>()
+const props = withDefaults(defineProps<IProps>(), {
+  showHelp: true,
+})
 
 const handleChange = (e: Event) => {
   const input = e.target as HTMLInputElement

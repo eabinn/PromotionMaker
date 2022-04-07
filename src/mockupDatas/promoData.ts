@@ -14,6 +14,8 @@ import {
   PackageCard,
   PackageCardButton,
   TitleWithBar,
+  Reviews,
+  Review,
 } from '@/interfaces/promo.interfaces'
 
 export const defaultDescription: List = {
@@ -186,6 +188,15 @@ export const defaultTitleWithBar: TitleWithBar = {
   underSubTitle: '아래쪽 서브 타이틀',
 }
 
+export const defaultReview: Review = {
+  text: `가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사`,
+  name: 'ㅇㅇㅇ',
+}
+export const defaultReviews: Reviews = {
+  type: 'reviews',
+  items: [defaultReview, defaultReview],
+}
+
 export const defaultPromoData = {
   section: defaultSection,
   title: defaultTitle,
@@ -197,4 +208,5 @@ export const defaultPromoData = {
   benefits: defaultBenefits,
   marketingVideo: defaultMarketingVideo,
   titleWithBar: defaultTitleWithBar,
+  reviews: defaultReviews,
 }

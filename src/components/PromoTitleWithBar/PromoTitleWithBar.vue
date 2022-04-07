@@ -1,5 +1,5 @@
 <template>
-  <div class="col-wrapper text-center">
+  <div class="text-center">
     <div class="col-xs-12 no-float col-item" :class="`col-md-${props.data.column}`">
       <div
         v-if="props.data.title || props.data.upSubTitle || props.data.underSubTitle"

@@ -28,6 +28,7 @@
             :update-value="(value) => (profile.images = value)"
           />
           <EditInputDescriptions
+            :change-target="'강사 이력'"
             :value="profile.descriptions"
             :update-value="(value) => (profile.descriptions = value)"
           />

@@ -77,6 +77,7 @@ const draggableItems = ref<IPromoItemDraggable[]>([
   { type: 'profiles', name: 'Profiles' },
   { type: 'benefits', name: 'Benefits' },
   { type: 'marketingVideo', name: 'Marketing Video' },
+  { type: 'reviews', name: 'Reviews' },
 ])
 
 const getResult = (e: Event) => {
@@ -211,6 +212,7 @@ const dragItemCopyEnd = (e: DragEvent) => {
     benefits: itemType === 'benefits' ? defaultPromoData[itemType] : undefined,
     marketingVideo: itemType === 'marketingVideo' ? defaultPromoData[itemType] : undefined,
     titleWithBar: itemType === 'titleWithBar' ? defaultPromoData[itemType] : undefined,
+    reviews: itemType === 'reviews' ? defaultPromoData[itemType] : undefined,
   })
 }
 </script>

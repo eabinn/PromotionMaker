@@ -1,5 +1,5 @@
 <template>
-  <div class="col-wrapper text-center">
+  <div class="text-center">
     <div
       v-if="props.data.imagePosition === 'left'"
       class="hidden-xs hidden-sm col-xs-12 no-float col-item col-top"

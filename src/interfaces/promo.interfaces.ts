@@ -10,6 +10,7 @@ export type PromoItemType =
   | 'benefits'
   | 'marketingVideo'
   | 'titleWithBar'
+  | 'reviews'
 
 export interface IPromoItemDraggable {
   type: PromoItemType
@@ -30,6 +31,7 @@ export interface IPromoItem extends IPromoItemBase {
   benefits?: Benefits
   marketingVideo?: MarketingVideo
   titleWithBar?: TitleWithBar
+  reviews?: Reviews
 }
 
 export interface IPromoSection {
@@ -157,4 +159,13 @@ export interface MarketingVideo extends IPromoItemBase {
   videoUrl: string
   leftColor: string
   rightColor: string
+}
+
+export interface Review {
+  text: string
+  name: string
+}
+
+export interface Reviews extends IPromoItemBase {
+  items: Review[]
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-wrapper text-center">
+  <div class="text-center">
     <div class="col-xs-12 no-float col-item" :class="`col-md-${props.data.contentColumn}`">
       <div v-for="(description, index) in props.data.items" :key="index" class="definition">
         <div v-if="description.title" class="definition-title text-left">

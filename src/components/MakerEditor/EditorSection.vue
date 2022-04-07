@@ -15,8 +15,7 @@
             v-for="(item, index) in props.section.items"
             :key="index"
             :item="item"
-            class="edited-item"
-            @click="() => props.modifyItem(props.sectionId, index)"
+            :edit-item="() => props.modifyItem(props.sectionId, index)"
           />
         </div>
       </div>
@@ -52,14 +51,5 @@ const props = defineProps<IProps>()
 
 .editor-section-content {
   padding: 50px 0 70px;
-}
-
-.edited-item {
-  cursor: pointer;
-  transition: background-color 200ms ease;
-
-  &:hover {
-    background-color: rgba(#000000, 0.5);
-  }
 }
 </style>
