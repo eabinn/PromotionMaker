@@ -1,6 +1,6 @@
 <template>
   <div class="maker-view">
-    <Sidebar :drag-copy-start="dragItemCopyStart" />
+    <Sidebar :drag-copy-start="dragItemCopyStart" :items="draggableItems" />
 
     <Editor
       :sections="sections"
@@ -40,7 +40,12 @@ import Sidebar from '@/components/MakerSidebar/Sidebar.vue'
 import Editor from '@/components/MakerEditor/Editor.vue'
 import PromoItemEditModal from '@/components/Modal/PromoItemEditModal/PromoItemEditModal.vue'
 import PromoSectionEditModal from '@/components/Modal/PromoSectionEditModal/PromoSectionEditModal.vue'
-import { IPromoSection, IPromoItem, PromoItemType } from '@/interfaces/promo.interfaces'
+import {
+  IPromoSection,
+  IPromoItem,
+  PromoItemType,
+  IPromoItemDraggable,
+} from '@/interfaces/promo.interfaces'
 import { defaultPromoData } from '@/mockupDatas/promoData'
 
 const DRAGGING_ITEM_ID = 'itemType'
@@ -61,6 +66,18 @@ const editedItemInfo = {
   itemId: 0,
 }
 let uniqueId = 0
+
+const draggableItems = ref<IPromoItemDraggable[]>([
+  { type: 'title', name: 'Title' },
+  { type: 'titleWithBar', name: 'Title with Bar' },
+  { type: 'summaryWithImage', name: 'Summary with Image' },
+  { type: 'landingButton', name: 'Landing Button' },
+  { type: 'packageCards', name: 'Package Cards' },
+  { type: 'notes', name: 'Notes' },
+  { type: 'profiles', name: 'Profiles' },
+  { type: 'benefits', name: 'Benefits' },
+  { type: 'marketingVideo', name: 'Marketing Video' },
+])
 
 const getResult = (e: Event) => {
   e.stopPropagation()

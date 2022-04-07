@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <PromoItemDraggable
-      v-for="(item, index) in draggablePromoItems"
+      v-for="(item, index) in props.items"
       :key="index"
       :item="item"
       :drag-copy-start="props.dragCopyStart"
@@ -15,22 +15,11 @@ import { ref } from 'vue'
 import PromoItemDraggable from './PromoItemDraggable.vue'
 
 interface IProps {
+  items: IPromoItemDraggable[]
   dragCopyStart(e: DragEvent): void
 }
 
 const props = defineProps<IProps>()
-
-const draggablePromoItems = ref<IPromoItemDraggable[]>([
-  { type: 'title', name: 'Title' },
-  { type: 'titleWithBar', name: 'Title with Bar' },
-  { type: 'summaryWithImage', name: 'Summary with Image' },
-  { type: 'landingButton', name: 'Landing Button' },
-  { type: 'packageCards', name: 'Package Cards' },
-  { type: 'notes', name: 'Notes' },
-  { type: 'profiles', name: 'Profiles' },
-  { type: 'benefits', name: 'Benefits' },
-  { type: 'marketingVideo', name: 'Marketing Video' },
-])
 </script>
 
 <style lang="scss" scoped>
