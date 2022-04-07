@@ -37,11 +37,17 @@ export interface IPromoSection {
   items: IPromoItem[]
 }
 
-type FontSize = 'normal' | 'big'
-type FontWeight = 'normal' | 'bold'
-type ListType = 'normal' | 'dot' | 'number'
-type PositionType = 'left' | 'right'
-type ButtonType = 'normal' | 'outline'
+export type FontSize = 'normal' | 'big'
+export type FontWeight = 'normal' | 'bold'
+export type ListType = 'normal' | 'dot' | 'number'
+export type PositionType = 'left' | 'right'
+export type PackageCardButtonType = 'normal' | 'outline'
+export type LandingButtonType = 'normal' | 'tail'
+
+export interface ImageSet {
+  '1x': string
+  '2x': string
+}
 
 export interface Title extends IPromoItemBase {
   title: string
@@ -69,10 +75,7 @@ export interface SummaryWithImage extends IPromoItemBase {
   subTitle: string
   subTitleFontWeight: FontWeight
   descriptions: List[]
-  images: {
-    '1x': string
-    '2x': string
-  }
+  images: ImageSet
   imageContentColumn: number
   descriptionContentColumn: number
   imagePosition: PositionType
@@ -82,7 +85,16 @@ export interface LandingButton extends IPromoItemBase {
   mainColor: string
   text: string
   link: string
-  style: 'normal' | 'tail'
+  style: LandingButtonType
+}
+
+export interface PackageCardButton {
+  type: PackageCardButtonType
+  mainColor: string
+  text: string
+  day: string
+  price: string
+  link: string
 }
 
 export interface PackageCard {
@@ -91,14 +103,7 @@ export interface PackageCard {
   subTitle: string
   title: string
   descriptions: string[]
-  buttons: {
-    type: ButtonType
-    mainColor: string
-    text: string
-    day: string
-    price: string
-    link: string
-  }[]
+  buttons: PackageCardButton[]
 }
 
 export interface PackageCards extends IPromoItemBase {
@@ -118,10 +123,7 @@ export interface Notes extends IPromoItemBase {
 
 export interface Profile {
   name: string
-  images: {
-    '1x': string
-    '2x': string
-  }
+  images: ImageSet
   descriptions: List[]
 }
 
@@ -141,10 +143,7 @@ export interface Benefit {
   identifier: string
   title: string
   text: string
-  images: {
-    '1x': string
-    '2x': string
-  }
+  images: ImageSet
 }
 
 export interface Benefits extends IPromoItemBase {

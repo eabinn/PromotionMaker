@@ -1,58 +1,57 @@
 <template>
-  <form>
-    <div class="item">
-      <b># 타이틀을 입력해주세요.</b>
-      <textarea v-model="editedItem.title" />
-    </div>
-    <div class="item">
-      <b># 타이틀 폰트 두께를 선택해주세요.</b>
-      <select v-model="editedItem.titleSize">
-        <option value="normal">Normal</option>
-        <option value="bold">Bold</option>
-      </select>
-    </div>
-    <div class="item">
-      <b># 위쪽 서브타이틀을 입력해주세요.</b>
-      <textarea v-model="editedItem.upSubtitle" />
-    </div>
-    <div class="item">
-      <b># 위쪽 서브타이틀 폰트 크기를 선택해주세요.</b>
-      <select v-model="editedItem.upSubtitleFontSize">
-        <option value="normal">Normal</option>
-        <option value="big">Big</option>
-      </select>
-    </div>
-    <div class="item">
-      <b># 위쪽 서브타이틀 폰트 두께를 선택해주세요.</b>
-      <select v-model="editedItem.upSubtitleFontWeight">
-        <option value="normal">Normal</option>
-        <option value="bold">Bold</option>
-      </select>
-    </div>
-    <div class="item">
-      <b># 아래쪽 서브타이틀을 입력해주세요.</b>
-      <textarea v-model="editedItem.underSubtitle" />
-    </div>
-    <div class="item">
-      <b># 아래쪽 서브타이틀 폰트 크기를 선택해주세요.</b>
-      <select v-model="editedItem.underSubtitleFontSize">
-        <option value="normal">Normal</option>
-        <option value="big">Big</option>
-      </select>
-    </div>
-    <div class="item">
-      <b># 아래쪽 서브타이틀 폰트 두께를 선택해주세요.</b>
-      <select v-model="editedItem.underSubtitleFontWeight">
-        <option value="normal">Normal</option>
-        <option value="bold">Bold</option>
-      </select>
-    </div>
-  </form>
+  <EditForm>
+    <EditInputTextarea
+      :change-target="'타이틀'"
+      :value="editedItem.title"
+      :update-value="(value) => (editedItem.title = value)"
+    />
+    <EditInputSelectFontSize
+      :change-target="'타이틀'"
+      :value="editedItem.titleSize"
+      :update-value="(value) => (editedItem.titleSize = value)"
+    />
+    <EditInputTextarea
+      :change-target="'위쪽 서브타이틀'"
+      :value="editedItem.upSubtitle"
+      :update-value="(value) => (editedItem.upSubtitle = value)"
+    />
+    <EditInputSelectFontSize
+      :change-target="'위쪽 서브타이틀'"
+      :value="editedItem.upSubtitleFontSize"
+      :update-value="(value) => (editedItem.upSubtitleFontSize = value)"
+    />
+
+    <EditInputSelectFontWeight
+      :change-target="'위쪽 서브타이틀'"
+      :value="editedItem.upSubtitleFontWeight"
+      :update-value="(value) => (editedItem.upSubtitleFontWeight = value)"
+    />
+    <EditInputTextarea
+      :change-target="'아래쪽 서브타이틀'"
+      :value="editedItem.underSubtitle"
+      :update-value="(value) => (editedItem.underSubtitle = value)"
+    />
+    <EditInputSelectFontSize
+      :change-target="'아래쪽 서브타이틀'"
+      :value="editedItem.underSubtitleFontSize"
+      :update-value="(value) => (editedItem.underSubtitleFontSize = value)"
+    />
+
+    <EditInputSelectFontWeight
+      :change-target="'아래쪽 서브타이틀'"
+      :value="editedItem.underSubtitleFontWeight"
+      :update-value="(value) => (editedItem.underSubtitleFontWeight = value)"
+    />
+  </EditForm>
 </template>
 
 <script lang="ts" setup>
 import { toRef } from 'vue'
-import { Title } from '../item.types'
+import { Title } from '@/interfaces/promo.interfaces'
+import EditForm from './common/EditForm.vue'
+import EditInputTextarea from '../Input/EditInputTextarea.vue'
+import EditInputSelectFontWeight from '../Input/EditInputSelectFontWeight.vue'
+import EditInputSelectFontSize from '../Input/EditInputSelectFontSize.vue'
 
 interface IProps {
   item: Title
@@ -62,48 +61,3 @@ const props = defineProps<IProps>()
 
 const editedItem = toRef(props, 'item')
 </script>
-
-<style lang="scss" scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  .item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  select {
-    display: block;
-    width: 100%;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  .descriptions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .description {
-    &-type {
-      margin-bottom: 10px;
-    }
-    &-item {
-      display: flex;
-      textarea {
-        flex: 1;
-      }
-    }
-  }
-}
-</style>

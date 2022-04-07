@@ -1,23 +1,29 @@
 <template>
-  <form>
-    <div class="item">
-      <b># 좌측 상단 코너 색상을 정해주세요.</b>
-      <input v-model="editedItem.leftColor" type="color" />
-    </div>
-    <div class="item">
-      <b># 우측 하단 코너 색상을 정해주세요.</b>
-      <input v-model="editedItem.rightColor" type="color" />
-    </div>
-    <div class="item">
-      <b>비디오 링크를 적어주세요.</b>
-      <input v-model="editedItem.videoUrl" />
-    </div>
-  </form>
+  <EditForm>
+    <EditInputColor
+      :change-target="'좌측 상단 코너'"
+      :value="editedItem.leftColor"
+      :update-value="(value) => (editedItem.leftColor = value)"
+    />
+    <EditInputColor
+      :change-target="'우측 하단 코너'"
+      :value="editedItem.rightColor"
+      :update-value="(value) => (editedItem.rightColor = value)"
+    />
+    <EditInputText
+      :change-target="'비디오 링크'"
+      :value="editedItem.videoUrl"
+      :update-value="(value) => (editedItem.videoUrl = value)"
+    />
+  </EditForm>
 </template>
 
 <script lang="ts" setup>
 import { toRef } from 'vue'
-import { MarketingVideo } from '../item.types'
+import { MarketingVideo } from '@/interfaces/promo.interfaces'
+import EditForm from './common/EditForm.vue'
+import EditInputColor from '../Input/EditInputColor.vue'
+import EditInputText from '../Input/EditInputText.vue'
 
 interface IProps {
   item: MarketingVideo
@@ -27,48 +33,3 @@ const props = defineProps<IProps>()
 
 const editedItem = toRef(props, 'item')
 </script>
-
-<style lang="scss" scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  .item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  select {
-    display: block;
-    width: 100%;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  .descriptions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .description {
-    &-type {
-      margin-bottom: 10px;
-    }
-    &-item {
-      display: flex;
-      textarea {
-        flex: 1;
-      }
-    }
-  }
-}
-</style>

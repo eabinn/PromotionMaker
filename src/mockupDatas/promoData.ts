@@ -10,7 +10,67 @@ import {
   Title,
   MarketingVideo,
   IPromoSection,
+  List,
+  Profile,
+  Benefit,
+  PackageCard,
+  PackageCardButton,
 } from '@/interfaces/promo.interfaces'
+
+export const defaultDescription: List = {
+  title: '리스트 타이틀',
+  type: 'number',
+  items: [
+    '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+    '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+  ],
+}
+
+export const defaultProfile: Profile = {
+  name: '강사명',
+  images: {
+    '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
+    '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
+  },
+  descriptions: [
+    {
+      title: '리스트 타이틀',
+      type: 'number',
+      items: [
+        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
+        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
+      ],
+    },
+  ],
+}
+
+export const defaultBenefit: Benefit = {
+  identifier: '혜택 1',
+  title: '더미 텍스트 가나다라',
+  text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
+  images: {
+    '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+    '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
+  },
+}
+
+export const defaultPackageCardButton: PackageCardButton = {
+  type: 'normal',
+  mainColor: '#9D45E8',
+  text: '클래스',
+  day: '123',
+  price: '9,999,900',
+  link: 'https://airklass.com',
+}
+
+export const defaultPackageCard: PackageCard = {
+  mainColor: '#9D45E8',
+  identifier: 'PACKAGE 1',
+  subTitle: '서브 타이틀 한 줄 최대 18자',
+  title: '타이틀 한 줄 12자<br>타이틀 한 줄 12자',
+  descriptions: ['asdfasfasfasdfas;lfjasf', 'qwerqwerqwerqwer', 'sdfasdfasasdfasdf'],
+  buttons: [defaultPackageCardButton, defaultPackageCardButton],
+}
 
 const defaultTitle: Title = {
   type: 'title',
@@ -31,24 +91,7 @@ const defaultSummaryOnly: SummaryOnly = {
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
   subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
   subTitleFontWeight: 'normal',
-  descriptions: [
-    {
-      title: '리스트 타이틀',
-      type: 'number',
-      items: [
-        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-      ],
-    },
-    {
-      title: '리스트 타이틀',
-      type: 'number',
-      items: [
-        '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-        '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-      ],
-    },
-  ],
+  descriptions: [defaultDescription, defaultDescription],
 }
 
 const defaultSummaryWithImage: SummaryWithImage = {
@@ -94,58 +137,7 @@ const defaultLandingButton: LandingButton = {
 
 const defaultPackageCards: PackageCards = {
   type: 'packageCards',
-  items: [
-    {
-      mainColor: '#9D45E8',
-      identifier: 'PACKAGE 1',
-      subTitle: '서브 타이틀 한 줄 최대 18자',
-      title: '타이틀 한 줄 12자<br>타이틀 한 줄 12자',
-      descriptions: ['asdfasfasfasdfas;lfjasf', 'qwerqwerqwerqwer', 'sdfasdfasasdfasdf'],
-      buttons: [
-        {
-          type: 'normal',
-          mainColor: '#9D45E8',
-          text: '클래스',
-          day: '123',
-          price: '9,999,900',
-          link: 'https://airklass.com',
-        },
-        {
-          type: 'outline',
-          mainColor: '#9D45E8',
-          text: '패키지',
-          day: '123',
-          price: '9,999,900',
-          link: 'https://airklass.com',
-        },
-      ],
-    },
-    {
-      mainColor: '#9D45E8',
-      identifier: 'PACKAGE 1',
-      subTitle: '서브 타이틀 한 줄 최대 18자',
-      title: '타이틀 한 줄 12자<br>타이틀 한 줄 12자',
-      descriptions: ['asdfasfasfasdfas;lfjasf', 'qwerqwerqwerqwer', 'sdfasdfasasdfasdf'],
-      buttons: [
-        {
-          type: 'normal',
-          mainColor: '#9D45E8',
-          text: '클래스',
-          day: '123',
-          price: '9,999,900',
-          link: 'https://airklass.com',
-        },
-        {
-          type: 'outline',
-          mainColor: '#9D45E8',
-          text: '패키지',
-          day: '123',
-          price: '9,999,900',
-          link: 'https://airklass.com',
-        },
-      ],
-    },
-  ],
+  items: [defaultPackageCard, defaultPackageCard],
 }
 
 const defaultNotes: Notes = {
@@ -180,50 +172,9 @@ const defaultProfiles: Profiles = {
         '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
         '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
       },
-      descriptions: [
-        {
-          title: '리스트 타이틀',
-          type: 'number',
-          items: [
-            '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-            '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-          ],
-        },
-        {
-          title: '리스트 타이틀',
-          type: 'number',
-          items: [
-            '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-            '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-          ],
-        },
-      ],
+      descriptions: [defaultDescription, defaultDescription],
     },
-    {
-      name: '강사명',
-      images: {
-        '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-        '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-      },
-      descriptions: [
-        {
-          title: '리스트 타이틀',
-          type: 'number',
-          items: [
-            '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-            '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-          ],
-        },
-        {
-          title: '리스트 타이틀',
-          type: 'number',
-          items: [
-            '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-            '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-          ],
-        },
-      ],
-    },
+    defaultProfile,
   ],
 }
 
@@ -239,59 +190,14 @@ const defaultProfileWithHeader: ProfileWithHeader = {
       '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
       '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
     },
-    descriptions: [
-      {
-        title: '리스트 타이틀',
-        type: 'number',
-        items: [
-          '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-          '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-        ],
-      },
-      {
-        title: '리스트 타이틀',
-        type: 'number',
-        items: [
-          '기본 노트 리스트 아이템 가나다라마바사아자차 아야어여오요우유으이',
-          '가나다라마바사아자차카타파하 아야어여오요우유으이 가나다라마바사아자차카타파',
-        ],
-      },
-    ],
+    descriptions: [defaultDescription, defaultDescription],
   },
 }
 
 const defaultBenefits: Benefits = {
   type: 'benefits',
   itemColumn: 4,
-  items: [
-    {
-      identifier: '혜택 1',
-      title: '더미 텍스트 가나다라',
-      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
-      images: {
-        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-      },
-    },
-    {
-      identifier: '혜택 1',
-      title: '더미 텍스트 가나다라',
-      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
-      images: {
-        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-      },
-    },
-    {
-      identifier: '혜택 1',
-      title: '더미 텍스트 가나다라',
-      text: ' 가나다라마바사 더미 텍스트 가나다라마바사아자차',
-      images: {
-        '1x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-        '2x': 'https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s',
-      },
-    },
-  ],
+  items: [defaultBenefit, defaultBenefit, defaultBenefit],
 }
 
 const defaultMarketingVideo: MarketingVideo = {

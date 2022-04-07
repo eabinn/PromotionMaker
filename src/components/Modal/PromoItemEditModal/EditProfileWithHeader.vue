@@ -1,5 +1,27 @@
 <template>
   <form v-if="editedItem">
+    <EditInputColor
+      :change-target="'Bar'"
+      :value="editedItem.barColor"
+      :update-value="(value) => (editedItem.barColor = value)"
+    />
+    <EditInputTextarea
+      :change-target="'타이틀'"
+      :value="editedItem.title"
+      :update-value="(value) => (editedItem.title = value)"
+    />
+    <EditInputTextarea
+      :change-target="'서브타이틀'"
+      :value="editedItem.subTitle"
+      :update-value="(value) => (editedItem.subTitle = value)"
+    />
+
+    <EditInputSelectFontWeight
+      :change-target="'서브타이틀'"
+      :value="editedItem.subTitleFontWeight"
+      :update-value="(value) => (editedItem.subTitleFontWeight = value)"
+    />
+
     <div class="item">
       <b># bar 색깔을 정해주세요.</b>
       <input v-model="editedItem.barColor" type="color" />
@@ -86,7 +108,10 @@
 
 <script lang="ts" setup>
 import { toRef } from 'vue'
-import { ProfileWithHeader } from '@/components/item.types'
+import { ProfileWithHeader } from '@/interfaces/promo.interfaces'
+import EditInputColor from '../Input/EditInputColor.vue'
+import EditInputTextarea from '../Input/EditInputTextarea.vue'
+import EditInputSelectFontWeight from '../Input/EditInputSelectFontWeight.vue'
 
 interface IProps {
   item: ProfileWithHeader
