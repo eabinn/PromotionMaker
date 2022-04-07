@@ -9,6 +9,7 @@ export type PromoItemType =
   | 'profileWithHeader'
   | 'benefits'
   | 'marketingVideo'
+  | 'titleWithBar'
 
 export interface IPromoItemDraggable {
   type: PromoItemType
@@ -21,15 +22,14 @@ export interface IPromoItemBase {
 
 export interface IPromoItem extends IPromoItemBase {
   title?: Title
-  summaryOnly?: SummaryOnly
   summaryWithImage?: SummaryWithImage
   landingButton?: LandingButton
   packageCards?: PackageCards
   notes?: Notes
   profiles?: Profiles
-  profileWithHeader?: ProfileWithHeader
   benefits?: Benefits
   marketingVideo?: MarketingVideo
+  titleWithBar?: TitleWithBar
 }
 
 export interface IPromoSection {
@@ -58,6 +58,14 @@ export interface Title extends IPromoItemBase {
   underSubtitle: string
   underSubtitleFontSize: FontSize
   underSubtitleFontWeight: FontWeight
+}
+
+export interface TitleWithBar extends IPromoItemBase {
+  column: number
+  barColor: string
+  title: string
+  upSubTitle: string
+  underSubTitle: string
 }
 
 export interface SummaryOnly extends IPromoItemBase {
@@ -107,6 +115,7 @@ export interface PackageCard {
 }
 
 export interface PackageCards extends IPromoItemBase {
+  column: number
   items: PackageCard[]
 }
 
@@ -128,15 +137,8 @@ export interface Profile {
 }
 
 export interface Profiles extends IPromoItemBase {
+  column: number
   items: Profile[]
-}
-
-export interface ProfileWithHeader extends IPromoItemBase {
-  barColor: string
-  title: string
-  subTitle: string
-  subTitleFontWeight: FontWeight
-  profile: Profile
 }
 
 export interface Benefit {
@@ -147,7 +149,7 @@ export interface Benefit {
 }
 
 export interface Benefits extends IPromoItemBase {
-  itemColumn: number
+  column: number
   items: Benefit[]
 }
 

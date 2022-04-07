@@ -22,13 +22,12 @@ const props = defineProps<IProps>()
 
 const draggablePromoItems = ref<IPromoItemDraggable[]>([
   { type: 'title', name: 'Title' },
-  { type: 'summaryOnly', name: 'Summary Only' },
+  { type: 'titleWithBar', name: 'Title with Bar' },
   { type: 'summaryWithImage', name: 'Summary with Image' },
   { type: 'landingButton', name: 'Landing Button' },
   { type: 'packageCards', name: 'Package Cards' },
   { type: 'notes', name: 'Notes' },
   { type: 'profiles', name: 'Profiles' },
-  { type: 'profileWithHeader', name: 'One Profile with Header' },
   { type: 'benefits', name: 'Benefits' },
   { type: 'marketingVideo', name: 'Marketing Video' },
 ])

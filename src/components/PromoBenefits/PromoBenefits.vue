@@ -4,7 +4,7 @@
       v-for="(benefit, index) in props.data.items"
       :key="index"
       class="col-xs-12 no-float col-item"
-      :class="`col-md-${props.data.itemColumn}`"
+      :class="`col-md-${props.data.column}`"
     >
       <div class="event-icon">
         <img

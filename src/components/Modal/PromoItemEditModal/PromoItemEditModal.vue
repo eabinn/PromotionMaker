@@ -5,9 +5,9 @@
     :confirm-edit="props.confirmEdit"
   >
     <EditTitle v-if="props.editedItem.type === 'title'" :item="props.editedItem.title!" />
-    <EditSummaryOnly
-      v-if="props.editedItem.type === 'summaryOnly'"
-      :item="props.editedItem.summaryOnly!"
+    <EditTitleWithBar
+      v-if="props.editedItem.type === 'titleWithBar'"
+      :item="props.editedItem.titleWithBar!"
     />
     <EditSummaryWithImage
       v-if="props.editedItem.type === 'summaryWithImage'"
@@ -23,10 +23,6 @@
     />
     <EditNotes v-if="props.editedItem.type === 'notes'" :item="props.editedItem.notes!" />
     <EditProfiles v-if="props.editedItem.type === 'profiles'" :item="props.editedItem.profiles!" />
-    <EditProfileWithHeader
-      v-if="props.editedItem.type === 'profileWithHeader'"
-      :item="props.editedItem.profileWithHeader!"
-    />
     <EditBenefits v-if="props.editedItem.type === 'benefits'" :item="props.editedItem.benefits!" />
     <EditMarketingVideo
       v-if="props.editedItem.type === 'marketingVideo'"
@@ -38,16 +34,15 @@
 <script lang="ts" setup>
 import { IPromoItem } from '@/interfaces/promo.interfaces'
 import EditModal from '../common/EditModal.vue'
-import EditSummaryOnly from './EditSummaryOnly.vue'
 import EditTitle from './EditTitle.vue'
 import EditLandingButton from './EditLandingButton.vue'
 import EditSummaryWithImage from './EditSummaryWithImage.vue'
 import EditPackageCards from './EditPackageCards.vue'
 import EditNotes from './EditNotes.vue'
 import EditProfiles from './EditProfiles.vue'
-import EditProfileWithHeader from './EditProfileWithHeader.vue'
 import EditBenefits from './EditBenefits.vue'
 import EditMarketingVideo from './EditMarketingVideo.vue'
+import EditTitleWithBar from './EditTitleWithBar.vue'
 
 interface IProps {
   isVisible: boolean

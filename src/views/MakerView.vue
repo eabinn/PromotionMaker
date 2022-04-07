@@ -186,15 +186,14 @@ const dragItemCopyEnd = (e: DragEvent) => {
   section.items.push({
     type: itemType,
     title: itemType === 'title' ? defaultPromoData[itemType] : undefined,
-    summaryOnly: itemType === 'summaryOnly' ? defaultPromoData[itemType] : undefined,
     summaryWithImage: itemType === 'summaryWithImage' ? defaultPromoData[itemType] : undefined,
     landingButton: itemType === 'landingButton' ? defaultPromoData[itemType] : undefined,
     packageCards: itemType === 'packageCards' ? defaultPromoData[itemType] : undefined,
     notes: itemType === 'notes' ? defaultPromoData[itemType] : undefined,
     profiles: itemType === 'profiles' ? defaultPromoData[itemType] : undefined,
-    profileWithHeader: itemType === 'profileWithHeader' ? defaultPromoData[itemType] : undefined,
     benefits: itemType === 'benefits' ? defaultPromoData[itemType] : undefined,
     marketingVideo: itemType === 'marketingVideo' ? defaultPromoData[itemType] : undefined,
+    titleWithBar: itemType === 'titleWithBar' ? defaultPromoData[itemType] : undefined,
   })
 }
 </script>

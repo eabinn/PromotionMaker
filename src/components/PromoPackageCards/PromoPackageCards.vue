@@ -5,7 +5,8 @@
         <div
           v-for="(card, index) in props.data.items"
           :key="index"
-          class="col-xs-12 col-md-4 no-float col-item pk-card"
+          class="col-xs-12 no-float col-item pk-card"
+          :class="`col-md-${props.data.column}`"
         >
           <div class="pk-card__heading" :style="{ backgroundColor: card.mainColor }">
             <div v-if="card.identifier" class="pk-card--no">

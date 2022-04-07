@@ -3,7 +3,8 @@
     <div
       v-for="(profile, index) in props.data.items"
       :key="index"
-      class="col-xs-12 col-md-6 col-lg-5 no-float col-item"
+      class="col-xs-12 no-float col-item"
+      :class="`col-md-${props.data.column}`"
     >
       <div class="pr-profile text-left">
         <div class="pr-profile-img">

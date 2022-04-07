@@ -1,9 +1,5 @@
 <template>
   <Title v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
-  <SummaryOnly
-    v-else-if="props.item && props.item.type === 'summaryOnly'"
-    :data="props.item.summaryOnly!"
-  />
   <SummaryWithImage
     v-else-if="props.item && props.item.type === 'summaryWithImage'"
     :data="props.item.summaryWithImage!"
@@ -18,14 +14,14 @@
   />
   <Notes v-else-if="props.item && props.item.type === 'notes'" :data="props.item.notes!" />
   <Profiles v-else-if="props.item && props.item.type === 'profiles'" :data="props.item.profiles!" />
-  <ProfileWithHeader
-    v-else-if="props.item && props.item.type === 'profileWithHeader'"
-    :data="props.item.profileWithHeader!"
-  />
   <Benefits v-else-if="props.item && props.item.type === 'benefits'" :data="props.item.benefits!" />
   <MarketingVideo
     v-else-if="props.item && props.item.type === 'marketingVideo'"
     :data="props.item.marketingVideo!"
+  />
+  <TitleWithBar
+    v-else-if="props.item && props.item.type === 'titleWithBar'"
+    :data="props.item.titleWithBar!"
   />
 </template>
 
@@ -38,9 +34,9 @@ import SummaryWithImage from '@/components/PromoSummaryWithImage/PromoSummaryWit
 import PackageCards from '@/components/PromoPackageCards/PromoPackageCards.vue'
 import Notes from '@/components/PromoNotes/PromoNotes.vue'
 import Profiles from '@/components/PromoProfiles/PromoProfiles.vue'
-import ProfileWithHeader from '@/components/PromoProfileWithHeader/PromoProfileWithHeader.vue'
 import Benefits from '@/components/PromoBenefits/PromoBenefits.vue'
 import MarketingVideo from '@/components/PromoMarketingVideo/PromoMarketingVideo.vue'
+import TitleWithBar from '../PromoTitleWithBar/PromoTitleWithBar.vue'
 
 interface IProps {
   item: IPromoItem

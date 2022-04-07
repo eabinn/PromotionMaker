@@ -4,8 +4,6 @@ import {
   Notes,
   PackageCards,
   Profiles,
-  ProfileWithHeader,
-  SummaryOnly,
   SummaryWithImage,
   Title,
   MarketingVideo,
@@ -15,6 +13,7 @@ import {
   Benefit,
   PackageCard,
   PackageCardButton,
+  TitleWithBar,
 } from '@/interfaces/promo.interfaces'
 
 export const defaultDescription: List = {
@@ -84,16 +83,6 @@ const defaultTitle: Title = {
   underSubtitleFontWeight: 'normal',
 }
 
-const defaultSummaryOnly: SummaryOnly = {
-  type: 'summaryOnly',
-  contentColumn: 12,
-  barColor: '#000000',
-  title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
-  subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
-  subTitleFontWeight: 'normal',
-  descriptions: [defaultDescription, defaultDescription],
-}
-
 const defaultSummaryWithImage: SummaryWithImage = {
   type: 'summaryWithImage',
   barColor: '#000000',
@@ -137,6 +126,7 @@ const defaultLandingButton: LandingButton = {
 
 const defaultPackageCards: PackageCards = {
   type: 'packageCards',
+  column: 4,
   items: [defaultPackageCard, defaultPackageCard],
 }
 
@@ -165,38 +155,13 @@ const defaultNotes: Notes = {
 
 const defaultProfiles: Profiles = {
   type: 'profiles',
-  items: [
-    {
-      name: '강사명',
-      images: {
-        '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-        '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-      },
-      descriptions: [defaultDescription, defaultDescription],
-    },
-    defaultProfile,
-  ],
-}
-
-const defaultProfileWithHeader: ProfileWithHeader = {
-  type: 'profileWithHeader',
-  barColor: '#000000',
-  title: '센터 정렬 타이틀 큰 사이즈',
-  subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
-  subTitleFontWeight: 'normal',
-  profile: {
-    name: '강사명',
-    images: {
-      '1x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-      '2x': 'https://i.picsum.photos/id/233/183/183.jpg?hmac=jy33ns7RiGhwQmq3QHOp97Y0EGdKEQcXL-vRX6MDhuE',
-    },
-    descriptions: [defaultDescription, defaultDescription],
-  },
+  column: 6,
+  items: [defaultProfile, defaultProfile],
 }
 
 const defaultBenefits: Benefits = {
   type: 'benefits',
-  itemColumn: 4,
+  column: 4,
   items: [defaultBenefit, defaultBenefit, defaultBenefit],
 }
 
@@ -212,16 +177,24 @@ export const defaultSection: IPromoSection = {
   items: [],
 }
 
+export const defaultTitleWithBar: TitleWithBar = {
+  type: 'titleWithBar',
+  column: 8,
+  barColor: '#000000',
+  title: '타이틀 텍스트 small h5<br>두 줄 가나다라마바사아자차',
+  upSubTitle: '위쪽 서브 타이틀',
+  underSubTitle: '아래쪽 서브 타이틀',
+}
+
 export const defaultPromoData = {
   section: defaultSection,
   title: defaultTitle,
-  summaryOnly: defaultSummaryOnly,
   summaryWithImage: defaultSummaryWithImage,
   landingButton: defaultLandingButton,
   packageCards: defaultPackageCards,
   notes: defaultNotes,
   profiles: defaultProfiles,
-  profileWithHeader: defaultProfileWithHeader,
   benefits: defaultBenefits,
   marketingVideo: defaultMarketingVideo,
+  titleWithBar: defaultTitleWithBar,
 }

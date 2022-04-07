@@ -1,10 +1,10 @@
 <template>
   <EditForm>
     <EditInputNumber
-      :change-target="'PC 화면에서의 각 아이템들의 영역 비율'"
-      :value="editedItem.itemColumn"
+      :change-target="'PC 화면에서의 각 베네핏 아이템들의 영역 비율'"
+      :value="editedItem.column"
       :max-value="12"
-      :update-value="(value) => (editedItem.itemColumn = value)"
+      :update-value="(value) => (editedItem.column = value)"
     />
 
     <EditInputBenefits

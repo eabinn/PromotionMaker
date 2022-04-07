@@ -26,7 +26,6 @@
 
 <script lang="ts" setup>
 import { IPromoSection } from '@/interfaces/promo.interfaces'
-import { ref } from 'vue'
 import EditorSectionActions from './EditorSectionActions.vue'
 import PromoItem from './PromoItem.vue'
 
