@@ -1,7 +1,14 @@
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable selector-class-pattern */
-.pr-title {
-  display: flex;
+@import '@/assets/scss/mixins/flex';
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
+
+.pr-title,
+.pr-title-renewal {
+  @include display-flex;
+
   margin-bottom: 20px;
 
   &::before {
@@ -9,7 +16,7 @@
     width: 3px;
     margin: 5px 0 2px;
     background-color: currentcolor;
-    flex: none;
+    @include flex-value(none);
   }
 
   &--has-sub {
@@ -29,7 +36,7 @@
     word-break: keep-all;
     word-wrap: break-word;
     text-align: left;
-    color: #000;
+    color: color-map(gray, 600);
 
     &--sub {
       margin-bottom: 2px;
@@ -45,11 +52,10 @@
 
 .definition {
   ~ .definition {
-    margin-top: 24px;
+    margin-top: 12px;
   }
 
-  &-wrap + &-wrap,
-  &__item + &__item {
+  &-wrap + &-wrap {
     margin: 4px 0 0;
   }
 
@@ -65,12 +71,14 @@
   }
 
   &-title {
-    margin-bottom: 12px;
+    padding: 4px 0;
+    margin: 0;
     font-size: 14px;
     color: color-map(gray, 500);
   }
 
   &__item {
+    padding: 4px 0 0;
     margin: 0;
     text-align: left;
     line-height: 1.5;
@@ -107,5 +115,26 @@
   ol.definition-wrap {
     margin: 0;
     padding: 0 0 0 17px;
+  }
+
+  ol {
+    list-style-type: decimal;
+
+    ol {
+      list-style-type: lower-alpha;
+    }
+  }
+}
+
+.pr-title-renewal {
+  margin-bottom: 30px;
+}
+
+.img-wrapper {
+  max-width: 100%;
+  margin: auto;
+
+  img {
+    max-width: 100%;
   }
 }

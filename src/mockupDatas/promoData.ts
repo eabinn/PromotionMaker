@@ -77,12 +77,10 @@ const defaultTitle: Title = {
   type: 'title',
   title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
   titleSize: 'normal',
-  upSubtitle: '센터 정렬 서브 타이틀 기본 사이즈 가나다라마바사아자차',
-  upSubtitleFontSize: 'normal',
-  upSubtitleFontWeight: 'bold',
-  underSubtitle: '센터 정렬 서브 타이틀 기본 사이즈 가나다라마바사아자차',
-  underSubtitleFontSize: 'big',
-  underSubtitleFontWeight: 'normal',
+  upSubTitle: '센터 정렬 서브 타이틀 기본 사이즈 가나다라마바사아자차',
+  upSubTitleFontSize: 'normal',
+  underSubTitle: '센터 정렬 서브 타이틀 기본 사이즈 가나다라마바사아자차',
+  underSubTitleFontSize: 'big',
 }
 
 const defaultSummaryWithImage: SummaryWithImage = {
@@ -123,7 +121,8 @@ const defaultLandingButton: LandingButton = {
   mainColor: '#9D45E8',
   text: '공백 포함 최대 36바이트 국문 18자',
   link: 'https://www.airklass.com',
-  style: 'normal',
+  tailType: 'normal',
+  bgType: 'dark',
 }
 
 const defaultPackageCards: PackageCards = {
@@ -184,7 +183,7 @@ export const defaultTitleWithBar: TitleWithBar = {
   column: 8,
   barColor: '#000000',
   title: '타이틀 텍스트 small h5<br>두 줄 가나다라마바사아자차',
-  upSubTitle: '위쪽 서브 타이틀',
+  upSubTitle: '<b>위쪽 서브 타이틀</b>',
   underSubTitle: '아래쪽 서브 타이틀',
 }
 

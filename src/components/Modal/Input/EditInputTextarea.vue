@@ -11,6 +11,10 @@
         {{`색상 변경이 가능합니다. 원하는 텍스트를 <span style="color: #234123">텍스트</span> 와
         같이 <span /> 태그로 감싼 뒤 스타일 속성을 넣어주세요.`}}
       </li>
+      <li>
+        {{`bold가 가능합니다. 원하는 텍스트를 <b style="color: #234123">텍스트</b> 와 같이
+        <b /> 태그로 감싼 뒤 스타일 속성을 넣어주세요.`}}
+      </li>
     </ul>
     <textarea :value="props.value" @change="($event) => handleChange($event)" />
   </div>

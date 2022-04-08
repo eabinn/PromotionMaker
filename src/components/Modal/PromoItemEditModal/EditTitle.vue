@@ -12,35 +12,23 @@
     />
     <EditInputTextarea
       :change-target="'위쪽 서브타이틀'"
-      :value="editedItem.upSubtitle"
-      :update-value="(value) => (editedItem.upSubtitle = value)"
+      :value="editedItem.upSubTitle"
+      :update-value="(value) => (editedItem.upSubTitle = value)"
     />
     <EditInputSelectFontSize
       :change-target="'위쪽 서브타이틀'"
-      :value="editedItem.upSubtitleFontSize"
-      :update-value="(value) => (editedItem.upSubtitleFontSize = value)"
-    />
-
-    <EditInputSelectFontWeight
-      :change-target="'위쪽 서브타이틀'"
-      :value="editedItem.upSubtitleFontWeight"
-      :update-value="(value) => (editedItem.upSubtitleFontWeight = value)"
+      :value="editedItem.upSubTitleFontSize"
+      :update-value="(value) => (editedItem.upSubTitleFontSize = value)"
     />
     <EditInputTextarea
       :change-target="'아래쪽 서브타이틀'"
-      :value="editedItem.underSubtitle"
-      :update-value="(value) => (editedItem.underSubtitle = value)"
+      :value="editedItem.underSubTitle"
+      :update-value="(value) => (editedItem.underSubTitle = value)"
     />
     <EditInputSelectFontSize
       :change-target="'아래쪽 서브타이틀'"
-      :value="editedItem.underSubtitleFontSize"
-      :update-value="(value) => (editedItem.underSubtitleFontSize = value)"
-    />
-
-    <EditInputSelectFontWeight
-      :change-target="'아래쪽 서브타이틀'"
-      :value="editedItem.underSubtitleFontWeight"
-      :update-value="(value) => (editedItem.underSubtitleFontWeight = value)"
+      :value="editedItem.underSubTitleFontSize"
+      :update-value="(value) => (editedItem.underSubTitleFontSize = value)"
     />
   </EditForm>
 </template>
@@ -50,7 +38,6 @@ import { toRef } from 'vue'
 import { Title } from '@/interfaces/promo.interfaces'
 import EditForm from './common/EditForm.vue'
 import EditInputTextarea from '../Input/EditInputTextarea.vue'
-import EditInputSelectFontWeight from '../Input/EditInputSelectFontWeight.vue'
 import EditInputSelectFontSize from '../Input/EditInputSelectFontSize.vue'
 
 interface IProps {

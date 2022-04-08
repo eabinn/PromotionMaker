@@ -93,5 +93,5 @@ const props = defineProps<TitleProps>()
 
 <style lang="scss" scoped>
 @import '@/assets/scss/promotion/_package_items';
-@import '@/assets/scss/promotion/button';
+@import '@/assets/scss/promotion/_button';
 </style>

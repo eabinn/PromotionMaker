@@ -1,8 +1,14 @@
+/* stylelint-disable selector-class-pattern */
 @use 'sass:math';
-
+@import '@/assets/scss/mixins/flex';
 @import '@/assets/scss/mixins/mixins';
 @import '@/assets/scss/config';
 @import '@/assets/scss/color';
+
+/* for old type container size */
+.marketing > .container {
+  max-width: none;
+}
 
 .visual {
   &-wrapper {
@@ -33,6 +39,10 @@
     margin-top: 50px;
   }
 
+  .col-wrapper--bar + .col-wrapper {
+    margin-top: 0 !important;
+  }
+
   .col-wrapper .col-item {
     @include mq(min-md) {
       padding: 0 15px;
@@ -60,7 +70,7 @@
 
   &.intro {
     padding-top: 33px;
-    padding-bottom: (66px / 2);
+    padding-bottom: math.div(66px, 2);
     @include mq(min-md) {
       padding-top: 50px;
       padding-bottom: 50px;
@@ -126,7 +136,7 @@
 .pr-support {
   margin-top: 45px;
   font-size: 12px;
-  line-height: (40 / 24);
+  line-height: math.div(40, 24);
   color: color-map(gray, 300);
   text-align: center;
   @include mq(min-md) {
@@ -276,7 +286,7 @@
     }
 
     & ~ & {
-      margin-top: (90px / 2);
+      margin-top: math.div(90px, 2);
       @include mq(min-md) {
         margin-top: 0;
       }
@@ -341,10 +351,10 @@
     position: absolute;
     top: 0;
     left: 50%;
-    margin-top: math.percentage(240 / 750);
+    margin-top: math.percentage(math.div(240, 750));
     @include transform(translateX(-50%));
     @include mq(min-md) {
-      margin-top: math.percentage(98 / 1920);
+      margin-top: math.percentage(math.div(98, 1920));
     }
   }
 }
@@ -357,7 +367,7 @@
     margin: 0;
     padding: 0;
     color: color-map(gray, 600);
-    font-size: (48px / 2);
+    font-size: math.div(48px, 2);
     font-weight: 700;
     @include mq(min-md) {
       font-size: 24px;

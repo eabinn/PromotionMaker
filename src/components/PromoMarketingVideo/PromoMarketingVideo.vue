@@ -26,6 +26,6 @@ const props = defineProps<TitleProps>()
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/promotion/_layout.scss';
-@import '@/assets/scss/promotion/button';
+@import '@/assets/scss/promotion/_layout';
+@import '@/assets/scss/promotion/_button';
 </style>

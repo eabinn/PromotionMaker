@@ -1,4 +1,8 @@
 /* stylelint-disable selector-class-pattern */
+@import '@/assets/scss/mixins/flex';
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
 
 /* Erase after line-height is set by #3438 issue */
 div,
@@ -15,8 +19,8 @@ table {
 
 .title-container {
   gap: 4px;
-  display: flex;
-  flex-direction: column;
+  @include display-flex;
+  @include flex-direction(column);
 }
 
 .title-basic {
@@ -30,7 +34,7 @@ table {
 
 .title-large {
   color: color-map(gray, 600);
-  font-size: 28px;
+  font-size: 30px;
   text-align: center;
   font-weight: bold;
   padding: 0;

@@ -26,6 +26,11 @@ or
 </div>
 */
 
+@import '@/assets/scss/mixins/flex';
+@import '@/assets/scss/mixins/mixins';
+@import '@/assets/scss/config';
+@import '@/assets/scss/color';
+
 // btn gap
 .pr-btn-box ~ .pr-btn-box {
   margin-top: 18px;

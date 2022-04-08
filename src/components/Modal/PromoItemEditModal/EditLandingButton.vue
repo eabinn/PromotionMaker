@@ -5,6 +5,14 @@
       :value="editedItem.mainColor"
       :update-value="(value) => (editedItem.mainColor = value)"
     />
+    <EditInputSelectLandingButtonTailType
+      :value="editedItem.tailType"
+      :update-value="(value) => (editedItem.tailType = value)"
+    />
+    <EditInputSelectLandingButtonBgType
+      :value="editedItem.bgType"
+      :update-value="(value) => (editedItem.bgType = value)"
+    />
     <EditInputText
       :change-target="'랜딩 버튼 내용'"
       :value="editedItem.text"
@@ -15,10 +23,6 @@
       :value="editedItem.link"
       :update-value="(value) => (editedItem.link = value)"
     />
-    <EditInputSelectLandingButtonType
-      :value="editedItem.style"
-      :update-value="(value) => (editedItem.style = value)"
-    />
   </EditForm>
 </template>
 
@@ -28,7 +32,8 @@ import { LandingButton } from '@/interfaces/promo.interfaces'
 import EditForm from './common/EditForm.vue'
 import EditInputColor from '../Input/EditInputColor.vue'
 import EditInputText from '../Input/EditInputText.vue'
-import EditInputSelectLandingButtonType from '../Input/EditInputSelectLandingButtonType.vue'
+import EditInputSelectLandingButtonTailType from '../Input/EditInputSelectLandingButtonTailType.vue'
+import EditInputSelectLandingButtonBgType from '../Input/EditInputSelectLandingButtonBgType.vue'
 
 interface IProps {
   item: LandingButton

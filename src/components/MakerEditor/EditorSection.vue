@@ -8,7 +8,7 @@
       :delete-section="props.deleteSection"
     />
 
-    <div class="editor-section-content" :style="{ backgroundColor: props.section.color }">
+    <div class="pr-row editor-section-content" :style="{ backgroundColor: props.section.color }">
       <div class="content-layout">
         <div v-if="props.section.items && props.section.items.length" class="container">
           <PromoItem

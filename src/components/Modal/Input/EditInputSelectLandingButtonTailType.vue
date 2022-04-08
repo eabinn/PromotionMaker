@@ -1,6 +1,9 @@
 <template>
   <div class="edit-input">
-    <label>랜딩 버튼 타입를 선택해주세요.</label>
+    <label>랜딩 버튼 tail 타입를 선택해주세요.</label>
+    <ul class="help">
+      <li>normal일 경우 tail이 없습니다.</li>
+    </ul>
     <select :value="props.value" @change="($event) => handleChange($event)">
       <option v-for="(option, index) in options" :key="index" :value="option">
         {{ option.toUpperCase() }}
@@ -10,20 +13,20 @@
 </template>
 
 <script lang="ts" setup>
-import { LandingButtonType } from '@/interfaces/promo.interfaces'
+import { LandingButtonTailType } from '@/interfaces/promo.interfaces'
 import { ref } from 'vue'
 
 interface IProps {
   value: string
-  updateValue(value: LandingButtonType): void
+  updateValue(value: LandingButtonTailType): void
 }
 
 const props = defineProps<IProps>()
-const options = ref<LandingButtonType[]>(['normal', 'tail'])
+const options = ref<LandingButtonTailType[]>(['normal', 'tail'])
 
 const handleChange = (e: Event) => {
   const input = e.target as HTMLInputElement
-  const value = input.value as LandingButtonType
+  const value = input.value as LandingButtonTailType
   props.updateValue(value)
 }
 </script>

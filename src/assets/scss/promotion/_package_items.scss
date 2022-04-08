@@ -3,7 +3,7 @@
 /* stylelint-disable scss/operator-no-unspaced */
 /* stylelint-disable scss/no-global-function-names */
 @use 'sass:math';
-
+@import '@/assets/scss/mixins/flex';
 @import '@/assets/scss/mixins/mixins';
 @import '@/assets/scss/config';
 @import '@/assets/scss/color';

@@ -1,5 +1,8 @@
 <template>
-  <div class="col-wrapper promo-item">
+  <div
+    class="col-wrapper promo-item"
+    :class="props.item.type === 'titleWithBar' ? 'col-wrapper--bar' : ''"
+  >
     <button class="edit-btn btn btn-lg btn-primary" @click="props.editItem">수정</button>
     <Title v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
     <SummaryWithImage

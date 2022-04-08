@@ -44,7 +44,8 @@ export type FontWeight = 'normal' | 'bold'
 export type ListType = 'normal' | 'dot' | 'number'
 export type PositionType = 'left' | 'right'
 export type PackageCardButtonType = 'normal' | 'outline'
-export type LandingButtonType = 'normal' | 'tail'
+export type LandingButtonTailType = 'normal' | 'tail'
+export type LandingButtonBgType = 'light' | 'dark'
 
 export interface ImageSet {
   '1x': string
@@ -54,12 +55,10 @@ export interface ImageSet {
 export interface Title extends IPromoItemBase {
   title: string
   titleSize: FontSize
-  upSubtitle: string
-  upSubtitleFontSize: FontSize
-  upSubtitleFontWeight: FontWeight
-  underSubtitle: string
-  underSubtitleFontSize: FontSize
-  underSubtitleFontWeight: FontWeight
+  upSubTitle: string
+  upSubTitleFontSize: FontSize
+  underSubTitle: string
+  underSubTitleFontSize: FontSize
 }
 
 export interface TitleWithBar extends IPromoItemBase {
@@ -95,7 +94,8 @@ export interface LandingButton extends IPromoItemBase {
   mainColor: string
   text: string
   link: string
-  style: LandingButtonType
+  tailType: LandingButtonTailType
+  bgType: LandingButtonBgType
 }
 
 export interface PackageCardButton {
