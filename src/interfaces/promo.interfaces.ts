@@ -11,6 +11,7 @@ export type PromoItemType =
   | 'marketingVideo'
   | 'titleWithBar'
   | 'reviews'
+  | 'imagesOnly'
 
 export interface IPromoItemDraggable {
   type: PromoItemType
@@ -32,6 +33,7 @@ export interface IPromoItem extends IPromoItemBase {
   marketingVideo?: MarketingVideo
   titleWithBar?: TitleWithBar
   reviews?: Reviews
+  imagesOnly?: ImagesOnly
 }
 
 export interface IPromoSection {
@@ -168,4 +170,9 @@ export interface Review {
 
 export interface Reviews extends IPromoItemBase {
   items: Review[]
+}
+
+export interface ImagesOnly extends IPromoItemBase {
+  column: number
+  items: ImageSet[]
 }

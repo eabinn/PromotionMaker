@@ -16,6 +16,8 @@ import {
   TitleWithBar,
   Reviews,
   Review,
+  ImagesOnly,
+  ImageSet,
 } from '@/interfaces/promo.interfaces'
 
 export const defaultDescription: List = {
@@ -191,9 +193,21 @@ export const defaultReview: Review = {
   text: `가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사`,
   name: 'ㅇㅇㅇ',
 }
+
 export const defaultReviews: Reviews = {
   type: 'reviews',
   items: [defaultReview, defaultReview],
+}
+
+export const defaultImageSet: ImageSet = {
+  '1x': 'https://i.picsum.photos/id/866/536/354.jpg?hmac=tGofDTV7tl2rprappPzKFiZ9vDh5MKj39oa2D--gqhA',
+  '2x': 'https://i.picsum.photos/id/866/536/354.jpg?hmac=tGofDTV7tl2rprappPzKFiZ9vDh5MKj39oa2D--gqhA',
+}
+
+export const defaultImagesOnly: ImagesOnly = {
+  type: 'imagesOnly',
+  column: 6,
+  items: [defaultImageSet, defaultImageSet],
 }
 
 export const defaultPromoData = {
@@ -208,4 +222,5 @@ export const defaultPromoData = {
   marketingVideo: defaultMarketingVideo,
   titleWithBar: defaultTitleWithBar,
   reviews: defaultReviews,
+  imagesOnly: defaultImagesOnly,
 }

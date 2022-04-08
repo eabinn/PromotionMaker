@@ -80,10 +80,8 @@
     >
       <figure class="visual-wrapper">
         <img
-          src="https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s"
-          srcset="
-            https://i.picsum.photos/id/879/396/220.jpg?hmac=ha-MDDbv8d1ywmvn2VQOtKFU3OnOrB8xS49KBdim_0s 2x
-          "
+          :src="props.data.images['1x']"
+          :srcset="`${props.data.images['2x']} 2x`"
           alt="feature"
         />
       </figure>

@@ -27,6 +27,7 @@ const promotionStore = reactive<IPromotionStore>({
     { type: 'benefits', name: 'Benefits' },
     { type: 'marketingVideo', name: 'Marketing Video' },
     { type: 'reviews', name: 'Reviews' },
+    { type: 'imagesOnly', name: 'Images Only' },
   ],
   getSection(index) {
     return this.sections[index]
@@ -62,6 +63,7 @@ const promotionStore = reactive<IPromotionStore>({
       marketingVideo: itemType === 'marketingVideo' ? defaultPromoData[itemType] : undefined,
       titleWithBar: itemType === 'titleWithBar' ? defaultPromoData[itemType] : undefined,
       reviews: itemType === 'reviews' ? defaultPromoData[itemType] : undefined,
+      imagesOnly: itemType === 'imagesOnly' ? defaultPromoData[itemType] : undefined,
     })
   },
 })

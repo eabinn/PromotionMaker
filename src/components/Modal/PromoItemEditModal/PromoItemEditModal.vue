@@ -29,6 +29,10 @@
       :item="props.editedItem.marketingVideo!"
     />
     <EditReviews v-if="props.editedItem.type === 'reviews'" :item="props.editedItem.reviews!" />
+    <EditImagesOnly
+      v-if="props.editedItem.type === 'imagesOnly'"
+      :item="props.editedItem.imagesOnly!"
+    />
   </EditModal>
 </template>
 
@@ -45,6 +49,7 @@ import EditBenefits from './EditBenefits.vue'
 import EditMarketingVideo from './EditMarketingVideo.vue'
 import EditTitleWithBar from './EditTitleWithBar.vue'
 import EditReviews from './EditReviews.vue'
+import EditImagesOnly from './EditImagesOnly.vue'
 
 interface IProps {
   isVisible: boolean

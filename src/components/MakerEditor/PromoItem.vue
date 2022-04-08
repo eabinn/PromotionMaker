@@ -10,52 +10,60 @@
       수정
     </button>
 
-    <Title v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
-    <SummaryWithImage
+    <PromoTitle v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
+    <PromoSummaryWithImage
       v-else-if="props.item && props.item.type === 'summaryWithImage'"
       :data="props.item.summaryWithImage!"
     />
-    <LandingButton
+    <PromoLandingButton
       v-else-if="props.item && props.item.type === 'landingButton'"
       :data="props.item.landingButton!"
     />
-    <PackageCards
+    <PromoPackageCards
       v-else-if="props.item && props.item.type === 'packageCards'"
       :data="props.item.packageCards!"
     />
-    <Notes v-else-if="props.item && props.item.type === 'notes'" :data="props.item.notes!" />
-    <Profiles
+    <PromoNotes v-else-if="props.item && props.item.type === 'notes'" :data="props.item.notes!" />
+    <PromoProfiles
       v-else-if="props.item && props.item.type === 'profiles'"
       :data="props.item.profiles!"
     />
-    <Benefits
+    <PromoBenefits
       v-else-if="props.item && props.item.type === 'benefits'"
       :data="props.item.benefits!"
     />
-    <MarketingVideo
+    <PromoMarketingVideo
       v-else-if="props.item && props.item.type === 'marketingVideo'"
       :data="props.item.marketingVideo!"
     />
-    <TitleWithBar
+    <PromoTitleWithBar
       v-else-if="props.item && props.item.type === 'titleWithBar'"
       :data="props.item.titleWithBar!"
     />
-    <Reviews v-else-if="props.item && props.item.type === 'reviews'" :data="props.item.reviews!" />
+    <PromoReviews
+      v-else-if="props.item && props.item.type === 'reviews'"
+      :data="props.item.reviews!"
+    />
+    <PromoImagesOnly
+      v-else-if="props.item && props.item.type === 'imagesOnly'"
+      :data="props.item.imagesOnly!"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { IPromoItem } from '@/interfaces/promo.interfaces'
-import Title from '@/components/PromoTitle/PromoTitle.vue'
-import LandingButton from '@/components/PromoLandingButton/PromoLandingButton.vue'
-import SummaryWithImage from '@/components/PromoSummaryWithImage/PromoSummaryWithImage.vue'
-import PackageCards from '@/components/PromoPackageCards/PromoPackageCards.vue'
-import Notes from '@/components/PromoNotes/PromoNotes.vue'
-import Profiles from '@/components/PromoProfiles/PromoProfiles.vue'
-import Benefits from '@/components/PromoBenefits/PromoBenefits.vue'
-import MarketingVideo from '@/components/PromoMarketingVideo/PromoMarketingVideo.vue'
-import TitleWithBar from '@/components/PromoTitleWithBar/PromoTitleWithBar.vue'
-import Reviews from '@/components/PromoReviews/PromoReviews.vue'
+import PromoTitle from '@/components/PromoTitle/PromoTitle.vue'
+import PromoLandingButton from '@/components/PromoLandingButton/PromoLandingButton.vue'
+import PromoSummaryWithImage from '@/components/PromoSummaryWithImage/PromoSummaryWithImage.vue'
+import PromoPackageCards from '@/components/PromoPackageCards/PromoPackageCards.vue'
+import PromoNotes from '@/components/PromoNotes/PromoNotes.vue'
+import PromoProfiles from '@/components/PromoProfiles/PromoProfiles.vue'
+import PromoBenefits from '@/components/PromoBenefits/PromoBenefits.vue'
+import PromoMarketingVideo from '@/components/PromoMarketingVideo/PromoMarketingVideo.vue'
+import PromoTitleWithBar from '@/components/PromoTitleWithBar/PromoTitleWithBar.vue'
+import PromoReviews from '@/components/PromoReviews/PromoReviews.vue'
+import PromoImagesOnly from '../PromoImagesOnly/PromoImagesOnly.vue'
 
 interface IProps {
   item: IPromoItem
