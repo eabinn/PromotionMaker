@@ -2,7 +2,7 @@
   <div
     class="col-wrapper promo-item"
     :class="{
-      'col-wrapper-bar': props.item && props.item.type && props.item.type === 'titleWithBar',
+      'col-wrapper--bar': props.item && props.item.type && props.item.type === 'titleWithBar',
       'promo-item-edit': props.editItem,
     }"
   >
@@ -74,6 +74,8 @@ const props = defineProps<IProps>()
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/promotion/_layout';
+
 .promo-item {
   position: relative;
 }
