@@ -87,10 +87,6 @@ const defaultTitle: Title = {
 
 const defaultSummaryWithImage: SummaryWithImage = {
   type: 'summaryWithImage',
-  barColor: '#000000',
-  title: '센터 정렬 타이틀 큰 사이즈<br>센터 정렬 타이틀 큰 사이즈',
-  subTitle: '센터 정렬 타이틀 큰 사이즈 센터 정렬 타이틀 큰 사이즈',
-  subTitleFontWeight: 'normal',
   imageContentColumn: 6,
   descriptionContentColumn: 6,
   images: {

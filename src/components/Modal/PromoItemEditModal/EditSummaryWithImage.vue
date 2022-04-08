@@ -14,30 +14,6 @@
       :update-value="(value) => (editedItem.imageContentColumn = value)"
     />
 
-    <EditInputColor
-      :change-target="'Bar'"
-      :value="editedItem.barColor"
-      :update-value="(value) => (editedItem.barColor = value)"
-    />
-
-    <EditInputTextarea
-      :change-target="'타이틀'"
-      :value="editedItem.title"
-      :update-value="(value) => (editedItem.title = value)"
-    />
-
-    <EditInputTextarea
-      :change-target="'서브타이틀'"
-      :value="editedItem.subTitle"
-      :update-value="(value) => (editedItem.subTitle = value)"
-    />
-
-    <EditInputSelectFontWeight
-      :change-target="'서브타이틀'"
-      :value="editedItem.subTitleFontWeight"
-      :update-value="(value) => (editedItem.subTitleFontWeight = value)"
-    />
-
     <EditInputDescriptions
       :change-target="''"
       :value="editedItem.descriptions"
@@ -63,9 +39,6 @@ import { toRef } from 'vue'
 import { SummaryWithImage } from '@/interfaces/promo.interfaces'
 import EditForm from './common/EditForm.vue'
 import EditInputNumber from '../Input/EditInputNumber.vue'
-import EditInputColor from '../Input/EditInputColor.vue'
-import EditInputTextarea from '../Input/EditInputTextarea.vue'
-import EditInputSelectFontWeight from '../Input/EditInputSelectFontWeight.vue'
 import EditInputDescriptions from '../Input/EditInputDescriptions.vue'
 import EditInputImageLinks from '../Input/EditInputImageLinks.vue'
 import EditInputSelectPosition from '../Input/EditInputSelectPosition.vue'

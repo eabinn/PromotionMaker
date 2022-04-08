@@ -81,10 +81,6 @@ export interface SummaryOnly extends IPromoItemBase {
 }
 
 export interface SummaryWithImage extends IPromoItemBase {
-  barColor: string
-  title: string
-  subTitle: string
-  subTitleFontWeight: FontWeight
   descriptions: List[]
   images: ImageSet
   imageContentColumn: number
