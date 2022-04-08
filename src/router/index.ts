@@ -1,14 +1,20 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router'
+import MakderView from '@/views/MakerView.vue'
+import PreviewView from '@/views/PreviewView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: () => import('@/views/MakerView.vue'),
+    component: MakderView,
+  },
+  {
+    path: '/preview',
+    component: PreviewView,
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

@@ -18,7 +18,11 @@
     </div>
   </div>
   <div v-else class="pr-line" :style="{ background: '#FFFFFF' }">
-    <span v-if="props.data.tailType === 'tail'" class="pr-line-tail"></span>
+    <span
+      v-if="props.data.tailType === 'tail'"
+      class="pr-line-tail"
+      :style="{ color: '#F4F4F4' }"
+    />
     <div class="pr-line-desc text-center" style="padding: 36px 38px">
       <div class="pr-btn-box" :style="{ color: props.data.mainColor }">
         <a

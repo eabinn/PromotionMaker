@@ -1,9 +1,9 @@
 <template>
   <div class="maker-view">
-    <Sidebar :drag-copy-start="dragItemCopyStart" :items="draggableItems" />
+    <Sidebar :drag-copy-start="dragItemCopyStart" :items="promotionStore.draggablePromoItems" />
 
     <Editor
-      :sections="sections"
+      :sections="promotionStore.sections"
       :edit-section="modifySection"
       :get-result="getResult"
       :add-section="addSection"
@@ -40,20 +40,14 @@ import Sidebar from '@/components/MakerSidebar/Sidebar.vue'
 import Editor from '@/components/MakerEditor/Editor.vue'
 import PromoItemEditModal from '@/components/Modal/PromoItemEditModal/PromoItemEditModal.vue'
 import PromoSectionEditModal from '@/components/Modal/PromoSectionEditModal/PromoSectionEditModal.vue'
-import {
-  IPromoSection,
-  IPromoItem,
-  PromoItemType,
-  IPromoItemDraggable,
-} from '@/interfaces/promo.interfaces'
-import { defaultPromoData } from '@/mockupDatas/promoData'
+import { IPromoSection, IPromoItem, PromoItemType } from '@/interfaces/promo.interfaces'
+import promotionStore from '@/stores/promotionStore'
 
 const DRAGGING_ITEM_ID = 'itemType'
 const DRAGGING_ITEM_EFFECT = 'move'
 
 const isItemEdited = ref(false)
 const isSectionEdited = ref(false)
-const sections = ref<IPromoSection[]>([])
 const editedSection = ref<IPromoSection>()
 const editedSectionInfo = {
   sectionId: 0,
@@ -67,23 +61,10 @@ const editedItemInfo = {
 }
 let uniqueId = 0
 
-const draggableItems = ref<IPromoItemDraggable[]>([
-  { type: 'title', name: 'Title' },
-  { type: 'titleWithBar', name: 'Title with Bar' },
-  { type: 'summaryWithImage', name: 'Summary with Image' },
-  { type: 'landingButton', name: 'Landing Button' },
-  { type: 'packageCards', name: 'Package Cards' },
-  { type: 'notes', name: 'Notes' },
-  { type: 'profiles', name: 'Profiles' },
-  { type: 'benefits', name: 'Benefits' },
-  { type: 'marketingVideo', name: 'Marketing Video' },
-  { type: 'reviews', name: 'Reviews' },
-])
-
 const getResult = (e: Event) => {
   e.stopPropagation()
 
-  console.log(sections.value)
+  console.log(promotionStore.sections)
 }
 
 const handleEditModal = (editedType: 'item' | 'section', setVisible: boolean) => {
@@ -95,25 +76,22 @@ const handleEditModal = (editedType: 'item' | 'section', setVisible: boolean) =>
 }
 
 const addSection = () => {
-  sections.value.push(JSON.parse(JSON.stringify(defaultPromoData.section)))
+  promotionStore.addSection()
 }
 
 const deleteSection = (id: number) => {
-  sections.value = [
-    ...sections.value.slice(0, id),
-    ...sections.value.slice(id + 1, sections.value.length),
-  ]
+  promotionStore.deleteSection(id)
 }
 
 const modifySection = (sectionId: number) => {
   editedSectionInfo.sectionId = sectionId
 
-  const section = sections.value[sectionId]
+  const section = promotionStore.getSection(sectionId)
 
   editedSection.value = JSON.parse(JSON.stringify(section)) as IPromoSection
 
   sectionsOrder.value = []
-  sectionsOrder.value = sections.value.map((section, index) => ({
+  sectionsOrder.value = promotionStore.getSections().map((section, index) => ({
     id: uniqueId++,
     originalId: index,
     isCurrent: editedSectionInfo.sectionId === index,
@@ -131,17 +109,18 @@ const modifySection = (sectionId: number) => {
 const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]) => {
   const editedData = editedSection.value as IPromoSection
 
-  sections.value[editedSectionInfo.sectionId] = editedData
+  promotionStore.setSection(editedSectionInfo.sectionId, editedData)
 
   if (sectionsOrder.length) {
-    sections.value = sectionsOrder.map((order) => {
-      return sections.value[order]
-    })
+    promotionStore.setSections(sectionsOrder.map((order) => promotionStore.getSection(order)))
   }
 
   if (sectionItemsOrder.length) {
-    sections.value[editedSectionInfo.sectionId].items = sectionItemsOrder.map((order) => {
-      return sections.value[editedSectionInfo.sectionId].items[order]
+    const section = promotionStore.getSection(editedSectionInfo.sectionId)
+
+    promotionStore.setSection(editedSectionInfo.sectionId, {
+      ...promotionStore.getSection(editedSectionInfo.sectionId),
+      items: sectionItemsOrder.map((order) => section.items[order]),
     })
   }
 
@@ -152,8 +131,7 @@ const modifyItem = (sectionId: number, itemId: number) => {
   editedItemInfo.sectionId = sectionId
   editedItemInfo.itemId = itemId
 
-  const section = sections.value[sectionId]
-  const modifyItem = section.items[itemId]
+  const modifyItem = promotionStore.getSection(sectionId).items[itemId]
 
   editedItem.value = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
 
@@ -161,7 +139,7 @@ const modifyItem = (sectionId: number, itemId: number) => {
 }
 
 const confirmItemEdit = () => {
-  const section = sections.value[editedItemInfo.sectionId]
+  const section = promotionStore.getSection(editedItemInfo.sectionId)
 
   if (editedItem.value) {
     section.items[editedItemInfo.itemId] = editedItem.value
@@ -195,25 +173,13 @@ const dragItemCopyEnd = (e: DragEvent) => {
 
   const itemType = e.dataTransfer.getData(DRAGGING_ITEM_ID) as PromoItemType
   const sectionId = +(e.target as HTMLElement).id
-  const section = sections.value[sectionId]
+  const section = promotionStore.getSection(sectionId)
 
   if (!section) {
     return
   }
 
-  section.items.push({
-    type: itemType,
-    title: itemType === 'title' ? defaultPromoData[itemType] : undefined,
-    summaryWithImage: itemType === 'summaryWithImage' ? defaultPromoData[itemType] : undefined,
-    landingButton: itemType === 'landingButton' ? defaultPromoData[itemType] : undefined,
-    packageCards: itemType === 'packageCards' ? defaultPromoData[itemType] : undefined,
-    notes: itemType === 'notes' ? defaultPromoData[itemType] : undefined,
-    profiles: itemType === 'profiles' ? defaultPromoData[itemType] : undefined,
-    benefits: itemType === 'benefits' ? defaultPromoData[itemType] : undefined,
-    marketingVideo: itemType === 'marketingVideo' ? defaultPromoData[itemType] : undefined,
-    titleWithBar: itemType === 'titleWithBar' ? defaultPromoData[itemType] : undefined,
-    reviews: itemType === 'reviews' ? defaultPromoData[itemType] : undefined,
-  })
+  promotionStore.addSectionItem(sectionId, itemType)
 }
 </script>
 

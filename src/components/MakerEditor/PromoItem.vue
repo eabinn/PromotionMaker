@@ -1,9 +1,15 @@
 <template>
   <div
     class="col-wrapper promo-item"
-    :class="props.item.type === 'titleWithBar' ? 'col-wrapper--bar' : ''"
+    :class="{
+      'col-wrapper-bar': props.item.type === 'titleWithBar',
+      'promo-item-edit': props.editItem,
+    }"
   >
-    <button class="edit-btn btn btn-lg btn-primary" @click="props.editItem">수정</button>
+    <button v-if="props.editItem" class="edit-btn btn btn-lg btn-primary" @click="props.editItem">
+      수정
+    </button>
+
     <Title v-if="props.item && props.item.type === 'title'" :data="props.item.title!" />
     <SummaryWithImage
       v-else-if="props.item && props.item.type === 'summaryWithImage'"
@@ -53,7 +59,7 @@ import Reviews from '@/components/PromoReviews/PromoReviews.vue'
 
 interface IProps {
   item: IPromoItem
-  editItem(): void
+  editItem?: () => void
 }
 
 const props = defineProps<IProps>()
@@ -62,7 +68,9 @@ const props = defineProps<IProps>()
 <style lang="scss" scoped>
 .promo-item {
   position: relative;
-  cursor: pointer;
+}
+
+.promo-item-edit {
   transition: background-color 200ms ease;
 
   .edit-btn {

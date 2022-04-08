@@ -1,5 +1,5 @@
 <template>
-  <section class="editor-section">
+  <div class="editor-section">
     <EditorSectionActions
       :section-id="props.sectionId"
       :edit-section="props.editSection"
@@ -8,7 +8,10 @@
       :delete-section="props.deleteSection"
     />
 
-    <div class="pr-row editor-section-content" :style="{ backgroundColor: props.section.color }">
+    <section
+      class="pr-row editor-section-content"
+      :style="{ backgroundColor: props.section.color }"
+    >
       <div class="content-layout">
         <div v-if="props.section.items && props.section.items.length" class="container">
           <PromoItem
@@ -19,8 +22,8 @@
           />
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -42,14 +45,12 @@ const props = defineProps<IProps>()
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/promotion/layout';
+
 .editor-section {
   display: flex;
   flex-direction: column;
   width: 100%;
   border: 1px solid #000000;
-}
-
-.editor-section-content {
-  padding: 50px 0 70px;
 }
 </style>
