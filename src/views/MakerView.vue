@@ -15,28 +15,28 @@
   </div>
 
   <PromoItemEditModal
-    v-if="editedItem"
-    :is-visible="modalsState.itemEdit"
-    :close-modal="() => updateModalsState('itemEdit', false)"
+    v-if="editInfo.sectionItem"
+    :is-visible="!!editInfo.sectionItem"
+    :close-modal="resetEditInfo"
     :confirm-edit="confirmItemEdit"
-    :edited-item="editedItem"
+    :edited-item="editInfo.sectionItem"
   />
 
   <PromoSectionEditModal
-    v-if="editedSection"
-    :is-visible="modalsState.sectionEdit"
-    :close-modal="() => updateModalsState('sectionEdit', false)"
+    v-if="editInfo.section"
+    :is-visible="!!editInfo.section"
+    :close-modal="resetEditInfo"
     :confirm-edit="confirmSectionEdit"
-    :edited-section="editedSection"
-    :sections-order="sectionsOrder"
-    :section-items-order="sectionItemsOrder"
-    :section-id="editedSectionInfo.sectionId"
+    :edited-section="editInfo.section"
+    :sections-order="editInfo.sectionsOrder"
+    :section-items-order="editInfo.sectionItemsOrder"
+    :section-id="editInfo.sectionId!"
   />
 
   <AlertModal
-    :is-visible="modalsState.alert"
+    :is-visible="!!alertModalContent"
     :content="alertModalContent"
-    :close-modal="() => updateModalsState('alert', false)"
+    :close-modal="() => (alertModalContent = '')"
   />
 </template>
 
@@ -53,39 +53,28 @@ import promotionStore from '@/stores/promotionStore'
 const DRAGGING_ITEM_ID = 'itemType'
 const DRAGGING_ITEM_EFFECT = 'move'
 
-type ModalType = 'itemEdit' | 'sectionEdit' | 'alert'
-const modalsState = ref<{ [key in ModalType]: boolean }>({
-  itemEdit: false,
-  sectionEdit: false,
-  alert: false,
-})
 const alertModalContent = ref('')
-
-const editedSection = ref<IPromoSection>()
-const editedSectionInfo = {
-  sectionId: 0,
-}
-const sectionsOrder = ref<{ originalId: number; isCurrent: boolean; id: number }[]>([])
-const sectionItemsOrder = ref<{ originalId: number; id: number }[]>([])
-const editedItem = ref<IPromoItem>()
-const editedItemInfo = {
-  sectionId: 0,
-  itemId: 0,
-}
+const editInfo = ref<{
+  section: IPromoSection | null
+  sectionItem: IPromoItem | null
+  sectionId: number | undefined
+  itemId: number | undefined
+  sectionsOrder: { originalId: number; isCurrent: boolean; id: number }[]
+  sectionItemsOrder: { originalId: number; id: number }[]
+}>({
+  section: null,
+  sectionItem: null,
+  sectionId: undefined,
+  itemId: undefined,
+  sectionsOrder: [],
+  sectionItemsOrder: [],
+})
 let uniqueId = 0
 
 const getResult = (e: Event) => {
   e.stopPropagation()
 
   console.log(promotionStore.sections)
-}
-
-const updateModalsState = (key: ModalType, open: boolean) => {
-  modalsState.value[key] = open
-
-  if (key === 'alert' && open === false) {
-    alertModalContent.value = ''
-  }
 }
 
 const addSection = () => {
@@ -96,69 +85,83 @@ const deleteSection = (id: number) => {
   promotionStore.deleteSection(id)
 }
 
+const resetEditInfo = () => {
+  editInfo.value = {
+    section: null,
+    sectionItem: null,
+    sectionId: undefined,
+    itemId: undefined,
+    sectionsOrder: [],
+    sectionItemsOrder: [],
+  }
+}
+
 const modifySection = (sectionId: number) => {
-  editedSectionInfo.sectionId = sectionId
+  editInfo.value.sectionId = sectionId
 
-  const section = promotionStore.getSection(sectionId)
+  const sections = promotionStore.getSections()
+  const section = promotionStore.getSection(editInfo.value.sectionId)
 
-  editedSection.value = JSON.parse(JSON.stringify(section)) as IPromoSection
-
-  sectionsOrder.value = []
-  sectionsOrder.value = promotionStore.getSections().map((section, index) => ({
+  editInfo.value.section = JSON.parse(JSON.stringify(section)) as IPromoSection
+  editInfo.value.sectionsOrder = sections.map((_, index) => ({
     id: uniqueId++,
     originalId: index,
-    isCurrent: editedSectionInfo.sectionId === index,
+    isCurrent: editInfo.value.sectionId === index,
   }))
-
-  sectionItemsOrder.value = []
-  sectionItemsOrder.value = section.items.map((item, index) => ({
+  editInfo.value.sectionItemsOrder = section.items.map((_, index) => ({
     id: uniqueId++,
     originalId: index,
   }))
-
-  updateModalsState('sectionEdit', true)
 }
 
 const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]) => {
-  const editedData = editedSection.value as IPromoSection
+  const editSection = editInfo.value.section
+  const editSectionId = editInfo.value.sectionId
 
-  promotionStore.setSection(editedSectionInfo.sectionId, editedData)
+  if (!editSection || editSectionId === undefined) {
+    return
+  }
+
+  promotionStore.setSection(editSectionId, editSection)
 
   if (sectionsOrder.length) {
     promotionStore.setSections(sectionsOrder.map((order) => promotionStore.getSection(order)))
   }
 
   if (sectionItemsOrder.length) {
-    const section = promotionStore.getSection(editedSectionInfo.sectionId)
-
-    promotionStore.setSection(editedSectionInfo.sectionId, {
-      ...promotionStore.getSection(editedSectionInfo.sectionId),
-      items: sectionItemsOrder.map((order) => section.items[order]),
+    const section = promotionStore.getSection(editSectionId)
+    promotionStore.setSection(editSectionId, {
+      ...section,
+      items: section.items.length ? sectionItemsOrder.map((order) => section.items[order]) : [],
     })
   }
 
-  updateModalsState('sectionEdit', false)
+  resetEditInfo()
 }
 
 const modifyItem = (sectionId: number, itemId: number) => {
-  editedItemInfo.sectionId = sectionId
-  editedItemInfo.itemId = itemId
+  editInfo.value.sectionId = sectionId
+  editInfo.value.itemId = itemId
 
   const modifyItem = promotionStore.getSection(sectionId).items[itemId]
 
-  editedItem.value = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
-
-  updateModalsState('itemEdit', true)
+  editInfo.value.sectionItem = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
 }
 
 const confirmItemEdit = () => {
-  const section = promotionStore.getSection(editedItemInfo.sectionId)
+  const editItem = editInfo.value.sectionItem
+  const editItemId = editInfo.value.itemId
+  const editSectionId = editInfo.value.sectionId
 
-  if (editedItem.value) {
-    section.items[editedItemInfo.itemId] = editedItem.value
+  if (!editItem || editItemId === undefined || editSectionId === undefined) {
+    return
   }
 
-  updateModalsState('itemEdit', false)
+  const section = promotionStore.getSection(editSectionId)
+
+  section.items[editItemId] = editItem
+
+  resetEditInfo()
 }
 
 const dragItemCopyStart = (e: DragEvent) => {
@@ -192,17 +195,15 @@ const dragItemCopyEnd = (e: DragEvent) => {
     return
   }
 
-  const isLandingButtonExist = section.items.find((item) => item.type === 'landingButton')
+  const isLandingButtonExist = section.items.find((item) => item && item.type === 'landingButton')
 
   if (itemType !== 'landingButton' && isLandingButtonExist) {
-    updateModalsState('alert', true)
     alertModalContent.value =
       '섹션에 랜딩 버튼이 이미 존재하는 경우 다른 아이템을 추가할 수 없습니다. 새 섹션을 만든 뒤 추가해주세요.'
     return
   }
 
   if (itemType === 'landingButton' && section.items.length >= 1) {
-    updateModalsState('alert', true)
     alertModalContent.value =
       '랜딩 버튼의 경우 섹션에 다른 아이템들이 추가되어 있는 경우 추가될 수 없습니다.'
     return
