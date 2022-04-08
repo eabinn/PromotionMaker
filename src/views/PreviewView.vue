@@ -5,10 +5,13 @@
     <section
       v-for="(section, index) in promotionStore.sections"
       :key="index"
-      class="pr-row editor-section-content"
+      class="pr-row"
       :style="{ backgroundColor: section.color }"
     >
-      <div class="content-layout">
+      <div v-if="section.items.length === 1 && section.items[0].type === 'landingButton'">
+        <PromoItem v-for="(item, itemIndex) in section.items" :key="itemIndex" :item="item" />
+      </div>
+      <div v-else class="content-layout">
         <div v-if="section.items && section.items.length" class="container">
           <PromoItem v-for="(item, itemIndex) in section.items" :key="itemIndex" :item="item" />
         </div>

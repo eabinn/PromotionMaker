@@ -1,12 +1,9 @@
 <template>
-  <div class="modal edit-modal" :class="{ visible: props.isVisible }">
+  <div class="modal alert-modal" :class="{ visible: props.isVisible }">
     <div class="modal-content">
-      <div class="form">
-        <slot />
-      </div>
+      <div class="content">{{ props.content }}</div>
       <div class="actions">
-        <button class="btn btn-default" @click="props.closeModal">취소</button>
-        <button class="btn btn-primary" @click="props.confirmEdit">수정</button>
+        <button class="btn btn-primary" @click="props.closeModal">확인</button>
       </div>
     </div>
 
@@ -17,8 +14,8 @@
 <script lang="ts" setup>
 interface IProps {
   isVisible: boolean
+  content: string
   closeModal(): void
-  confirmEdit(): void
 }
 
 const props = defineProps<IProps>()

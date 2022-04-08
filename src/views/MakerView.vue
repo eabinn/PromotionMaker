@@ -16,21 +16,27 @@
 
   <PromoItemEditModal
     v-if="editedItem"
-    :is-visible="isItemEdited"
-    :close-modal="() => handleEditModal('item', false)"
+    :is-visible="modalsState.itemEdit"
+    :close-modal="() => updateModalsState('itemEdit', false)"
     :confirm-edit="confirmItemEdit"
     :edited-item="editedItem"
   />
 
   <PromoSectionEditModal
     v-if="editedSection"
-    :is-visible="isSectionEdited"
-    :close-modal="() => handleEditModal('section', false)"
+    :is-visible="modalsState.sectionEdit"
+    :close-modal="() => updateModalsState('sectionEdit', false)"
     :confirm-edit="confirmSectionEdit"
     :edited-section="editedSection"
     :sections-order="sectionsOrder"
     :section-items-order="sectionItemsOrder"
     :section-id="editedSectionInfo.sectionId"
+  />
+
+  <AlertModal
+    :is-visible="modalsState.alert"
+    :content="alertModalContent"
+    :close-modal="() => updateModalsState('alert', false)"
   />
 </template>
 
@@ -40,14 +46,21 @@ import Sidebar from '@/components/MakerSidebar/Sidebar.vue'
 import Editor from '@/components/MakerEditor/Editor.vue'
 import PromoItemEditModal from '@/components/Modal/PromoItemEditModal/PromoItemEditModal.vue'
 import PromoSectionEditModal from '@/components/Modal/PromoSectionEditModal/PromoSectionEditModal.vue'
+import AlertModal from '@/components/Modal/AlertModal/AlertModal.vue'
 import { IPromoSection, IPromoItem, PromoItemType } from '@/interfaces/promo.interfaces'
 import promotionStore from '@/stores/promotionStore'
 
 const DRAGGING_ITEM_ID = 'itemType'
 const DRAGGING_ITEM_EFFECT = 'move'
 
-const isItemEdited = ref(false)
-const isSectionEdited = ref(false)
+type ModalType = 'itemEdit' | 'sectionEdit' | 'alert'
+const modalsState = ref<{ [key in ModalType]: boolean }>({
+  itemEdit: false,
+  sectionEdit: false,
+  alert: false,
+})
+const alertModalContent = ref('')
+
 const editedSection = ref<IPromoSection>()
 const editedSectionInfo = {
   sectionId: 0,
@@ -67,11 +80,11 @@ const getResult = (e: Event) => {
   console.log(promotionStore.sections)
 }
 
-const handleEditModal = (editedType: 'item' | 'section', setVisible: boolean) => {
-  if (editedType === 'item') {
-    isItemEdited.value = setVisible
-  } else if (editedType === 'section') {
-    isSectionEdited.value = setVisible
+const updateModalsState = (key: ModalType, open: boolean) => {
+  modalsState.value[key] = open
+
+  if (key === 'alert' && open === false) {
+    alertModalContent.value = ''
   }
 }
 
@@ -103,7 +116,7 @@ const modifySection = (sectionId: number) => {
     originalId: index,
   }))
 
-  handleEditModal('section', true)
+  updateModalsState('sectionEdit', true)
 }
 
 const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]) => {
@@ -124,7 +137,7 @@ const confirmSectionEdit = (sectionsOrder: number[], sectionItemsOrder: number[]
     })
   }
 
-  handleEditModal('section', false)
+  updateModalsState('sectionEdit', false)
 }
 
 const modifyItem = (sectionId: number, itemId: number) => {
@@ -135,7 +148,7 @@ const modifyItem = (sectionId: number, itemId: number) => {
 
   editedItem.value = JSON.parse(JSON.stringify(modifyItem)) as IPromoItem
 
-  handleEditModal('item', true)
+  updateModalsState('itemEdit', true)
 }
 
 const confirmItemEdit = () => {
@@ -145,7 +158,7 @@ const confirmItemEdit = () => {
     section.items[editedItemInfo.itemId] = editedItem.value
   }
 
-  handleEditModal('item', false)
+  updateModalsState('itemEdit', false)
 }
 
 const dragItemCopyStart = (e: DragEvent) => {
@@ -176,6 +189,22 @@ const dragItemCopyEnd = (e: DragEvent) => {
   const section = promotionStore.getSection(sectionId)
 
   if (!section) {
+    return
+  }
+
+  const isLandingButtonExist = section.items.find((item) => item.type === 'landingButton')
+
+  if (itemType !== 'landingButton' && isLandingButtonExist) {
+    updateModalsState('alert', true)
+    alertModalContent.value =
+      '섹션에 랜딩 버튼이 이미 존재하는 경우 다른 아이템을 추가할 수 없습니다. 새 섹션을 만든 뒤 추가해주세요.'
+    return
+  }
+
+  if (itemType === 'landingButton' && section.items.length >= 1) {
+    updateModalsState('alert', true)
+    alertModalContent.value =
+      '랜딩 버튼의 경우 섹션에 다른 아이템들이 추가되어 있는 경우 추가될 수 없습니다.'
     return
   }
 
